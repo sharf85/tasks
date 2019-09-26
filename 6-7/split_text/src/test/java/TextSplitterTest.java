@@ -56,10 +56,6 @@ public class TextSplitterTest {
 
     @Test(expected = NotSplitException.class)
     public void testSplitText_moreComplexPhrase_fail() throws NotSplitException {
-
-//        List<String> testing = Arrays.asList("the", "therefore", "i", "go", "walking");
-
         List<String> result = textSplitter.splitText("thethereformeigowalking");
-//        assertEquals(testing, result);
     }
 }
