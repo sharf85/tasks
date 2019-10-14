@@ -3,25 +3,41 @@ package com.telran;
 public class Main {
 
     public static void main(String[] args) {
-        int totalAmount = 1150;
-        int totalMashaCredits = 450;
+//        here one can plan with input variables
+        int annualPlan = 1150;
+        int totalMashaCredits = 490;
 
-        int givenCreditsWhileVasyaLazy = (int) (1150 * 0.8);
+//        we call the function here
+        int totalCreditsGiven = totalCreditsGiven(annualPlan, totalMashaCredits);
 
-        double mashaVelocity = 1;
-        double petyaVelocity = 0.8;
-        double lazyVasyaVelocity = 0.5;
-        double motivatedVasyaVelocity = 1;
+        if (totalCreditsGiven >= annualPlan) {
+            System.out.println("The guys succeed to complete the annual plan and gave " + totalCreditsGiven + " credits in total");
+        } else {
+            System.out.println("The guys did not complete the annual plan as they gave "
+                    + totalCreditsGiven + " credits in total");
+        }
+
+    }
+
+    static int totalCreditsGiven(int annualPlan, int totalMashaCredits) {
+        int givenCreditsWhileVasyaLazy = (int) (annualPlan * 0.8);
+
+        final double mashaVelocity = 1;
+        final double petyaVelocity = 0.8;
+        final double lazyVasyaVelocity = 0.5;
+        final double motivatedVasyaVelocity = 1;
+
 // the summary velocity of Masha, Petya and Vasya int the very beginning
-        double totalInitialVelocity = mashaVelocity + petyaVelocity + lazyVasyaVelocity;
+        double totalVelocityWhileVasyaLazy = mashaVelocity + petyaVelocity + lazyVasyaVelocity;
 // the amount of credits given by Masha until 80% of the annual plan
-        int mashaGivenInitialCredits = (int) (givenCreditsWhileVasyaLazy / totalInitialVelocity);
+        int mashaCreditsWhileVasyaLazy = (int) (givenCreditsWhileVasyaLazy / totalVelocityWhileVasyaLazy);
 
-        int remainingMashaCredits = totalMashaCredits - mashaGivenInitialCredits;// remaining 50 credits
+// the amount of credits given by Masha after Vasya became motivated
+        int remainingMashaCredits = totalMashaCredits - mashaCreditsWhileVasyaLazy;
 
         double totalVelocityWithMotivatedVasya = mashaVelocity + petyaVelocity + motivatedVasyaVelocity;
 
-        int totalCreditsGiven = givenCreditsWhileVasyaLazy
+        return givenCreditsWhileVasyaLazy
                 + (int) (totalVelocityWithMotivatedVasya * remainingMashaCredits);
     }
 }
