@@ -26,11 +26,15 @@ public class ArraySorter {
 
         while (i + j < length) {
             if (i == lengthLeft) {
-                res[i + j] = arrayRight[j];
-                j++;
+//                res[i + j] = arrayRight[j];
+//                j++;
+                System.arraycopy(arrayRight, j, res, i + j, lengthRight - j);
+                break;
             } else if (j == lengthRight) {
-                res[i + j] = arrayLeft[i];
-                i++;
+//                res[i + j] = arrayLeft[i];
+//                i++;
+                System.arraycopy(arrayLeft, i, res, i + j, lengthLeft - i);
+                break;
             } else {
                 if (arrayLeft[i] < arrayRight[j]) {
                     res[i + j] = arrayLeft[i];
