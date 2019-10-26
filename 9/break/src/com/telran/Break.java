@@ -3,7 +3,7 @@ package com.telran;
 public class Break {
 
     public static void main(String[] args) {
-        // write your code here
+        System.out.println(getClosestNumber(1));
     }
 
     /**
