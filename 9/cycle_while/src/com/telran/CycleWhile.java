@@ -20,6 +20,7 @@ public class CycleWhile {
         // numbers divided by 5, 7, 13
         printNumbersDividedBy5_7_13_toN(100);
         printNumbersDividedBy5_7_13_toN(1000);
+        printNumbersDividedBy5_7_13_toN(5000);
     }
 
     private static void printNumbersDividedBy5_7_13_toN(int max) {
