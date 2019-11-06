@@ -48,11 +48,13 @@ public class DimArray {
     static int getNumberSubarraysWithNegativeNumber(int[][] array) {
         int result = 0;
 
+        Metka:
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[i].length; j++) {
                 if (array[i][j] < 0) {
                     result += 1;
-                    break;
+//                    break;
+                    continue Metka;
                 }
             }
         }
