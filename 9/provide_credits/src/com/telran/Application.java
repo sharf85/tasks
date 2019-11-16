@@ -44,32 +44,15 @@ public class Application {
         CreditUser[] users = {oldPoorGuy, oldRichGuy, youngPoorGuy, youngRichGuy, maturePoorGuy, matureRichGuy};
         CreditProvider[] providers = {vasya, masha, petya};
 
-
-        System.out.println("Vasya works:");
-        System.out.println(vasya.name + "'s decision for "
-                + youngPoorGuy.name + " "
-                + youngPoorGuy.surname + " is " +
-                vasya.toProvide(youngPoorGuy));
-        System.out.println(vasya.name + "'s decision for "
-                + youngRichGuy.name + " "
-                + youngRichGuy.surname + " is " +
-                vasya.toProvide(youngRichGuy));
-        System.out.println(vasya.name + "'s decision for "
-                + oldPoorGuy.name + " "
-                + oldPoorGuy.surname + " is " +
-                vasya.toProvide(oldPoorGuy));
-        System.out.println(vasya.name + "'s decision for "
-                + oldRichGuy.name + " "
-                + oldRichGuy.surname + " is " +
-                vasya.toProvide(oldRichGuy));
-        System.out.println(vasya.name + "'s decision for "
-                + maturePoorGuy.name + " "
-                + maturePoorGuy.surname + " is " +
-                vasya.toProvide(maturePoorGuy));
-        System.out.println(vasya.name + "'s decision for "
-                + matureRichGuy.name + " "
-                + matureRichGuy.surname + " is " +
-                vasya.toProvide(matureRichGuy));
+        for (int i = 0; i < providers.length; i++) {
+            System.out.println(providers[i].getName() + " " + providers[i].getSurname() + " works:");
+            for (int j = 0; j < users.length; j++) {
+                System.out.println(providers[i].getName() + "'s decision for "
+                        + users[j].name + " "
+                        + users[j].surname + " is " +
+                        providers[i].toProvide(users[j]));
+            }
+        }
 
     }
 }
