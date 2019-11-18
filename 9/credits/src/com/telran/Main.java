@@ -40,4 +40,5 @@ public class Main {
         return givenCreditsWhileVasyaLazy
                 + (int) (totalVelocityWithMotivatedVasya * remainingMashaCredits);
     }
+
 }

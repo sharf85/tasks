@@ -35,6 +35,9 @@ public class Variables {
         System.out.println(++increment);//11
         System.out.println(increment++);//11
         System.out.println(increment);//12
+
+        char k = 65;
+        System.out.println(k+"");
     }
 
 }

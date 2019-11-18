@@ -1,5 +1,7 @@
 package com.telran.collection;
 
+import java.util.Arrays;
+
 public class SortedNumbersList {
 
     private int[] source;
@@ -15,10 +17,7 @@ public class SortedNumbersList {
     }
 
     public void display() {
-        System.out.println();
-        for (int i = 0; i < source.length; i++) {
-            System.out.print(source[i] + " ");
-        }
+        System.out.println(Arrays.toString(source));
     }
 
     public void add(int number) {
@@ -35,7 +34,22 @@ public class SortedNumbersList {
     }
 
     public boolean remove(int number) {
-        return false;
+        int index = ArrayUtils.binarySearch(this.source, number);
+        if (index < 0)
+            return false;
+
+        int[] newSource = new int[this.source.length - 1];
+
+        for (int i = 0; i < index; i++) {
+            newSource[i] = this.source[i];
+        }
+
+        for (int i = index + 1; i < source.length; i++) {
+            newSource[i - 1] = source[i];
+        }
+
+        this.source = newSource;
+        return true;
     }
 
     public void removeById(int index) {
@@ -49,6 +63,7 @@ public class SortedNumbersList {
     /**
      * the method returns a new object of {@link SortedNumbersList} which is an intersection
      * of this and another
+     *
      * @param another
      * @return
      */
