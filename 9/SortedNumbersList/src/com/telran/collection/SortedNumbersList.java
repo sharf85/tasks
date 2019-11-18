@@ -76,7 +76,7 @@ public class SortedNumbersList {
     }
 
     public boolean contains(int number) {
-        return false;
+        return ArrayUtils.binarySearch(this.source, number) >= 0;
     }
 
 }

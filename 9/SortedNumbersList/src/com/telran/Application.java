@@ -14,6 +14,7 @@ public class Application {
         list.display();
         System.out.println(list.remove(8));
 
+        new SortedNumbersList().size();
 //        SortedNumbersList list2 = new SortedNumbersList(new int[]{2, -5, -6});
 
 //        SortedNumbersList list3 = list.intersection(list2);// {-6}
