@@ -7,8 +7,8 @@ import static org.junit.Assert.*;
 
 public class SortedNumbersListTest {
 
-    SortedNumbersList list;
-    int[] array;
+    private SortedNumbersList list;
+    private int[] array;
 
     @Before
     public void init() {
@@ -42,5 +42,16 @@ public class SortedNumbersListTest {
         assertFalse(list.contains(-5));
         assertFalse(list.contains(9));
         assertFalse(list.contains(25));
+    }
+
+    @Test
+    public void testRemoveRepeated() {
+        list = new SortedNumbersList(new int[]{1, 1, 1, 2, 2, 2, 3, 3});
+        list.removeRepeated();
+        array = new int[]{1, 2, 3};
+        assertEquals(3, list.size());
+        assertEquals(1, list.get(0));
+        assertEquals(2, list.get(1));
+        assertEquals(3, list.get(2));
     }
 }
