@@ -9,79 +9,79 @@ import static org.junit.Assert.*;
 public class SortedNumbersListTest {
 
 
-    SortedNumbersList list;
-    SortedNumbersList list2;
+    private SortedNumbersList listTest;
+    private SortedNumbersList list2Test;
 
+    private int array1[];
+    private int array2[];
 
     @Before
     public void init() {
-        list = new SortedNumbersList(new int[]{19, 8, -6, 34, 19});
-        list2 = new SortedNumbersList(new int[]{-6, 8, 34, 0, 5, -20});
+        array1 = new int[]{19, 8, -6, 34, 55};
+        listTest = new SortedNumbersList(array1);
+
+        array2 = new int[]{-6, 8, 34, 0, 5, -20};
+        list2Test = new SortedNumbersList(array2);
     }
 
     @Test
     public void size() {
-        assertEquals(5, list.size());
+        assertEquals(array1.length, listTest.size());
     }
 
     @Test
     public void get() {
-        int testArray[] = new int[]{-6, 8, 19, 19, 34};
-        for (int i = 0; i < list.size(); i++) {
-            assertEquals(testArray[i], list.get(i));
-        }
+        ArrayUtils.selectionSort(array1);
+
+        for (int i = 0; i < array1.length; i++)
+            assertEquals(array1[i], listTest.get(i));
     }
 
 
     @Test
     public void isRemove() {
-        for (int i = 0; i < list.size(); i++) {
-            assertTrue(list.isRemove(list.get(i)));
+        for (int i = 0; i < listTest.size(); i++) {
+            listTest.isRemove(i);
+            assertTrue(listTest.isContains(listTest.get(i)));
         }
     }
 
 
     @Test
     public void isContains() {
-        for (int i = 0; i < list.size(); i++) {
-            assertTrue(list.isContains(list.get(i)));
+        for (int i = 0; i < listTest.size(); i++) {
+            assertTrue(listTest.isContains(listTest.get(i)));
         }
     }
 
     @Test
     public void removeById() {
-        //array = {19, 8, -6, 34, 19};
-        int[] arrayTwo = {-6, 8, 19, 19, 34};
+        ArrayUtils.selectionSort(array1);
 
-        for (int i = 0; i < list.size(); i++) {
-            list.removeById(0);
-            assertTrue(list.get(0) != arrayTwo[0]);
+        for (int i = 0; i < listTest.size(); i++) {
+            listTest.removeById(0);
+            assertTrue(listTest.get(0) != array1[0]);
         }
     }
 
-//    @Test
-//    public void display() {
-//    }
-//
-//    @Test
-//    public void displayToString() {
-//    }
+
+    @Test
+    public void displayToString() {
+        listTest.displayToString();
+    }
 
     @Test
     public void add() {
-        //array = {19, 8, -6, 34, 19};
-        int[] arrayTwo = {-6, 8, 19, 19, 34};
-
-        list.add(150);
-        assertTrue(list.isContains(150));
+        listTest.add(150);
+        assertTrue(listTest.isContains(150));
     }
 
     @Test
     public void removeRepeated() {
         //sortArray =    {-6, 8, 19, 19, 34}
 
-        list.removeRepeated();
-        assertTrue(list.get(3) != 19);
+        listTest.removeRepeated();
+        assertTrue(listTest.get(3) != 19);
     }
 
     // list  = {-6, 8, 19, 19, 34}
@@ -90,14 +90,14 @@ public class SortedNumbersListTest {
     @Test
     public void intersection() {
 
-        SortedNumbersList listC = list.intersection(list2);
-        assertTrue(listC.size() == 3);
+        SortedNumbersList listC = listTest.intersection(list2Test);
+        assertEquals(listC.size(), 3);
     }
 
     @Test
     public void union() {
-        SortedNumbersList listC = list.union(list2);
-        assertTrue(listC.size() == list.size() + list2.size());
+        SortedNumbersList listC = listTest.union(list2Test);
+        assertEquals(listC.size(), listTest.size() + list2Test.size());
     }
 }
 

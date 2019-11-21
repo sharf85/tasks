@@ -1,8 +1,7 @@
 package com.company.collection;
 
 public class ArrayUtils {
-    private static int[] array1;
-    private static SortedNumbersList array2;
+
 
     static int binarySearch(int[] array, int N) {
         int minId = 0;
@@ -119,9 +118,28 @@ public class ArrayUtils {
         for (int i = 0; i < array1.length; i++) {
             newArray[i] = array1[i];
         }
-        for (int i = array1.length,  j = 0; i < arrayLenght; i++) {
+        for (int i = array1.length, j = 0; i < arrayLenght; i++) {
             newArray[i] = array2[j++];
         }
         return newArray;
+    }
+
+    static int[] removeRepeated(int[] array) {
+        int newLength = 1;
+
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] != array[i - 1])
+                newLength++;
+        }
+
+        int i = 1;
+        int[] newSource = new int[newLength];
+
+        newSource[0] = array[0];
+        for (int j = 1; j < array.length; j++) {
+            if (array[j] != array[j - 1])
+                newSource[i++] = array[j];
+        }
+        return array = newSource;
     }
 }
