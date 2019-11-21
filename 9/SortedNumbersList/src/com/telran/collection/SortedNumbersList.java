@@ -33,24 +33,18 @@ public class SortedNumbersList {
         return source.length;
     }
 
-    public boolean remove(int number) {
-        int index = ArrayUtils.binarySearch(this.source, number);
-        if (index < 0)
-            return false;
-
-        int[] newSource = new int[this.source.length - 1];
-
-        for (int i = 0; i < index; i++) {
-            newSource[i] = this.source[i];
+  public boolean remove(int number) {
+            int[] newArray = new int[0];
+            for ( int i = 0; i < source.length; i++) {
+                if (source[i] == number) {
+                    continue;
+                }
+                newArray = ArrayUtils.append(newArray, source[i]);
+            }
+            boolean result = source.length != newArray.length;
+            source = newArray;
+            return result;
         }
-
-        for (int i = index + 1; i < source.length; i++) {
-            newSource[i - 1] = source[i];
-        }
-
-        this.source = newSource;
-        return true;
-    }
 
     public void removeById(int index) {
 
