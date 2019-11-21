@@ -8,7 +8,7 @@ public class Application {
 
     public static void main(String[] args) {
         SortedNumbersList list1 = new SortedNumbersList(new int[]{-1, -2, -3, -4, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
-        SortedNumbersList list2 = new SortedNumbersList(new int[]{-20, 15, -90, 14, 7, -2, -5, 5, 6, -5, 12, 56, 78, 231, 96, 74, 6, -10, -20, 10});
+        SortedNumbersList list2 = new SortedNumbersList(new int[]{-1,0,1,1,2,2,3,4,5});
 
         //display, displayToString
         //add
