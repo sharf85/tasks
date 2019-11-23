@@ -35,6 +35,7 @@ public class SortedNumbersList {
     }
 
     public boolean isRemove(int number) {
+
         if (ArrayUtils.booleanBinarySearch(source, number)) {
             source = ArrayUtils.remove(source, ArrayUtils.binarySearch(source, number));
             return true;
