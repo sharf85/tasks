@@ -22,10 +22,6 @@ public class ArrayUtils {
         return -minId - 1;
     }
 
-    static boolean booleanBinarySearch(int[] arrayForSearch, int searchNumber) {
-        return binarySearch(arrayForSearch, searchNumber) >= 0;
-    }
-
     static void selectionSort(int[] array) {
         int length = array.length;
 
@@ -78,40 +74,6 @@ public class ArrayUtils {
         return result;
     }
 
-
-    static int[] remove(int[] array, int index) {
-
-        int[] result = new int[array.length - 1];
-
-        for (int i = 0; i < index; i++) {
-            result[i] = array[i];
-        }
-        for (int i = index + 1; i < array.length; i++) {
-            result[i - 1] = array[i];
-        }
-        return result;
-    }
-
-    static int[] intersection(int[] array1, int[] array2) {
-        int arrayLenght = 0;
-
-        for (int i = 0; i < array1.length; i++) {
-            for (int j = 0; j < array2.length; j++) {
-                if (array1[i] == array2[j])
-                    arrayLenght++;
-            }
-        }
-        int[] newArray = new int[arrayLenght];
-        int index = 0;
-        for (int i = 0; i < array1.length; i++) {
-            for (int j = 0; j < array2.length; j++) {
-                if (array1[i] == array2[j])
-                    newArray[index++] = array1[i];
-            }
-        }
-        return newArray;
-    }
-
     static int[] union(int[] array1, int[] array2) {
         int arrayLenght = array1.length + array2.length;
         int[] newArray = new int[arrayLenght];
@@ -122,24 +84,5 @@ public class ArrayUtils {
             newArray[i] = array2[j++];
         }
         return newArray;
-    }
-
-    static int[] removeRepeated(int[] array) {
-        int newLength = 1;
-
-        for (int i = 1; i < array.length; i++) {
-            if (array[i] != array[i - 1])
-                newLength++;
-        }
-
-        int i = 1;
-        int[] newSource = new int[newLength];
-
-        newSource[0] = array[0];
-        for (int j = 1; j < array.length; j++) {
-            if (array[j] != array[j - 1])
-                newSource[i++] = array[j];
-        }
-        return array = newSource;
     }
 }
