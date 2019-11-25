@@ -114,4 +114,73 @@ public class Application {
 
         return counter;
     }
+
+    public static int[][] createDoubleArray0_99() {
+        int[][] res = new int[10][10];
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                res[i][j] = i * 10 + j;
+            }
+        }
+        return res;
+    }
+
+    public static int[][] createDoubleArray99_0() {
+        int[][] res = new int[10][10];
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                res[i][j] = (9 - i) * 10 + 9 - j;
+            }
+        }
+        return res;
+    }
+
+    public static int[][] createChessBoard() {
+        int[][] res = new int[8][8];
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                res[i][j] = (i + j) % 2 == 0 ? 0 : 1;
+//                if ((i + j) % 2 == 1)
+//                    res[i][j] = 1;
+            }
+        }
+
+        return res;
+    }
+
+    public static int getNumberOnlyPositiveNumberArraysContinue(int[][] array) {
+        int res = 0;
+
+        Metka:
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
+                if (array[i][j] <= 0)
+                    continue Metka;
+            }
+            res++;
+        }
+
+        return res;
+    }
+
+    public static int getNumberOnlyPositiveNumberArrays(int[][] array) {
+        int res = 0;
+
+        for (int i = 0; i < array.length; i++) {
+            boolean wasNegative = false;
+
+            for (int j = 0; j < array[i].length; j++) {
+                if (array[i][j] <= 0) {
+                    wasNegative = true;
+                    break;
+                }
+            }
+
+            if (!wasNegative)
+                res++;
+        }
+
+        return res;
+    }
 }

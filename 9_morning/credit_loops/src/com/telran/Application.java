@@ -63,4 +63,24 @@ public class Application {
 
         return totalCredits;
     }
+
+    public static int countCreditsIssued(int lastCreditNumber) {
+        int res = 0;
+
+        for (int currentNumber = 1; currentNumber <= lastCreditNumber; currentNumber++) {
+            if (currentNumber % 13 == 0)
+                continue;
+
+            if (currentNumber % 3 == 0)
+                System.out.println("The loan number " + currentNumber + " was issued by Masha");
+            else if (currentNumber % 3 == 1)
+                System.out.println("The loan number " + currentNumber + " was issued Petr");
+            else
+                System.out.println("The loan number " + currentNumber + " was issued Vasya");
+
+            res++;
+        }
+
+        return res;
+    }
 }
