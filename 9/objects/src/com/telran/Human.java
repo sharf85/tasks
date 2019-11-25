@@ -1,22 +1,26 @@
 package com.telran;
 
 public class Human {
-    static int numberOfHumans = 0;
+    private static int numberOfHumans = 0;
+
+    String name;
+    String surname;
+    int age;
 
     Human() {
         numberOfHumans++;
     }
 
-    Human(String nameIn, String surnameIn, int ageIn) {
+    Human(String name, String surname, int age) {
         numberOfHumans++;
-        name = nameIn;
-        surname = surnameIn;
-        age = ageIn;
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
     }
 
-    String name;
-    String surname;
-    int age;
+    public static int getNumberOfHumans() {
+        return numberOfHumans;
+    }
 
     void introduce() {
         System.out.println("Hello, my name is " + name + " " + surname + ". I am " + age + ".");
