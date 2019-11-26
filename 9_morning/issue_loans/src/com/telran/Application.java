@@ -24,5 +24,27 @@ public class Application {
                 oldPoorPerson,
                 oldRichPerson
         };
+
+//        for (int i = 0; i < workers.length; i++) {
+//            for (int j = 0; j < consumers.length; j++) {
+//                if (workers[i].toProvide(consumers[j])) {
+//                    System.out.println(workers[i].getName() + " issued a loan to " + consumers[j].getName());
+//                } else {
+//                    System.out.println(workers[i].getName() + " did not issue a loan to " + consumers[j].getName());
+//                }
+//            }
+//        }
+
+        for (LoanIssuer worker : workers) {
+            for (LoanConsumer consumer : consumers) {
+                if (worker.toProvide(consumer)) {
+                    System.out.println(worker.getName() + " issued a loan to " + consumer.getName());
+                } else {
+                    System.out.println(worker.getName() + " did not issue a loan to " + consumer.getName());
+                }
+            }
+        }
+
+
     }
 }
