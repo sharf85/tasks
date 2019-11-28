@@ -1,15 +1,17 @@
 package com.telran;
 
+import java.util.Arrays;
+
 public class Array {
 
     int[] source;
 
     public Array() {
-
+        this.source = new int[0];
     }
 
     public Array(int[] source) {
-
+        this.source = ArrayUtils.copyArray(source);
     }
 
     // array[index] = value; - regular array
@@ -21,11 +23,11 @@ public class Array {
     // int a = array[index];
     // int a = ourArray.get(index);
     public int get(int index) {
-        return 0;
+        return this.source[index];
     }
 
     public int size() {
-        return 0;
+        return this.source.length;
     }
 
     /**
@@ -34,11 +36,23 @@ public class Array {
      * @param value element to add
      */
     public void append(int value) {
+        this.source = ArrayUtils.append(this.source, value);
+    }
+
+    public void insert(int index, int number) {
 
     }
 
+    public void removeById(int index) {
+
+    }
+
+    public boolean remove(int element) {
+        return false;
+    }
+
     public String toString() {
-        return "";
+        return Arrays.toString(this.source);
     }
 }
 
