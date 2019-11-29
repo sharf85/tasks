@@ -40,14 +40,27 @@ public class Array {
     }
 
     public void insert(int index, int number) {
-
+        this.source = ArrayUtils.insert(this.source, index, number);
     }
 
     public void removeById(int index) {
-
+        int[] newSource = new int[this.source.length - 1];
+        for (int i = 0; i < index; i++) {
+            newSource[i] = this.source[i];
+        }
+        for (int i = index + 1; i < this.source.length; i++) {
+            newSource[i - 1] = this.source[i];
+        }
+        this.source = newSource;//!!!
     }
 
     public boolean remove(int element) {
+        for (int i = 0; i < this.source.length; i++) {
+            if (this.source[i] == element) {
+                this.removeById(i);
+                return true;
+            }
+        }
         return false;
     }
 
