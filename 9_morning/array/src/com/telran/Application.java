@@ -1,7 +1,5 @@
 package com.telran;
 
-import java.util.Arrays;
-
 public class Application {
 
     public static void main(String[] args) {
@@ -16,5 +14,9 @@ public class Application {
         System.out.println(ourArray.size());//3
 
         System.out.println(ourArray.toString());
+
+        ourArray.set(1, 10);//{1, 10, -8} //array[1]=10
+        System.out.println(ourArray.get(1));
+
     }
 }

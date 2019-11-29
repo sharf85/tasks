@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Array {
 
-    int[] source;
+    private int[] source;
 
     public Array() {
         this.source = new int[0];
@@ -17,7 +17,7 @@ public class Array {
     // array[index] = value; - regular array
     // ourArray.set(index, value); - our implementation
     public void set(int index, int value) {
-
+        this.source[index] = value;
     }
 
     // int a = array[index];
