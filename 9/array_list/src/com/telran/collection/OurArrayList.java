@@ -2,7 +2,7 @@ package com.telran.collection;
 
 public class OurArrayList {
 
-    Object[] source;
+    private Object[] source;
     private static final int INITIAL_CAPACITY = 16;
     private int size;
 
@@ -25,7 +25,7 @@ public class OurArrayList {
     }
 
     public Object get(int index) {
-        return null;
+        return source[index];
     }
 
     public void set(int index, Object value) {
