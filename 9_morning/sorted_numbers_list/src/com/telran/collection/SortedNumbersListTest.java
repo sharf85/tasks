@@ -115,7 +115,8 @@ public class SortedNumbersListTest {
         int[] source = {1, 2, 5, 7};
         SortedNumbersList list = new SortedNumbersList(source);
 
-        list.removeById(0);
+        int deleted = list.removeById(0);
+        assertEquals(1, deleted);
 
         int[] expected = {2, 5, 7};
 
@@ -131,7 +132,8 @@ public class SortedNumbersListTest {
         int[] source = {1, 2, 5, 7};
         SortedNumbersList list = new SortedNumbersList(source);
 
-        list.removeById(3);
+        int deleted = list.removeById(3);
+        assertEquals(7, deleted);
 
         int[] expected = {1, 2, 5};
 
@@ -147,7 +149,8 @@ public class SortedNumbersListTest {
         int[] source = {1, 2, 5, 7};
         SortedNumbersList list = new SortedNumbersList(source);
 
-        list.removeById(2);
+        int deleted = list.removeById(2);
+        assertEquals(5, deleted);
 
         int[] expected = {1, 2, 7};
 
