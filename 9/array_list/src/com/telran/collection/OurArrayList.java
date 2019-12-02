@@ -25,11 +25,17 @@ public class OurArrayList {
     }
 
     public Object get(int index) {
+        if (index >= size || index < 0)
+            throw new IndexOutOfBoundsException();
+
         return source[index];
     }
 
     public void set(int index, Object value) {
+        if (index >= size || index < 0)
+            throw new IndexOutOfBoundsException();
 
+        source[index] = value;
     }
 
     public boolean remove(Object value) {
@@ -37,6 +43,13 @@ public class OurArrayList {
     }
 
     public Object removeById(int index) {
-        return null;
+        if (index >= size || index < 0)
+            throw new IndexOutOfBoundsException();
+
+        Object result = source[index];
+
+        System.arraycopy(source, index + 1, source, index, source.length - (index + 1));
+        size--;
+        return result;
     }
 }
