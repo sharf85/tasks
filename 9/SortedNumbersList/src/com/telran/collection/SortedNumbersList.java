@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 public class SortedNumbersList {
 
+    // хранилище элементов объекта
     private int[] source;
 
     public SortedNumbersList() {
@@ -16,28 +17,61 @@ public class SortedNumbersList {
         ArrayUtils.selectionSort(source);
     }
 
+    /**
+     * prints contained elements
+     */
     public void display() {
         System.out.println(Arrays.toString(source));
     }
 
+    /**
+     * adds a new element to the object
+     *
+     * @param number element to add
+     */
     public void add(int number) {
         source = ArrayUtils.append(source, number);
         ArrayUtils.selectionSort(source);
     }
 
+    /**
+     * gets the element by index
+     *
+     * @param index of the element to get
+     * @return element by specified index
+     */
     public int get(int index) {
         return source[index];
     }
 
+    /**
+     * @return number of the elements int the object
+     */
     public int size() {
         return source.length;
     }
 
+    /**
+     * removes the number if present
+     *
+     * @param number to remove
+     * @return true, if found, false otherwise
+     */
     public boolean remove(int number) {
         int index = ArrayUtils.binarySearch(this.source, number);
         if (index < 0)
             return false;
 
+        removeById(index);
+        return true;
+    }
+
+    /**
+     * removes the element by index
+     *
+     * @param index of the element to remove
+     */
+    public void removeById(int index) {
         int[] newSource = new int[this.source.length - 1];
 
         for (int i = 0; i < index; i++) {
@@ -49,13 +83,11 @@ public class SortedNumbersList {
         }
 
         this.source = newSource;
-        return true;
     }
 
-    public void removeById(int index) {
-
-    }
-
+    /**
+     * leaves only individual elements
+     */
     public void removeRepeated() {
         if (source.length == 0)
             return;
@@ -87,11 +119,41 @@ public class SortedNumbersList {
      * @return
      */
     public SortedNumbersList intersection(SortedNumbersList another) {
-        return null;
+        this.removeRepeated();
+        another.removeRepeated();
+
+        int newLength = 0;
+        for (int i = 0; i < source.length; i++) {
+            if (another.contains(source[i])) {
+                newLength++;
+            }
+        }
+
+        int[] newSource = new int[newLength];
+        int counter = 0;
+        for (int i = 0; i < source.length; i++) {
+            if (another.contains(source[i]))
+                newSource[counter++] = source[i];
+        }
+        return new SortedNumbersList(newSource);
     }
 
     public SortedNumbersList union(SortedNumbersList another) {
-        return null;
+        int newLength = this.source.length + another.source.length;
+        int[] newSource = new int[newLength];
+
+        for (int i = 0; i < source.length; i++) {
+            newSource[i] = source[i];
+        }
+
+        for (int i = 0; i < another.source.length; i++) {
+            newSource[i + source.length] = another.source[i];
+        }
+
+        SortedNumbersList res = new SortedNumbersList(newSource);
+        res.removeRepeated();
+
+        return res;
     }
 
     public boolean contains(int number) {
