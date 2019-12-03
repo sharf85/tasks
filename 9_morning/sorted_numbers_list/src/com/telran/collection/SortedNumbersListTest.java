@@ -161,4 +161,174 @@ public class SortedNumbersListTest {
         assertEquals(3, list.size());
     }
 
+    @Test
+    public void testContains_nonEmptyArray_containsFirstMiddleLastElements() {
+        int[] source = {1, 2, 5, 7};
+        SortedNumbersList list = new SortedNumbersList(source);
+
+        assertTrue(list.contains(1));
+        assertTrue(list.contains(2));
+        assertTrue(list.contains(5));
+        assertTrue(list.contains(7));
+    }
+
+    @Test
+    public void testContains_nonEmptyArray_notContains() {
+        int[] source = {1, 2, 5, 7};
+        SortedNumbersList list = new SortedNumbersList(source);
+
+        assertFalse(list.contains(-1));
+        assertFalse(list.contains(6));
+        assertFalse(list.contains(3));
+        assertFalse(list.contains(8));
+    }
+
+    @Test
+    public void testUnion_emptyListAndEmptyList_yieldsEmptyList() {
+        SortedNumbersList list = new SortedNumbersList();
+        SortedNumbersList anotherList = new SortedNumbersList();
+        SortedNumbersList union = list.union(anotherList);
+
+        assertEquals(0, union.size());
+    }
+
+    @Test
+    public void testUnion_emptyListAndNonEmptyList_yieldsSecondList() {
+        SortedNumbersList list = new SortedNumbersList();
+
+        int[] source = new int[]{1, 3, 4, 7};
+        SortedNumbersList anotherList = new SortedNumbersList(source);
+        SortedNumbersList union = list.union(anotherList);
+
+        for (int i = 0; i < source.length; i++) {
+            assertEquals(source[i], union.get(i));
+        }
+        assertEquals(4, union.size());
+    }
+
+    @Test
+    public void testUnion_nonEmptyListAndEmptyList_yieldsFirstList() {
+        int[] source = new int[]{1, 3, 4, 7};
+        SortedNumbersList list = new SortedNumbersList(source);
+        SortedNumbersList anotherList = new SortedNumbersList();
+        SortedNumbersList union = list.union(anotherList);
+
+        for (int i = 0; i < source.length; i++) {
+            assertEquals(source[i], union.get(i));
+        }
+        assertEquals(4, union.size());
+    }
+
+    @Test
+    public void testUnion_twoNonEmptyLists_noIntersections() {
+        int[] source = new int[]{1, 3, 4, 7};
+        SortedNumbersList list = new SortedNumbersList(source);
+
+        int[] source2 = new int[]{2, 8, 15};
+        SortedNumbersList anotherList = new SortedNumbersList(source2);
+        SortedNumbersList union = list.union(anotherList);
+
+        int[] expected = {1, 2, 3, 4, 7, 8, 15};
+        for (int i = 0; i < source.length; i++) {
+            assertEquals(expected[i], union.get(i));
+        }
+        assertEquals(7, union.size());
+    }
+
+    @Test
+    public void testUnion_twoNonEmptyLists_withIntersections() {
+        int[] source = new int[]{1, 3, 2, 4, 7};
+        SortedNumbersList list = new SortedNumbersList(source);
+
+        int[] source2 = new int[]{2, 8, 4, 7, 15};
+        SortedNumbersList anotherList = new SortedNumbersList(source2);
+        SortedNumbersList union = list.union(anotherList);
+
+        int[] expected = {1, 2, 3, 4, 7, 8, 15};
+        for (int i = 0; i < source.length; i++) {
+            assertEquals(expected[i], union.get(i));
+        }
+        assertEquals(7, union.size());
+    }
+
+    @Test
+    public void testIntersection_twoNonEmptyLists_noIntersections() {
+        int[] source = new int[]{1, 2, 3};
+        SortedNumbersList list = new SortedNumbersList(source);
+
+        int[] source2 = new int[]{4, -1, 6};
+        SortedNumbersList anotherList = new SortedNumbersList(source2);
+        SortedNumbersList intersection = list.intersection(anotherList);
+
+        assertEquals(0, intersection.size());
+    }
+
+    @Test
+    public void testIntersection_twoNonEmptyLists_withIntersections() {
+        int[] source = new int[]{1, 2, 3};
+        SortedNumbersList list = new SortedNumbersList(source);
+
+        int[] source2 = new int[]{2, 5, 1, 8};
+        SortedNumbersList anotherList = new SortedNumbersList(source2);
+        SortedNumbersList intersection = list.intersection(anotherList);
+
+        assertEquals(1, intersection.get(0));
+        assertEquals(2, intersection.get(1));
+
+        assertEquals(2, intersection.size());
+    }
+
+    @Test
+    public void testIntersection_twoNonEmptyListsWithRepetitions_withIntersections() {
+        int[] source = new int[]{1, 1, 2, 2, 3};
+        SortedNumbersList list = new SortedNumbersList(source);
+
+        int[] source2 = new int[]{2, 5, 5, 8};
+        SortedNumbersList anotherList = new SortedNumbersList(source2);
+        SortedNumbersList intersection = list.intersection(anotherList);
+
+        assertEquals(2, intersection.get(0));
+
+        assertEquals(1, intersection.size());
+    }
+
+    @Test
+    public void testIntersection_emptyAndNonEmptyListWithRepetitions_noIntersections() {
+        int[] source = new int[]{};
+        SortedNumbersList list = new SortedNumbersList(source);
+
+        int[] source2 = new int[]{2, 5, 5, 8};
+        SortedNumbersList anotherList = new SortedNumbersList(source2);
+        SortedNumbersList intersection = list.intersection(anotherList);
+
+        assertEquals(0, intersection.size());
+    }
+
+    @Test
+    public void testIntersection_nonEmptyWithRepetitionsAndEmptyList_noIntersections() {
+        int[] source = new int[]{2, 5, 5, 8};
+        SortedNumbersList list = new SortedNumbersList(source);
+
+        int[] source2 = new int[]{};
+        SortedNumbersList anotherList = new SortedNumbersList(source2);
+        SortedNumbersList intersection = list.intersection(anotherList);
+
+        assertEquals(0, intersection.size());
+    }
+
+    @Test
+    public void testIntersection_twoEmptyLists_noIntersections() {
+        int[] source = new int[]{};
+        SortedNumbersList list = new SortedNumbersList(source);
+
+        int[] source2 = new int[]{};
+        SortedNumbersList anotherList = new SortedNumbersList(source2);
+        SortedNumbersList intersection = list.intersection(anotherList);
+
+        assertEquals(0, intersection.size());
+
+        int a = new Integer(1);
+        assertEquals(1, a);
+    }
+
 }

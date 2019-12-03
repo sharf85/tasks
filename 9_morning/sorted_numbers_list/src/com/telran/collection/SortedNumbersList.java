@@ -17,6 +17,12 @@ public class SortedNumbersList {
         return source.length;
     }
 
+    public boolean contains(int number) {
+        int index = ArrayUtils.binarySearch(this.source, number);
+        return index >= 0;
+    }
+
+
     public void add(int number) {
         this.source = ArrayUtils.append(this.source, number);
         ArrayUtils.selectionSort(this.source);
@@ -81,7 +87,23 @@ public class SortedNumbersList {
     }
 
     public SortedNumbersList intersection(SortedNumbersList another) {
-        return null;
+        int newSize = 0;
+
+        for (int i = 0; i < source.length; i++) {
+            if (another.contains(source[i]))
+                newSize++;
+        }
+
+        int[] newSource = new int[newSize];
+        int index = 0;
+        for (int i = 0; i < source.length; i++) {
+            if (another.contains(source[i]))
+                newSource[index++] = source[i];
+        }
+
+        SortedNumbersList intersection = new SortedNumbersList(newSource);
+        intersection.removeRepeated();
+        return intersection;
     }
 
     public SortedNumbersList union(SortedNumbersList another) {
