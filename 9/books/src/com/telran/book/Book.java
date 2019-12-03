@@ -17,7 +17,6 @@ abstract public class Book {
         return getPrice();
     }
 
-    @Override
     public String toString() {
         return "Title: " + getTitle()
                 + " by " + getAuthor()

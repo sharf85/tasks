@@ -1,5 +1,7 @@
 package com.telran.collection;
 
+import com.telran.comparator.AbstractComparator;
+
 public class OurArrayList {
 
     private Object[] source;
@@ -58,5 +60,22 @@ public class OurArrayList {
         System.arraycopy(source, index + 1, source, index, source.length - (index + 1));
         size--;
         return result;
+    }
+
+    public Object max(AbstractComparator comparator) {
+        if (source.length == 0)
+            throw new EmptyListException();
+
+        Object max = source[0];
+        for (int i = 1; i < size; i++) {
+            if (comparator.compare(max, source[i]) < 0)
+                max = source[i];
+        }
+
+        return max;
+    }
+
+    public Object min(AbstractComparator comparator) {
+        
     }
 }

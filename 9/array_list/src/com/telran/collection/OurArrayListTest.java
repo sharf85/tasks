@@ -1,5 +1,7 @@
 package com.telran.collection;
 
+import com.telran.comparator.AbstractComparator;
+import com.telran.comparator.IntegerComparator;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -184,6 +186,20 @@ public class OurArrayListTest {
         }
 
         assertEquals(5, list.size());
+    }
+
+    @Test
+    public void testMax_severalIntegers() {
+        OurArrayList list = new OurArrayList();
+
+        list.add(5);
+        list.add(15);
+        list.add(2);
+        list.add(5);
+
+        AbstractComparator comparator = new IntegerComparator();
+
+        assertEquals(15, list.max(comparator));
     }
 
 }
