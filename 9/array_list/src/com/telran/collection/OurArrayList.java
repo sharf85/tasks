@@ -39,6 +39,13 @@ public class OurArrayList {
     }
 
     public boolean remove(Object value) {
+        for (int i = 0; i < source.length; i++) {
+            if (source[i].equals(value)) {
+                removeById(i);
+                return true;
+            }
+        }
+
         return false;
     }
 
