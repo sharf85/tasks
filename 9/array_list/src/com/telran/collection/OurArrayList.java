@@ -62,13 +62,13 @@ public class OurArrayList {
         return result;
     }
 
-    public Object max(AbstractComparator comparator) {
+    public Object max(AbstractComparator co) {
         if (source.length == 0)
             throw new EmptyListException();
 
         Object max = source[0];
         for (int i = 1; i < size; i++) {
-            if (comparator.compare(max, source[i]) < 0)
+            if (co.compare(max, source[i]) < 0)
                 max = source[i];
         }
 
@@ -76,6 +76,29 @@ public class OurArrayList {
     }
 
     public Object min(AbstractComparator comparator) {
+
+//        AbstractComparator invertedComparator = new AbstractComparator() {
+//            @Override
+//            public int compare(Object o1, Object o2) {
+//                return -comparator.compare(o1, o2);
+//            }
+//        };
+//
+//        return max(invertedComparator);
+
+        if (source.length == 0)
+            throw new EmptyListException();
+
+        Object min = source[0];
+        for (int i = 1; i < size; i++) {
+            if (comparator.compare(min, source[i]) > 0)
+                min = source[i];
+        }
+
+        return min;
+    }
+
+    public void sort(AbstractComparator comparator){
         
     }
 }
