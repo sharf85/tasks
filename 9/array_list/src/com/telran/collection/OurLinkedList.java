@@ -29,16 +29,16 @@ public class OurLinkedList implements OurList {
         if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
 
+        Node needle = getNode(index);
+        return needle.value;
+    }
+
+    private Node getNode(int index) {
         Node needle = first;
         for (int i = 0; i < index; i++) {
             needle = needle.next;
         }
-//        int counter = 0;
-//        while (counter < index) {
-//            needle = needle.next;
-//            counter++;
-//        }
-        return needle.value;
+        return needle;
     }
 
     @Override
@@ -63,7 +63,25 @@ public class OurLinkedList implements OurList {
 
     @Override
     public Object removeById(int index) {
-        return null;
+        if (index >= size || index < 0)
+            throw new IndexOutOfBoundsException();
+
+        if (index > 0 || index < size - 1) {
+            Node nodeToRemove = getNode(index);
+            Node left = nodeToRemove.prev;
+            Node right = nodeToRemove.next;
+
+            nodeToRemove.next = null;
+            nodeToRemove.prev = null;
+
+            left.next = right;
+            right.prev = left;
+            return nodeToRemove.value;
+        } else if (index == 0) {
+            //remove first
+        } else {
+            //remove last
+        }
     }
 
     private static class Node {
