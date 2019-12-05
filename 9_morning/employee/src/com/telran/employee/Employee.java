@@ -14,4 +14,12 @@ public abstract class Employee {
     int basicSalary;
 
     public abstract int computeSalary();
+
+    @Override
+    public String toString() {
+        return "name='" + name + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", basicSalary=" + basicSalary
+                ;
+    }
 }

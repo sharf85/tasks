@@ -14,4 +14,11 @@ public class WageEmployee extends Employee {
     public int computeSalary() {
         return basicSalary * hoursPerMonth / MONTHLY_FULL_HOURS;
     }
+
+    @Override
+    public String toString() {
+        String res = super.toString() +
+                ", hoursPerMonth=" + hoursPerMonth;
+        return res;
+    }
 }
