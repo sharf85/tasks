@@ -2,7 +2,7 @@ package com.telran.collection;
 
 import com.telran.comparator.AbstractComparator;
 
-public class OurArrayList {
+public class OurArrayList implements OurList {
 
     private Object[] source;
     private static final int INITIAL_CAPACITY = 16;
@@ -12,11 +12,18 @@ public class OurArrayList {
         source = new Object[INITIAL_CAPACITY];
     }
 
+    @Override
     public int size() {
         return size;
     }
 
-    public void add(Object value) {
+    @Override
+    public boolean contains() {
+        return false;
+    }
+
+    @Override
+    public void append(Object value) {
         if (source.length == size) {
             Object[] newSource = new Object[source.length * 2];
             System.arraycopy(source, 0, newSource, 0, source.length);
@@ -26,6 +33,7 @@ public class OurArrayList {
         size++;
     }
 
+    @Override
     public Object get(int index) {
         if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
@@ -33,13 +41,15 @@ public class OurArrayList {
         return source[index];
     }
 
-    public void set(int index, Object value) {
+    @Override
+    public void set(Object value, int index) {
         if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
 
         source[index] = value;
     }
 
+    @Override
     public boolean remove(Object value) {
         for (int i = 0; i < source.length; i++) {
             if (source[i].equals(value)) {
@@ -51,6 +61,7 @@ public class OurArrayList {
         return false;
     }
 
+    @Override
     public Object removeById(int index) {
         if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
@@ -98,7 +109,21 @@ public class OurArrayList {
         return min;
     }
 
-    public void sort(AbstractComparator comparator){
-        
+    public void sort(AbstractComparator comparator) {
+        int length = size;
+
+        for (int i = 0; i < length; i++) {
+            int minId = i;
+
+            for (int j = i; j < length; j++) {
+                if (comparator.compare(source[minId], source[j]) > 0)
+                    minId = j;
+
+            }
+
+            Object temp = source[minId];
+            source[minId] = source[i];
+            source[i] = temp;
+        }
     }
 }

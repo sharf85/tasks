@@ -202,4 +202,23 @@ public class OurArrayListTest {
         assertEquals(15, list.max(comparator));
     }
 
+    @Test
+    public void testSort_severalIntegers() {
+        OurArrayList list = new OurArrayList();
+
+        list.add(5);
+        list.add(15);
+        list.add(2);
+        list.add(5);
+
+        AbstractComparator comparator = new IntegerComparator();
+        list.sort(comparator);
+        int[] expected = {2, 5, 5, 15};
+
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i], list.get(i));
+        }
+
+    }
+
 }
