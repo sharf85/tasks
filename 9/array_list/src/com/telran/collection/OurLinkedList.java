@@ -3,8 +3,8 @@ package com.telran.collection;
 public class OurLinkedList implements OurList {
 
     private int size;
-    Node first;
-    Node last;
+    private Node first;
+    private Node last;
 
     OurLinkedList() {
     }
@@ -43,12 +43,15 @@ public class OurLinkedList implements OurList {
 
     @Override
     public void set(Object o, int index) {
-
+        if (index >= size || index < 0)
+            throw new IndexOutOfBoundsException();
+        Node needle = getNode(index);
+        needle.value = o;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
@@ -58,6 +61,17 @@ public class OurLinkedList implements OurList {
 
     @Override
     public boolean remove(Object o) {
+        int index = 0;
+        Node needle = first;
+        for (int i = 0; i < size; i++) {
+            if (needle.equals(o)) {
+                removeById(index);
+                return true;
+            }
+
+            needle = needle.next;
+            index++;
+        }
         return false;
     }
 
@@ -66,22 +80,26 @@ public class OurLinkedList implements OurList {
         if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
 
-        if (index > 0 || index < size - 1) {
-            Node nodeToRemove = getNode(index);
-            Node left = nodeToRemove.prev;
-            Node right = nodeToRemove.next;
+        Node nodeToRemove = getNode(index);
+        Node left = nodeToRemove.prev;
+        Node right = nodeToRemove.next;
+
+        if (index > 0 && index < size - 1) {
 
             nodeToRemove.next = null;
             nodeToRemove.prev = null;
 
             left.next = right;
             right.prev = left;
-            return nodeToRemove.value;
         } else if (index == 0) {
-            //remove first
+            right.prev = null;
+            first = right;
         } else {
-            //remove last
+            left.next = null;
+            last = left;
         }
+        size--;
+        return nodeToRemove.value;
     }
 
     private static class Node {

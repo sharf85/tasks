@@ -20,9 +20,9 @@ public class Application {
         Human masha = new Human("Masha", 20);
 
         OurArrayList res = new OurArrayList();
-        res.add(vasya);
-        res.add(petya);
-        res.add(masha);
+        res.append(vasya);
+        res.append(petya);
+        res.append(masha);
         return res;
     }
 
