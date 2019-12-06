@@ -4,7 +4,7 @@ public abstract class List {
 
     public abstract int size();
 
-    public abstract void append();
+    public abstract void append(Object o);
 
     public abstract Object get(int index);
 
