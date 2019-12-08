@@ -61,16 +61,15 @@ public class OurLinkedList implements OurList {
 
     @Override
     public boolean remove(Object o) {
-        int index = 0;
         Node needle = first;
         for (int i = 0; i < size; i++) {
-            if (needle.equals(o)) {
-                removeById(index);
+            if (needle.value.equals(o)) {
+                removeById(i);
+                size--;
                 return true;
             }
 
             needle = needle.next;
-            index++;
         }
         return false;
     }
