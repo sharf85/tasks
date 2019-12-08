@@ -25,21 +25,35 @@ public class OurArrayList extends List {
     }
 
     public Object get(int index) {
+        if (index >= size || index < 0)
+            throw new IndexOutOfBoundsException();
         return source[index];
     }
 
     public void set(Object o, int index) {
+        if (index >= size || index < 0)
+            throw new IndexOutOfBoundsException();
         source[index] = o;
     }
 
     public Object removeById(int index) {
+        if (index >= size || index < 0)
+            throw new IndexOutOfBoundsException();
+
         Object o = source[index];
         System.arraycopy(source, index + 1, source, index, size - index);
         size--;
+
         return o;
     }
 
     public boolean remove(Object o) {
+        for (int i = 0; i < size; i++) {
+            if (o.equals(source[i])) {
+                removeById(i);
+                return true;
+            }
+        }
         return false;
     }
 }

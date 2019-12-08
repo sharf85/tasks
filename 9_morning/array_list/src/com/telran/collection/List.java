@@ -6,7 +6,7 @@ public abstract class List {
 
     public abstract void append(Object o);
 
-    public abstract Object get(int index);
+    public abstract Object get(int index) throws Exception;
 
     public abstract void set(Object o, int index);
 
