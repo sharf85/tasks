@@ -186,5 +186,122 @@ public class OurLinkedListTest {
         assertEquals(5, list.size());
     }
 
+    @Test
+    public void testRemove_nonEmptyObject_removesLastElement() {
+        OurLinkedList list = new OurLinkedList();
+
+        list.append(5);
+        list.append(15);
+        list.append(2);
+        list.append(5);
+        list.append(17);
+        list.append(20);
+
+        boolean removed = list.remove(20);
+        assertTrue(removed);
+
+        Integer[] expected = {5, 15, 2, 5, 17};
+
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i], list.get(i));
+        }
+
+        assertEquals(5, list.size());
+    }
+
+    @Test
+    public void testRemove_nonEmptyObject_removesFirstElement() {
+        OurLinkedList list = new OurLinkedList();
+
+        list.append(5);
+        list.append(15);
+        list.append(2);
+        list.append(5);
+        list.append(17);
+        list.append(20);
+
+        boolean removed = list.remove(5);
+        assertTrue(removed);
+
+        Integer[] expected = {15, 2, 5, 17, 20};
+
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i], list.get(i));
+        }
+
+        assertEquals(5, list.size());
+    }
+
+    @Test
+    public void testRemove_nonEmptyObject_removesMiddleElement() {
+        OurLinkedList list = new OurLinkedList();
+
+        list.append(5);
+        list.append(15);
+        list.append(2);
+        list.append(5);
+        list.append(17);
+        list.append(20);
+
+        boolean removed = list.remove(2);
+        assertTrue(removed);
+
+        Integer[] expected = {5, 15, 5, 17, 20};
+
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i], list.get(i));
+        }
+
+        assertEquals(5, list.size());
+    }
+
+    @Test
+    public void testContains_nonEmptyObject_containsElements() {
+        OurLinkedList list = new OurLinkedList();
+
+        list.append(5);
+        list.append(15);
+        list.append(2);
+        list.append(5);
+        list.append(17);
+        list.append(20);
+
+        assertTrue(list.contains(5));
+        assertTrue(list.contains(17));
+        assertTrue(list.contains(20));
+    }
+
+    @Test
+    public void testContains_nonEmptyObject_notContainsElements() {
+        OurLinkedList list = new OurLinkedList();
+
+        list.append(5);
+        list.append(15);
+        list.append(2);
+        list.append(5);
+        list.append(17);
+        list.append(20);
+
+        assertFalse(list.contains(1));
+        assertFalse(list.contains(16));
+        assertFalse(list.contains(24));
+    }
+
+    @Test
+    public void testContains_emptyObject_notContainsElements() {
+        OurLinkedList list = new OurLinkedList();
+
+        assertFalse(list.contains(1));
+        assertFalse(list.contains(16));
+        assertFalse(list.contains(24));
+    }
+
+    @Test
+    public void testRemove_emptyObject_notContainsElements() {
+        OurLinkedList list = new OurLinkedList();
+
+        assertFalse(list.remove(4));
+    }
+
 
 }

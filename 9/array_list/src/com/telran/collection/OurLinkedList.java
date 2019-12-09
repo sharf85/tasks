@@ -16,8 +16,7 @@ public class OurLinkedList implements OurList {
             last.next = newNode;
             last = newNode;
         } else {
-            Node newNode = new Node();
-            newNode.value = value;
+            Node newNode = new Node(null, null, value);
             first = newNode;
             last = newNode;
         }
@@ -55,7 +54,14 @@ public class OurLinkedList implements OurList {
     }
 
     @Override
-    public boolean contains() {
+    public boolean contains(Object o) {
+        Node needle = first;
+        for (int i = 0; i < size; i++) {
+            if (needle.value.equals(o))
+                return true;
+
+            needle = needle.next;
+        }
         return false;
     }
 
@@ -65,7 +71,6 @@ public class OurLinkedList implements OurList {
         for (int i = 0; i < size; i++) {
             if (needle.value.equals(o)) {
                 removeById(i);
-                size--;
                 return true;
             }
 

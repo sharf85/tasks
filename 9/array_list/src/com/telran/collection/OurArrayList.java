@@ -18,7 +18,7 @@ public class OurArrayList implements OurList {
     }
 
     @Override
-    public boolean contains() {
+    public boolean contains(Object o) {
         return false;
     }
 
