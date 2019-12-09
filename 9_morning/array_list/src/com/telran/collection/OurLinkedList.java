@@ -28,7 +28,14 @@ public class OurLinkedList implements List {
 
     @Override
     public Object get(int index) {
-        return null;
+        if (index >= size || index < 0)
+            throw new IndexOutOfBoundsException();
+
+        Node needle = first;
+        for (int i = 0; i < index; i++) {
+            needle = needle.next;
+        }
+        return needle.value;
     }
 
     @Override
