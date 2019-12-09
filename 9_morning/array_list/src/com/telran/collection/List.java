@@ -1,17 +1,19 @@
 package com.telran.collection;
 
-public abstract class List {
+public interface List {
 
-    public abstract int size();
+    int size();
 
-    public abstract void append(Object o);
+    void append(Object o);
 
-    public abstract Object get(int index) throws Exception;
+    Object get(int index);
 
-    public abstract void set(Object o, int index);
+    void set(Object o, int index);
 
-    public abstract Object removeById(int index);
+    Object removeById(int index);
 
-    public abstract boolean remove(Object o);
+    boolean remove(Object o);
+
+    boolean contains(Object o);
 
 }

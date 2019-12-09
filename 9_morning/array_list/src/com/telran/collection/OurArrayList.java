@@ -1,6 +1,6 @@
 package com.telran.collection;
 
-public class OurArrayList extends List {
+public class OurArrayList implements List {
 
     private Object[] source;
     private static final int DEFAULT_CAPACITY = 16;
@@ -54,6 +54,11 @@ public class OurArrayList extends List {
                 return true;
             }
         }
+        return false;
+    }
+
+    @Override
+    public boolean contains(Object o) {
         return false;
     }
 }
