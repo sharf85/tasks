@@ -1,5 +1,7 @@
 package com.telran.collection;
 
+import com.telran.comparator.OurComparator;
+
 public class OurArrayList implements List {
 
     private Object[] source;
@@ -59,6 +61,32 @@ public class OurArrayList implements List {
 
     @Override
     public boolean contains(Object o) {
+        for (int i = 0; i < size; i++) {
+            if (o.equals(source[i])) {
+                return true;
+            }
+        }
         return false;
+    }
+
+    @Override
+    public Object max(OurComparator comparator) {
+        Object max = source[0];
+
+        for (int i = 1; i < size; i++) {
+            if (comparator.compare(max, source[i]) < 0)
+                max = source[i];
+        }
+        return max;
+    }
+
+    @Override
+    public Object min(OurComparator comparator) {
+        return null;
+    }
+
+    @Override
+    public void sort(OurComparator comparator) {
+
     }
 }

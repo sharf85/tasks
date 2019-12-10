@@ -1,5 +1,7 @@
 package com.telran.collection;
 
+import com.telran.comparator.OurComparator;
+
 public interface List {
 
     int size();
@@ -15,5 +17,11 @@ public interface List {
     boolean remove(Object o);
 
     boolean contains(Object o);
+
+    Object max(OurComparator comparator);
+
+    Object min(OurComparator comparator);
+
+    void sort(OurComparator comparator);
 
 }

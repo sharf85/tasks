@@ -1,10 +1,14 @@
 package com.telran.collection;
 
+import com.telran.comparator.IntComparator;
+import com.telran.comparator.OurComparator;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class OurArrayListTest {
+
+    List list;
 
     @Test
     public void testSize_emptyObject_returns0() {
@@ -102,32 +106,57 @@ public class OurArrayListTest {
         assertEquals(3, list.size());
     }
 
-//    @Test
-//    public void testContains_nonEmptyArray_containsFirstMiddleLastElements() {
-//        int[] source = {1, 2, 5, 7};
-//        OurArrayList list = new OurArrayList();
-//
-//        for(int i : source){
-//            list.append(i);
-//        }
-//
-//
-//        assertTrue(list.contains(1));
-//        assertTrue(list.contains(2));
-//        assertTrue(list.contains(5));
-//        assertTrue(list.contains(7));
-//    }
-//
-//    @Test
-//    public void testContains_nonEmptyArray_notContains() {
-//        int[] source = {1, 2, 5, 7};
-//        OurArrayList list = new OurArrayList(source);
-//
-//        assertFalse(list.contains(-1));
-//        assertFalse(list.contains(6));
-//        assertFalse(list.contains(3));
-//        assertFalse(list.contains(8));
-//    }
+    @Test
+    public void testContains_nonEmptyArray_containsFirstMiddleLastElements() {
+        int[] source = {1, 2, 5, 7};
+        OurArrayList list = new OurArrayList();
 
+        for (int i : source) {
+            list.append(i);
+        }
+
+        assertTrue(list.contains(1));
+        assertTrue(list.contains(2));
+        assertTrue(list.contains(5));
+        assertTrue(list.contains(7));
+    }
+
+    @Test
+    public void testContains_nonEmptyArray_notContains() {
+        int[] source = {1, 2, 5, 7};
+        OurArrayList list = new OurArrayList();
+
+        for (int i : source) {
+            list.append(i);
+        }
+
+        assertFalse(list.contains(-1));
+        assertFalse(list.contains(6));
+        assertFalse(list.contains(3));
+        assertFalse(list.contains(8));
+    }
+
+    @Test
+    public void testContains_emptyArray_notContains() {
+        OurArrayList list = new OurArrayList();
+
+        assertFalse(list.contains(-1));
+        assertFalse(list.contains(6));
+        assertFalse(list.contains(3));
+        assertFalse(list.contains(8));
+    }
+
+    @Test
+    public void testMax_nonEmptyIntegerList() {
+        int[] source = {1, 2, 67, 5, 7};
+        OurArrayList list = new OurArrayList();
+
+        for (int i : source) {
+            list.append(i);
+        }
+
+        OurComparator intComparator = new IntComparator();
+        assertEquals(67, list.max(intComparator));
+    }
 
 }
