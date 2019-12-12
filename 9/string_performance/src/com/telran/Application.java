@@ -8,5 +8,6 @@ public class Application {
         ConcatTextInterface builderConcatenator = new StringBuilderConcatenator();
 
         System.out.println(tester.perform(naiveConcatenator, 10000));
+        System.out.println(tester.perform(builderConcatenator, 100000));
     }
 }
