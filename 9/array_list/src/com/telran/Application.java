@@ -2,8 +2,6 @@ package com.telran;
 
 import com.telran.collection.OurArrayList;
 
-import java.util.Collection;
-import java.util.List;
 
 public class Application {
 
@@ -29,18 +27,4 @@ public class Application {
         return res;
     }
 
-}
-
-class SomeType<T> {
-    public void test(Collection collection) {
-        for (Object element : collection) {
-            System.out.println(element);
-        }
-    }
-
-    public void test(List<Integer> collection) {
-        for (Integer element : collection) {
-            System.out.println(element);
-        }
-    }
 }
