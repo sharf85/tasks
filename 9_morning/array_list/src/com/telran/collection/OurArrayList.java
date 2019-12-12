@@ -71,6 +71,9 @@ public class OurArrayList implements List {
 
     @Override
     public Object max(OurComparator comparator) {
+        if (size == 0)
+            throw new EmptyListException();
+
         Object max = source[0];
 
         for (int i = 1; i < size; i++) {
@@ -82,11 +85,43 @@ public class OurArrayList implements List {
 
     @Override
     public Object min(OurComparator comparator) {
-        return null;
+        if (size == 0)
+            throw new EmptyListException();
+
+//        return max(new OurComparator() {
+//            @Override
+//            public int compare(Object o1, Object o2) {
+//                return -comparator.compare(o1, o2);
+//            }
+//        });
+
+//        return max((o1, o2) -> -comparator.compare(o1, o2));
+
+
+        Object min = source[0];
+
+        for (int i = 1; i < size; i++) {
+            if (comparator.compare(min, source[i]) > 0)
+                min = source[i];
+        }
+        return min;
     }
 
     @Override
     public void sort(OurComparator comparator) {
+        for (int i = 0; i < size; i++) {
 
+            int minId = i;
+
+            for (int j = i; j < size; j++) {
+                if (comparator.compare(source[minId], source[j]) > 0) {
+                    minId = j;
+                }
+            }
+
+            Object temp = source[i];
+            source[i] = source[minId];
+            source[minId] = temp;
+        }
     }
 }

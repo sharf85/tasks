@@ -7,6 +7,14 @@ public class CountryCode {
         this.code = code;
     }
 
-    String countryName;
-    int code;
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    private String countryName;
+    private int code;
 }

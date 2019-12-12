@@ -8,8 +8,6 @@ import static org.junit.Assert.*;
 
 public class OurArrayListTest {
 
-    List list;
-
     @Test
     public void testSize_emptyObject_returns0() {
         OurArrayList list = new OurArrayList();
@@ -157,6 +155,51 @@ public class OurArrayListTest {
 
         OurComparator intComparator = new IntComparator();
         assertEquals(67, list.max(intComparator));
+    }
+
+    @Test(expected = EmptyListException.class)
+    public void testMax_emptyIntegerList_throwsEmptyListException() {
+        OurArrayList list = new OurArrayList();
+        list.max(new IntComparator());
+    }
+
+    @Test
+    public void testMin_nonEmptyIntegerList() {
+        int[] source = {1, 2, 67, 5, 7};
+        OurArrayList list = new OurArrayList();
+
+        for (int i : source) {
+            list.append(i);
+        }
+
+        OurComparator intComparator = new IntComparator();
+        assertEquals(1, list.min(intComparator));
+    }
+
+    @Test(expected = EmptyListException.class)
+    public void testMin_emptyIntegerList_throwsEmptyListException() {
+        OurArrayList list = new OurArrayList();
+        OurComparator intComparator = new IntComparator();
+        list.min(intComparator);
+    }
+
+    @Test
+    public void testSort_nonEmptyIntegerList() {
+        int[] source = {1, 2, 67, 5, 7};
+        OurArrayList list = new OurArrayList();
+
+        for (int i : source) {
+            list.append(i);
+        }
+
+        OurComparator intComparator = new IntComparator();
+        list.sort(intComparator);
+
+        int[] expected = {1, 2, 5, 7, 67};
+
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i], list.get(i));
+        }
     }
 
 }
