@@ -1,17 +1,46 @@
 package com.telran;
 
+import com.telran.collection.List;
 import com.telran.collection.OurArrayList;
+import com.telran.comparator.CountryCodeComparator;
+import com.telran.comparator.OurComparator;
 
 public class Application {
 
     public static void main(String[] args) {
 
-        OurArrayList list = createListOfHumans();
+//        OurArrayList list = createListOfHumans();
+//
+//        Human anotherVasya = new Human("Vasily", 20);
+//
+//        list.remove(anotherVasya);//false
+//        System.out.println(list.size());
 
-        Human anotherVasya = new Human("Vasily", 20);
+        //example for comparator
+        OurComparator countryCodeComparator = new CountryCodeComparator();
+        OurArrayList countryCodes = new OurArrayList();
 
-        list.remove(anotherVasya);//false
-        System.out.println(list.size());
+        fillCountryCodes(countryCodes);
+        System.out.println(countryCodes.max(countryCodeComparator));
+        System.out.println(countryCodes.min(countryCodeComparator));
+
+        countryCodes.sort(countryCodeComparator);
+        for (int i = 0; i < countryCodes.size(); i++) {
+            System.out.println(countryCodes.get(i));
+        }
+
+    }
+
+    private static void fillCountryCodes(List countryCodes) {
+        CountryCode usa = new CountryCode("USA", 1);
+        CountryCode russia = new CountryCode("Russia", 7);
+        CountryCode germany = new CountryCode("Germany", 49);
+        CountryCode israel = new CountryCode("Israel", 972);
+
+        countryCodes.append(germany);
+        countryCodes.append(israel);
+        countryCodes.append(russia);
+        countryCodes.append(usa);
     }
 
     private static OurArrayList createListOfHumans() {

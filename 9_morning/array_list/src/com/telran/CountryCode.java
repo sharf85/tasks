@@ -17,4 +17,12 @@ public class CountryCode {
 
     private String countryName;
     private int code;
+
+    @Override
+    public String toString() {
+        return "CountryCode{" +
+                "countryName='" + countryName + '\'' +
+                ", code=" + code +
+                '}';
+    }
 }
