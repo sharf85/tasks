@@ -6,7 +6,7 @@ public class OurLinkedList implements OurList {
     private Node first;
     private Node last;
 
-    OurLinkedList() {
+    public OurLinkedList() {
     }
 
     @Override
