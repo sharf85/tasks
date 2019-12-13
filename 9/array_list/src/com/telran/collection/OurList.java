@@ -1,18 +1,18 @@
 package com.telran.collection;
 
-public interface OurList {
+public interface OurList<E> {
 
-    void append(Object o);
+    void append(E o);
 
-    Object get(int index);
+    E get(int index);
 
-    void set(Object o, int index);
+    void set(E o, int index);
 
     int size();
 
-    boolean contains(Object o);
+    boolean contains(E o);
 
-    boolean remove(Object o);
+    boolean remove(E o);
 
-    Object removeById(int index);
+    E removeById(int index);
 }

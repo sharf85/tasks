@@ -2,7 +2,7 @@ package com.telran.collection;
 
 import com.telran.comparator.AbstractComparator;
 
-public class OurArrayList implements OurList {
+public class OurArrayList<E> implements OurList<E> {
 
     private Object[] source;
     private static final int INITIAL_CAPACITY = 16;
@@ -18,14 +18,14 @@ public class OurArrayList implements OurList {
     }
 
     @Override
-    public boolean contains(Object o) {
+    public boolean contains(E o) {
         return false;
     }
 
     @Override
-    public void append(Object value) {
+    public void append(E value) {
         if (source.length == size) {
-            Object[] newSource = new Object[source.length * 2];
+            E[] newSource = (E[]) new Object[source.length * 2];
             System.arraycopy(source, 0, newSource, 0, source.length);
             source = newSource;
         }
@@ -34,15 +34,15 @@ public class OurArrayList implements OurList {
     }
 
     @Override
-    public Object get(int index) {
+    public E get(int index) {
         if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
 
-        return source[index];
+        return (E) source[index];
     }
 
     @Override
-    public void set(Object value, int index) {
+    public void set(E value, int index) {
         if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
 
@@ -50,7 +50,7 @@ public class OurArrayList implements OurList {
     }
 
     @Override
-    public boolean remove(Object value) {
+    public boolean remove(E value) {
         for (int i = 0; i < source.length; i++) {
             if (source[i].equals(value)) {
                 removeById(i);
@@ -62,31 +62,31 @@ public class OurArrayList implements OurList {
     }
 
     @Override
-    public Object removeById(int index) {
+    public E removeById(int index) {
         if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
 
-        Object result = source[index];
+        E result = (E) source[index];
 
         System.arraycopy(source, index + 1, source, index, source.length - (index + 1));
         size--;
         return result;
     }
 
-    public Object max(AbstractComparator co) {
+    public E max(AbstractComparator co) {
         if (source.length == 0)
             throw new EmptyListException();
 
-        Object max = source[0];
+        E max = (E) source[0];
         for (int i = 1; i < size; i++) {
             if (co.compare(max, source[i]) < 0)
-                max = source[i];
+                max = (E) source[i];
         }
 
         return max;
     }
 
-    public Object min(AbstractComparator comparator) {
+    public E min(AbstractComparator comparator) {
 
 //        AbstractComparator invertedComparator = new AbstractComparator() {
 //            @Override
@@ -100,10 +100,10 @@ public class OurArrayList implements OurList {
         if (source.length == 0)
             throw new EmptyListException();
 
-        Object min = source[0];
+        E min = (E) source[0];
         for (int i = 1; i < size; i++) {
             if (comparator.compare(min, source[i]) > 0)
-                min = source[i];
+                min = (E) source[i];
         }
 
         return min;
@@ -121,7 +121,7 @@ public class OurArrayList implements OurList {
 
             }
 
-            Object temp = source[minId];
+            E temp = (E) source[minId];
             source[minId] = source[i];
             source[i] = temp;
         }
