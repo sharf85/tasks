@@ -1,7 +1,13 @@
 package com.telran.tester;
 
-public class BuilderConcatenator implements ConcatenatorInterface{
+public class BuilderConcatenator implements ConcatenatorInterface {
     public String concatenate(String[] strings) {
-        return null;
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < strings.length; i++) {
+            builder.append(strings[i]);
+        }
+
+        return builder.toString();
     }
 }

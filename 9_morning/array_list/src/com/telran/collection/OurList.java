@@ -2,7 +2,7 @@ package com.telran.collection;
 
 import com.telran.comparator.OurComparator;
 
-public interface List {
+public interface OurList {
 
     int size();
 

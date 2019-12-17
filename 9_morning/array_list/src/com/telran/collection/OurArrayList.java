@@ -2,7 +2,7 @@ package com.telran.collection;
 
 import com.telran.comparator.OurComparator;
 
-public class OurArrayList implements List {
+public class OurArrayList implements OurList {
 
     private Object[] source;
     private static final int DEFAULT_CAPACITY = 16;

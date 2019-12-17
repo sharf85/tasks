@@ -4,7 +4,13 @@ import java.util.Arrays;
 
 public class ConcatStringsTester {
 
-    public long test(int nStrings, String word, ConcatenatorInterface concatenator) {
+    private ConcatenatorInterface concatenator;
+
+    public ConcatStringsTester(ConcatenatorInterface concatenator) {
+        this.concatenator = concatenator;
+    }
+
+    public long test(int nStrings, String word) {
 //        creates an array of length nString containing word in all cells
         String[] arrayToTest = makeArray(nStrings, word);
 

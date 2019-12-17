@@ -1,6 +1,6 @@
 package com.telran;
 
-import com.telran.collection.List;
+import com.telran.collection.OurList;
 import com.telran.collection.OurArrayList;
 import com.telran.comparator.CountryCodeComparator;
 import com.telran.comparator.OurComparator;
@@ -31,7 +31,7 @@ public class Application {
 
     }
 
-    private static void fillCountryCodes(List countryCodes) {
+    private static void fillCountryCodes(OurList countryCodes) {
         CountryCode usa = new CountryCode("USA", 1);
         CountryCode russia = new CountryCode("Russia", 7);
         CountryCode germany = new CountryCode("Germany", 49);

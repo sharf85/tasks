@@ -3,7 +3,7 @@ package com.telran.collection;
 
 import com.telran.comparator.OurComparator;
 
-public class OurLinkedList implements List {
+public class OurLinkedOurList implements OurList {
 
     private Node first;
     private Node last;

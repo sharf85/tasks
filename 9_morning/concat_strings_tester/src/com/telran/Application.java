@@ -8,13 +8,15 @@ import com.telran.tester.StringConcatenator;
 public class Application {
 
     public static void main(String[] args) {
-        ConcatStringsTester tester = new ConcatStringsTester();
 
         ConcatenatorInterface stringConcatenator = new StringConcatenator();
         ConcatenatorInterface builderConcatenator = new BuilderConcatenator();
 
-        System.out.println(tester.test(10000, "hello", stringConcatenator));
-        System.out.println(tester.test(10000, "hello", builderConcatenator));
+        ConcatStringsTester stringsTester = new ConcatStringsTester(stringConcatenator);
+        ConcatStringsTester builderTester = new ConcatStringsTester(builderConcatenator);
+
+        System.out.println(stringsTester.test(100000, "hello"));
+        System.out.println(builderTester.test(100000, "hello"));
 
     }
 }
