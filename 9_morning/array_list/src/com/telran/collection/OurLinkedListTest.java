@@ -4,17 +4,17 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class OurLinkedOurListTest {
+public class OurLinkedListTest {
     @Test
     public void testSize_emptyObject_returns0() {
-        OurLinkedOurList list = new OurLinkedOurList();
+        OurLinkedList list = new OurLinkedList();
         assertEquals(0, list.size());
     }
 
     @Test
     public void testSize_nonEmptyObject_returnsSize() {
         int[] source = {1, 2, 3};
-        OurLinkedOurList list = new OurLinkedOurList();
+        OurLinkedList list = new OurLinkedList();
 
         for (int num : source) {
             list.append(num);
@@ -26,7 +26,7 @@ public class OurLinkedOurListTest {
     @Test
     public void testGet_nonEmptyObjectFromArray_getsAllElements() {
         int[] source = {1, 2, -6, 0, 5, 3};
-        OurLinkedOurList list = new OurLinkedOurList();
+        OurLinkedList list = new OurLinkedList();
 
         for (int num : source) {
             list.append(num);
@@ -41,7 +41,7 @@ public class OurLinkedOurListTest {
     @Test(expected = IndexOutOfBoundsException.class)
     public void testGet_nonEmptyObjectGetNegative_throwsIndexOutOfBoundsException() {
         int[] source = {1, 2, -6, 0, 5, 3};
-        OurLinkedOurList list = new OurLinkedOurList();
+        OurLinkedList list = new OurLinkedList();
 
         for (int num : source) {
             list.append(num);
@@ -53,7 +53,7 @@ public class OurLinkedOurListTest {
     @Test
     public void testRemoveById_nonEmptyObject_RemovesElementsFromBeginning() {
         int[] source = {1, 2, 5, 7};
-        OurLinkedOurList list = new OurLinkedOurList();
+        OurLinkedList list = new OurLinkedList();
 
         for (int i : source) {
             list.append(i);
@@ -74,7 +74,7 @@ public class OurLinkedOurListTest {
     @Test
     public void testRemoveById_nonEmptyObject_RemovesElementsFromEnd() {
         int[] source = {1, 2, 5, 7};
-        OurLinkedOurList list = new OurLinkedOurList();
+        OurLinkedList list = new OurLinkedList();
 
         for (int i : source) {
             list.append(i);
@@ -95,7 +95,7 @@ public class OurLinkedOurListTest {
     @Test
     public void testRemoveById_nonEmptyObject_RemovesElementsFromMiddle() {
         int[] source = {1, 2, 5, 7};
-        OurLinkedOurList list = new OurLinkedOurList();
+        OurLinkedList list = new OurLinkedList();
 
         for (int i : source) {
             list.append(i);
@@ -116,7 +116,7 @@ public class OurLinkedOurListTest {
     @Test
     public void testContains_nonEmptyArray_containsFirstMiddleLastElements() {
         int[] source = {1, 2, 5, 7};
-        OurLinkedOurList list = new OurLinkedOurList();
+        OurLinkedList list = new OurLinkedList();
 
         for (int i : source) {
             list.append(i);
@@ -131,7 +131,7 @@ public class OurLinkedOurListTest {
     @Test
     public void testContains_nonEmptyArray_notContains() {
         int[] source = {1, 2, 5, 7};
-        OurLinkedOurList list = new OurLinkedOurList();
+        OurLinkedList list = new OurLinkedList();
 
         for (int i : source) {
             list.append(i);
@@ -145,7 +145,7 @@ public class OurLinkedOurListTest {
 
     @Test
     public void testContains_emptyArray_notContains() {
-        OurLinkedOurList list = new OurLinkedOurList();
+        OurLinkedList list = new OurLinkedList();
 
         assertFalse(list.contains(-1));
         assertFalse(list.contains(6));
@@ -155,7 +155,7 @@ public class OurLinkedOurListTest {
 
     @Test
     public void testRemove_emptyArray_notContains() {
-        OurLinkedOurList list = new OurLinkedOurList();
+        OurLinkedList list = new OurLinkedList();
 
         assertFalse(list.remove(-1));
         assertFalse(list.remove(6));
@@ -168,7 +168,7 @@ public class OurLinkedOurListTest {
     @Test
     public void testRemove_nonEmptyArray_removesFirst() {
         int[] source = {1, 2, 5, 7};
-        OurLinkedOurList list = new OurLinkedOurList();
+        OurLinkedList list = new OurLinkedList();
 
         for (int i : source) {
             list.append(i);
@@ -187,7 +187,7 @@ public class OurLinkedOurListTest {
     @Test
     public void testRemove_nonEmptyArray_removesLast() {
         int[] source = {1, 2, 5, 7};
-        OurLinkedOurList list = new OurLinkedOurList();
+        OurLinkedList list = new OurLinkedList();
 
         for (int i : source) {
             list.append(i);
@@ -206,7 +206,7 @@ public class OurLinkedOurListTest {
     @Test
     public void testRemove_nonEmptyArray_removesMiddle() {
         int[] source = {1, 2, 5, 7};
-        OurLinkedOurList list = new OurLinkedOurList();
+        OurLinkedList list = new OurLinkedList();
 
         for (int i : source) {
             list.append(i);

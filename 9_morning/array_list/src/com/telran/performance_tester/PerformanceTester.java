@@ -29,6 +29,16 @@ public abstract class PerformanceTester {
         return System.currentTimeMillis() - now;
     }
 
+    public long testRemoveFirst(int n, int length) {
+        OurList list = makeList(length);
+
+        long now = System.currentTimeMillis();
+        for (int i = 0; i < n; i++) {
+            list.removeById(0);
+        }
+        return System.currentTimeMillis() - now;
+    }
+
     protected abstract OurList getEmptyList();
 
     protected abstract OurList makeList(int lengthList);

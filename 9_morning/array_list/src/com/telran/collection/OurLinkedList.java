@@ -3,7 +3,7 @@ package com.telran.collection;
 
 import com.telran.comparator.OurComparator;
 
-public class OurLinkedOurList implements OurList {
+public class OurLinkedList implements OurList {
 
     private Node first;
     private Node last;
@@ -59,6 +59,15 @@ public class OurLinkedOurList implements OurList {
     public Object removeById(int index) {
         if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
+
+        if (size == 1) {
+            Object value = first.value;
+            first.value = null;
+            first = null;
+            last = null;
+            size--;
+            return value;
+        }
 
         Node nodeToRemove = getNode(index);
         Node left = nodeToRemove.prev;
