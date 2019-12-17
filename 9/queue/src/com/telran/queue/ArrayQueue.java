@@ -24,12 +24,18 @@ public class ArrayQueue<E> implements Queue<E> {
 
     @Override
     public E release() {
+        if (size == 0)
+            throw new NoElementsException();
+        E value = (E) source[first];
+        source[first] = null;
+        first = (first + 1) % capacity;
+        size--;
         return null;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
