@@ -2,7 +2,7 @@ package com.telran.collection;
 
 import com.telran.comparator.OurComparator;
 
-public class OurArrayList implements OurList {
+public class OurArrayList<E> implements OurList<E> {
 
     private Object[] source;
     private static final int DEFAULT_CAPACITY = 16;
@@ -16,7 +16,7 @@ public class OurArrayList implements OurList {
         return size;
     }
 
-    public void append(Object o) {
+    public void append(E o) {
         if (size == source.length) {
             Object[] newSource = new Object[size * 2];
             System.arraycopy(source, 0, newSource, 0, source.length);
@@ -26,19 +26,19 @@ public class OurArrayList implements OurList {
         size++;
     }
 
-    public Object get(int index) {
+    public E get(int index) {
         if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
-        return source[index];
+        return (E) source[index];
     }
 
-    public void set(Object o, int index) {
+    public void set(E o, int index) {
         if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
         source[index] = o;
     }
 
-    public Object removeById(int index) {
+    public E removeById(int index) {
         if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
 
@@ -46,10 +46,10 @@ public class OurArrayList implements OurList {
         System.arraycopy(source, index + 1, source, index, size - index);
         size--;
 
-        return o;
+        return (E) o;
     }
 
-    public boolean remove(Object o) {
+    public boolean remove(E o) {
         for (int i = 0; i < size; i++) {
             if (o.equals(source[i])) {
                 removeById(i);
@@ -60,7 +60,7 @@ public class OurArrayList implements OurList {
     }
 
     @Override
-    public boolean contains(Object o) {
+    public boolean contains(E o) {
         for (int i = 0; i < size; i++) {
             if (o.equals(source[i])) {
                 return true;
@@ -70,21 +70,21 @@ public class OurArrayList implements OurList {
     }
 
     @Override
-    public Object max(OurComparator comparator) {
+    public E max(OurComparator<E> comparator) {
         if (size == 0)
             throw new EmptyListException();
 
-        Object max = source[0];
+        E max = (E) source[0];
 
         for (int i = 1; i < size; i++) {
-            if (comparator.compare(max, source[i]) < 0)
-                max = source[i];
+            if (comparator.compare(max, (E) source[i]) < 0)
+                max = (E) source[i];
         }
         return max;
     }
 
     @Override
-    public Object min(OurComparator comparator) {
+    public E min(OurComparator<E> comparator) {
         if (size == 0)
             throw new EmptyListException();
 
@@ -98,23 +98,23 @@ public class OurArrayList implements OurList {
 //        return max((o1, o2) -> -comparator.compare(o1, o2));
 
 
-        Object min = source[0];
+        E min = (E) source[0];
 
         for (int i = 1; i < size; i++) {
-            if (comparator.compare(min, source[i]) > 0)
-                min = source[i];
+            if (comparator.compare(min, (E) source[i]) > 0)
+                min = (E) source[i];
         }
         return min;
     }
 
     @Override
-    public void sort(OurComparator comparator) {
+    public void sort(OurComparator<E> comparator) {
         for (int i = 0; i < size; i++) {
 
             int minId = i;
 
             for (int j = i; j < size; j++) {
-                if (comparator.compare(source[minId], source[j]) > 0) {
+                if (comparator.compare((E) source[minId], (E) source[j]) > 0) {
                     minId = j;
                 }
             }

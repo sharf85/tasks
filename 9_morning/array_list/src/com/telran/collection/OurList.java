@@ -2,21 +2,21 @@ package com.telran.collection;
 
 import com.telran.comparator.OurComparator;
 
-public interface OurList {
+public interface OurList<E> {
 
     int size();
 
-    void append(Object o);
+    void append(E o);
 
-    Object get(int index);
+    E get(int index);
 
-    void set(Object o, int index);
+    void set(E o, int index);
 
-    Object removeById(int index);
+    E removeById(int index);
 
-    boolean remove(Object o);
+    boolean remove(E o);
 
-    boolean contains(Object o);
+    boolean contains(E o);
 
     /**
      * finds max element int the list according to the comparator rule
@@ -25,10 +25,10 @@ public interface OurList {
      * @return max element according to comparator
      * @throws EmptyListException in case if the list is empty
      */
-    Object max(OurComparator comparator);
+    E max(OurComparator<E> comparator);
 
-    Object min(OurComparator comparator);
+    E min(OurComparator<E> comparator);
 
-    void sort(OurComparator comparator);
+    void sort(OurComparator<E> comparator);
 
 }
