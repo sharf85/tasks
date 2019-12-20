@@ -17,7 +17,7 @@ public class OurArrayListTest {
     @Test
     public void testSize_nonEmptyObject_returnsSize() {
         int[] source = {1, 2, 3};
-        OurArrayList list = new OurArrayList();
+        OurArrayList<Integer> list = new OurArrayList<Integer>();
 
         for (int num : source) {
             list.append(num);
@@ -29,14 +29,14 @@ public class OurArrayListTest {
     @Test
     public void testGet_nonEmptyObjectFromArray_getsAllElements() {
         int[] source = {1, 2, -6, 0, 5, 3};
-        OurArrayList list = new OurArrayList();
+        OurArrayList<Integer> list = new OurArrayList<>();
 
         for (int num : source) {
             list.append(num);
         }
 
         for (int i = 0; i < source.length; i++) {
-            assertEquals(source[i], list.get(i));
+            assertEquals(source[i], (long) list.get(i));
         }
 
     }
