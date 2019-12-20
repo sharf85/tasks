@@ -4,6 +4,7 @@ package com.telran.collection;
 public class ArrayQueue<E> implements Queue<E> {
 
     private int size;
+    private int first;
     private int capacity;
     private Object[] source;
 
