@@ -17,6 +17,10 @@ public class ArrayQueue<E> implements Queue<E> {
     public void add(E e) {
         if (size == capacity)
             throw new QueueOverflowException();
+
+        int index = (first + size) % capacity;
+        source[index] = e;
+        size++;
     }
 
     @Override
