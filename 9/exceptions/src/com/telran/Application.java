@@ -5,27 +5,24 @@ public class Application {
     public static void main(String[] args) {
         try {
             someMethod();
-        } catch (A a) {
-            System.out.println("catches A");
-        } catch (B b) {
-            System.out.println("catches B");
+        } catch (AException e) {
+         } catch (BException e) {
+            System.out.println("B");
         }
     }
 
-    public static void someMethod() throws A, B {
+    public static void someMethod() throws AException, BException {
         try {
-            throw new A();
+            throw new AException();
         } finally {
-            System.out.println("under final");
-            throw new B();
+            throw new BException();
         }
-
     }
 }
 
-class A extends Exception {
+class AException extends Exception {
 }
 
-class B extends Exception {
+class BException extends Exception {
 }
 
