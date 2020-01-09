@@ -1,6 +1,8 @@
 package com.telran.collection;
 
-public class OurArrayList<E> implements OurList<E> {
+import java.util.Iterator;
+
+public class OurArrayList<E> implements OurList<E>, Iterable<E> {
 
     private Object[] source;
     private static final int DEFAULT_CAPACITY = 16;
@@ -121,5 +123,10 @@ public class OurArrayList<E> implements OurList<E> {
             source[i] = source[minId];
             source[minId] = temp;
         }
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new OurArrayListIterator<>(this);
     }
 }

@@ -1,9 +1,11 @@
 package com.telran.collection;
 
-public class OurLinkedList implements OurList {
+import java.util.Iterator;
 
-    private Node first;
-    private Node last;
+public class OurLinkedList<E> implements OurList<E>, Iterable<E> {
+
+    private Node<E> first;
+    private Node<E> last;
     private int size;
 
     @Override
@@ -12,13 +14,13 @@ public class OurLinkedList implements OurList {
     }
 
     @Override
-    public void append(Object value) {
+    public void append(E value) {
         if (size > 0) {
-            Node newNode = new Node(null, last, value);
+            Node<E> newNode = new Node<>(null, last, value);
             last.next = newNode;
             last = newNode;
         } else {
-            Node newNode = new Node(null, null, value);
+            Node<E> newNode = new Node<>(null, null, value);
             first = newNode;
             last = newNode;
         }
@@ -26,25 +28,25 @@ public class OurLinkedList implements OurList {
     }
 
     @Override
-    public Object get(int index) {
+    public E get(int index) {
         if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
 
-        Node needle = getNode(index);
+        Node<E> needle = getNode(index);
         return needle.value;
     }
 
     @Override
-    public void set(Object o, int index) {
+    public void set(E o, int index) {
         if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
 
-        Node needle = getNode(index);
+        Node<E> needle = getNode(index);
         needle.value = o;
     }
 
-    private Node getNode(int index) {
-        Node needle = first;
+    private Node<E> getNode(int index) {
+        Node<E> needle = first;
         for (int i = 0; i < index; i++) {
             needle = needle.next;
         }
@@ -53,12 +55,12 @@ public class OurLinkedList implements OurList {
     }
 
     @Override
-    public Object removeById(int index) {
+    public E removeById(int index) {
         if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
 
         if (size == 1) {
-            Object value = first.value;
+            E value = first.value;
             first.value = null;
             first = null;
             last = null;
@@ -66,10 +68,10 @@ public class OurLinkedList implements OurList {
             return value;
         }
 
-        Node nodeToRemove = getNode(index);
-        Node left = nodeToRemove.prev;
-        Node right = nodeToRemove.next;
-        Object value = nodeToRemove.value;
+        Node<E> nodeToRemove = getNode(index);
+        Node<E> left = nodeToRemove.prev;
+        Node<E> right = nodeToRemove.next;
+        E value = nodeToRemove.value;
 
         nodeToRemove.prev = null;
         nodeToRemove.next = null;
@@ -117,12 +119,12 @@ public class OurLinkedList implements OurList {
     }
 
     @Override
-    public Object max(OurComparator comparator) {
+    public E max(OurComparator comparator) {
         return null;
     }
 
     @Override
-    public Object min(OurComparator comparator) {
+    public E min(OurComparator comparator) {
         return null;
     }
 
@@ -131,12 +133,34 @@ public class OurLinkedList implements OurList {
 
     }
 
-    private static class Node {
-        Node next;
-        Node prev;
-        Object value;
+    @Override
+    public Iterator<E> iterator() {
+        return new OurLinkedListIterator();
+    }
 
-        public Node(Node next, Node prev, Object value) {
+    class OurLinkedListIterator implements Iterator<E> {
+
+        Node<E> currentNode = first;
+
+        @Override
+        public boolean hasNext() {
+            return currentNode != null;
+        }
+
+        @Override
+        public E next() {
+            E res = currentNode.value;
+            currentNode = currentNode.next;
+            return res;
+        }
+    }
+
+    private static class Node<E> {
+        Node<E> next;
+        Node<E> prev;
+        E value;
+
+        public Node(Node<E> next, Node<E> prev, E value) {
             this.next = next;
             this.prev = prev;
             this.value = value;
