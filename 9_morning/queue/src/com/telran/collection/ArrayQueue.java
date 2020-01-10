@@ -1,6 +1,5 @@
 package com.telran.collection;
 
-
 public class ArrayQueue<E> implements Queue<E> {
 
     private int size;
@@ -25,16 +24,22 @@ public class ArrayQueue<E> implements Queue<E> {
 
     @Override
     public E release() {
-        return null;
+        if (size == 0)
+            throw new EmptyQueueException();
+        E value = (E) source[first];
+        source[first] = null;
+        first = (first + 1) % capacity;
+        size--;
+        return value;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public int capacity() {
-        return 0;
+        return capacity;
     }
 }
