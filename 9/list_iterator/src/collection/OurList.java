@@ -1,6 +1,6 @@
 package collection;
 
-public interface OurList<E> {
+public interface OurList<E> extends Iterable<E> {
 
     void append(E o);
 

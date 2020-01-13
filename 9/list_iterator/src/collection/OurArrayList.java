@@ -2,7 +2,7 @@ package collection;
 
 import java.util.Iterator;
 
-public class OurArrayList<E> implements OurList<E>, Iterable<E> {
+public class OurArrayList<E> implements OurList<E> {
 
     private Object[] source;
     private static final int INITIAL_CAPACITY = 16;

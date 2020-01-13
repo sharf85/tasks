@@ -1,7 +1,5 @@
 import collection.OurArrayList;
-import collection.OurArrayListIterator;
 import collection.OurLinkedList;
-import collection.OurList;
 
 import java.util.Iterator;
 
@@ -13,11 +11,12 @@ public class Application {
         list.append(3);
 
 //        Iterator<Integer> it = new OurArrayListIterator<>(list);
-//        Iterator<Integer> it = list.iterator();
+        Iterator<Integer> it = list.iterator();
 //
-//        while (it.hasNext()) {
-//            System.out.println(it.next());
-//        }
+        while (it.hasNext()) {
+            System.out.print(it.next() + " ");
+        }
+        System.out.println();
 
         for (int current : list) {
             System.out.print(current + " ");
