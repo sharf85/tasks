@@ -1,7 +1,8 @@
 package com.telran.collection;
 
+import java.util.Iterator;
 
-public class ArrayQueue<E> implements Queue<E> {
+public class ArrayQueue<E> implements Queue<E>, Iterable<E> {
 
     private int size;
     private int first;
@@ -25,16 +26,45 @@ public class ArrayQueue<E> implements Queue<E> {
 
     @Override
     public E release() {
-        return null;
+        if (size == 0)
+            throw new EmptyQueueException();
+        E value = (E) source[first];
+        source[first] = null;
+        first = (first + 1) % capacity;
+        size--;
+        return value;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public int capacity() {
-        return 0;
+        return capacity;
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return null;
+    }
+
+    class ArrayQueueIterator implements Iterator<E> {
+
+        int currentId = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentId < size;
+        }
+
+        @Override
+        public E next() {
+            int index = (currentId + first) % capacity;
+            E res = (E) source[index];
+            currentId++;
+            return res;
+        }
     }
 }
