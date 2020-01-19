@@ -2,7 +2,7 @@ package collection;
 
 import java.util.Iterator;
 
-public class OurLinkedList<E> implements OurList<E>, Iterable<E> {
+public class OurLinkedList<E> implements OurList<E> {
 
     private int size;
     private Node<E> first;
