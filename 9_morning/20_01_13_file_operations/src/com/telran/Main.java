@@ -13,5 +13,7 @@ public class Main {
         FileOperations fo = new FileOperations();
         fo.intsToFile(ints, "ints.txt");
 
+        System.out.println(fo.intsFromFile("ints.txt"));
+
     }
 }
