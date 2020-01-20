@@ -1,4 +1,5 @@
 import collection.OurArrayList;
+import collection.OurArrayListRandomIterator;
 import collection.OurLinkedList;
 
 import java.util.Iterator;
@@ -23,6 +24,14 @@ public class Application {
         }
         System.out.println();
 
+// array list random iterator;
+
+        Iterator<Integer> randomIt = new OurArrayListRandomIterator<>(list);
+        System.out.println("Randomchik: ");
+        while (randomIt.hasNext()) {
+            System.out.print(randomIt.next() + " ");
+        }
+        System.out.println();
 //linked list
         OurLinkedList<Integer> linkedList = new OurLinkedList<>();
         linkedList.append(3);
