@@ -1,8 +1,7 @@
 import com.telran.collection.OurArrayList;
-import com.telran.collection.OurArrayListIterator;
+import com.telran.collection.OurArrayListRandomIterator;
 import com.telran.collection.OurLinkedList;
 
-import java.util.Arrays;
 import java.util.Iterator;
 
 public class Application {
@@ -18,13 +17,23 @@ public class Application {
         Iterator<Integer> iterator = ints.iterator();
 
         while (iterator.hasNext()) {
-            System.out.println(iterator.next());
+            System.out.print(iterator.next() + " ");
         }
+        System.out.println();
+
+//        random iterator
+        Iterator<Integer> randomIt = new OurArrayListRandomIterator(ints);
+
+        while (randomIt.hasNext()) {
+            System.out.print(randomIt.next() + " ");
+        }
+        System.out.println();
 
 //        the same with for each
         for (Integer num : ints) {
-            System.out.println(num);
+            System.out.print(num + " ");
         }
+        System.out.println();
 
 
 //        linked list
@@ -37,12 +46,14 @@ public class Application {
         Iterator<Integer> linkedIterator = linkedInts.iterator();
 
         while (linkedIterator.hasNext()) {
-            System.out.println(linkedIterator.next());
+            System.out.print(linkedIterator.next() + " ");
         }
+        System.out.println();
 
 //        the same with for each
         for (Integer num : linkedInts) {
-            System.out.println(num);
+            System.out.print(num + " ");
         }
+        System.out.println();
     }
 }
