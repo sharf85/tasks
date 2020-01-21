@@ -3,8 +3,9 @@ package com.telran.action;
 import java.util.List;
 
 public class ToUpperCaseAction extends Action {
-    public ToUpperCaseAction(String filename) {
-        super(filename);
+
+    public ToUpperCaseAction(String filename, String outputFilename) {
+        super(filename, outputFilename);
     }
 
     @Override
