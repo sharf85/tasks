@@ -6,7 +6,7 @@ import com.telran.action.ReverseAction;
 public class Application {
 
     public static void main(String[] args) {
-        Action reverse = new ReverseAction("file.txt");
+        Action reverse = new ReverseAction("file.txt", "output.txt");
         reverse.performAction();
     }
 }
