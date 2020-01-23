@@ -23,11 +23,11 @@ public class Main {
 
         PrinterPerformanceTester ppt = new PrinterPerformanceTester(printStreamWrapper);
         System.out.println("Result for PrintStream is:");
-        System.out.println(ppt.testNLines(10000, "Hello"));
+        System.out.println(ppt.testNLines(50000, "Hello"));
 
         ppt = new PrinterPerformanceTester(printWriterWrapper);
         System.out.println("Result for PrintWriter is:");
-        System.out.println(ppt.testNLines(10000, "Hello"));
+        System.out.println(ppt.testNLines(50000, "Hello"));
 
     }
 }
