@@ -9,6 +9,10 @@ public class ToUpperCaseAction extends TextAction {
 
     @Override
     protected void performTask(List<String> content) {
-        
+        String tmp;
+        for (int i = 0; i < content.size(); i++) {
+            tmp = content.get(i).toUpperCase();
+            content.set(i, tmp);
+        }
     }
 }
