@@ -1,20 +1,19 @@
 package com.telran.collection;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OurHashMap<E, T> implements OurMap<E, T> {
 
     private static int CAPACITY = 10000;
-    List<Node<E, T>>[] source;
+    List<Node<E, T>>[] source = new ArrayList[10000];
     int size;
 
     @Override
-
     public void put(E key, T value) {
         int index = Math.abs(key.hashCode() % CAPACITY);
         if (source[index] == null) {
-            List<Node<E, T>> list = new LinkedList<>();
+            List<Node<E, T>> list = new ArrayList<>();
             Node<E, T> newNode = new Node<>(key, value);
             list.add(newNode);
             source[index] = list;
@@ -41,17 +40,41 @@ public class OurHashMap<E, T> implements OurMap<E, T> {
 
     @Override
     public T get(E key) {
-        return null;
+        Node<E, T> node = findNode(key);
+        return node != null ? node.value : null;
     }
 
     @Override
     public boolean contains(E key) {
-        return false;
+        Node<E, T> node = findNode(key);
+        return node != null;
+    }
+
+    private Node<E, T> findNode(E key) {
+        int index = Math.abs(key.hashCode() % CAPACITY);
+
+        if (source[index] != null) {
+            for (Node<E, T> node : source[index]) {
+                if (key.equals(node.key)) {
+                    return node;
+                }
+            }
+        }
+        return null;
     }
 
     @Override
     public boolean remove(E key) {
-        return false;
+        Node<E, T> node = findNode(key);
+        if (node == null)
+            return false;
+
+        int index = Math.abs(key.hashCode() % CAPACITY);
+        source[index].remove(node);
+        node.value = null;
+        node.key = null;
+        size--;
+        return true;
     }
 
     @Override

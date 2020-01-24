@@ -1,5 +1,6 @@
 package com.telran.action;
 
+import java.util.Collections;
 import java.util.List;
 
 public class SortAction extends Action {
@@ -10,6 +11,6 @@ public class SortAction extends Action {
 
     @Override
     protected void perform(List<String> content) {
-
+        Collections.sort(content);
     }
 }
