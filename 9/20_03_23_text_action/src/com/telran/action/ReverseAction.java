@@ -1,5 +1,6 @@
 package com.telran.action;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ReverseAction extends TextAction {
@@ -9,6 +10,6 @@ public class ReverseAction extends TextAction {
 
     @Override
     protected void performTask(List<String> content) {
-
+        Collections.reverse(content);
     }
 }
