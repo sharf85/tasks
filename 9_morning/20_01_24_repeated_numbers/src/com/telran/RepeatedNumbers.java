@@ -10,10 +10,6 @@ public class RepeatedNumbers {
         Map<Integer, Integer> qtyByNumber = new HashMap<>();
 
         for (int num : list) {
-//            qtyByNumber.compute(num, (key, oldVal) -> {
-//                return oldVal + 1;
-//            });
-
             if (qtyByNumber.containsKey(num)) {
                 int val = qtyByNumber.get(num);
                 val++;
@@ -27,6 +23,36 @@ public class RepeatedNumbers {
         for (int num : qtyByNumber.keySet()) {
             if (qtyByNumber.get(num) > 1)
                 res++;
+        }
+        return res;
+    }
+
+    public int getSingleNumber(List<Integer> ints) {
+        Map<Integer, Integer> qtyByNumber = new HashMap<>();
+
+        for (int num : ints) {
+            if (qtyByNumber.containsKey(num)) {
+                int val = qtyByNumber.get(num);
+                val++;
+                qtyByNumber.put(num, val);
+            } else {
+                qtyByNumber.put(num, 1);
+            }
+        }
+
+        for (int num : qtyByNumber.keySet()) {
+            if (qtyByNumber.get(num) % 2 == 1)
+                return num;
+        }
+
+        return 0;
+    }
+
+    public int getSingleNumberAdvanced(List<Integer> ints) {
+        int res = 0;
+        for (int num : ints) {
+//            res = num ^ res;
+            res ^= num;
         }
         return res;
     }
