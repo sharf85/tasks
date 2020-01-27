@@ -1,0 +1,9 @@
+1,2 Wrong structure of request
+2.5,+,3,5.5
+12,/,0,Infinity
+a,*,4 Wrong numbers
+5,-,2 Wrong input operator
+5,*,4,20.0
+10,%,3 Wrong input operator
+2,^,3 Wrong input operator
+4,*,b Wrong numbers
