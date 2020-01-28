@@ -6,8 +6,6 @@ import java.util.List;
 
 public class PointsAndSegments {
 
-    int var;
-
     public List<Integer> getNumberCoveringSegmentsOverPoints(List<Double> numbers, List<Segment> segments) {
 
         List<Point> points = new ArrayList<>();
@@ -33,6 +31,7 @@ public class PointsAndSegments {
                 res.add(counter);
             }
         }
+
 
         return res;
     }
