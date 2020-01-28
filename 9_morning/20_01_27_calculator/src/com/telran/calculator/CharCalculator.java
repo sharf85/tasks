@@ -6,16 +6,18 @@ public class CharCalculator implements ICalculator {
             "com.telran.calculator.char_operations.";
 
     @Override
-
-    public double calculate(double num1, double num2, char operand) {
-        String pathToClass = PATH_TO_OPERATIONS + getClassName(operand);//TODO: compose the path to the corresponding operation class
-        Operation operation = (Operation) getClass().forName(pathToClass).newInstance();
-
-        return operation.apply(num1, num2);
+    public double calculate(double num1, double num2, char operand) throws WrongOperandException {
+        String pathToClass = PATH_TO_OPERATIONS + getClassName(operand);
+        try {
+            Operation operation = (Operation) Class.forName(pathToClass).newInstance();
+            return operation.apply(num1, num2);
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new WrongOperandException();
+        }
     }
 
     private String getClassName(char operand) {
-        //TODO fill it
-        return null;
+        return "Operation_" + (int) operand;
     }
 }

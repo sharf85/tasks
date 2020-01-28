@@ -1,5 +1,7 @@
 package com.telran;
 
+import com.telran.calculator.ICalculator;
+import com.telran.calculator.SimpleCalculator;
 import com.telran.util.FileOperations;
 
 import java.io.FileNotFoundException;
@@ -9,7 +11,7 @@ import java.util.List;
 
 public class Application {
 
-    private static final String INPUT_FILENAME = "input.txt";
+    private static final String INPUT_FILENAME = "fileInput.txt";
     private static final String OUTPUT_FILENAME = "output.txt";
 
     public static void main(String[] args) throws FileNotFoundException {
@@ -25,7 +27,8 @@ public class Application {
             return;
         }
 
-        OperationProcessor processor = new OperationProcessor();
+        ICalculator calculator = new SimpleCalculator();
+        OperationProcessor processor = new OperationProcessor(calculator);
         List<String> outputContent = processor.processStrings(content);
 
         fo.listToFile(outputContent, OUTPUT_FILENAME);

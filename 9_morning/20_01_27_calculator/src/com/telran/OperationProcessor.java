@@ -10,7 +10,9 @@ public class OperationProcessor {
 
     private ICalculator calculator;
 
-    //TODO: make a constructor with calculator
+    public OperationProcessor(ICalculator calculator) {
+        this.calculator = calculator;
+    }
 
     private static final String DELIMITER = ",";
 

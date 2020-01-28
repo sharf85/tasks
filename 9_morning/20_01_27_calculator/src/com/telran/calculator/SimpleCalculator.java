@@ -2,8 +2,8 @@ package com.telran.calculator;
 
 public class SimpleCalculator implements ICalculator {
     @Override
-    public double calculate(double num1, double num2, char operation) throws WrongOperandException {
-        switch (operation) {
+    public double calculate(double num1, double num2, char operand) throws WrongOperandException {
+        switch (operand) {
             case '+':
                 return num1 + num2;
 
