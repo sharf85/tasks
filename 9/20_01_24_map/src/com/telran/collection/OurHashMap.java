@@ -38,7 +38,7 @@ public class OurHashMap<E, T> implements OurMap<E, T> {
                 }
             }
 
-            if(!wasFound){
+            if (!wasFound) {
                 Node<E, T> newNode = new Node<>(key, value);
                 source[index].add(newNode);
                 size++;
@@ -52,24 +52,45 @@ public class OurHashMap<E, T> implements OurMap<E, T> {
 
     @Override
     public T get(E key) {
-
         int index = computeIndex(key);
-        
+        Node<E, T> oldNode = getNode(key, index);
+        return oldNode != null ? oldNode.value : null;
+    }
+
+    private Node<E, T> getNode(E key, int index) {
+        if (source[index] != null)
+            for (Node<E, T> oldNode : source[index]) {
+                if (key.equals(oldNode.key)) {
+                    return oldNode;
+                }
+            }
+
         return null;
     }
 
     @Override
     public boolean contains(E key) {
-        return false;
+        int index = computeIndex(key);
+        Node<E, T> oldNode = getNode(key, index);
+        return oldNode != null;
     }
 
     @Override
     public boolean remove(E key) {
+        int index = computeIndex(key);
+        Node<E, T> oldNode = getNode(key, index);
+        if (oldNode != null) {
+            source[index].remove(oldNode);
+            oldNode.value = null;
+            oldNode.key = null;
+            size--;
+            return true;
+        }
         return false;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 }

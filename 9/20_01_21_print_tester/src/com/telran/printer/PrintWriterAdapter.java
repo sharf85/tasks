@@ -1,11 +1,19 @@
 package com.telran.printer;
 
-public class PrintWriterAdapter implements PrintAdapter {
-    public void println(String line) {
+import java.io.PrintWriter;
 
+public class PrintWriterAdapter implements PrintAdapter {
+    private PrintWriter pw;
+
+    public PrintWriterAdapter(PrintWriter pw) {
+        this.pw = pw;
+    }
+
+    public void println(String line) {
+        pw.println(line);
     }
 
     public void close() {
-
+        pw.close();
     }
 }
