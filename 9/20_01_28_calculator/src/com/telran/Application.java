@@ -1,6 +1,5 @@
 package com.telran;
 
-import com.telran.calculator.BadCalculator;
 import com.telran.calculator.CharCalculator;
 import com.telran.calculator.ICalculator;
 import com.telran.calculator.LineProcessor;
@@ -17,22 +16,25 @@ public class Application {
     public static final String OUTPUT_FILENAME = "output.txt";
 
     public static void main(String[] args) throws FileNotFoundException {
+
+        String inputFilename = args.length > 0 ? args[0] : INPUT_FILENAME;
+        String outputFilename = args.length > 1 ? args[1] : OUTPUT_FILENAME;
+
         FileOperations fo = new FileOperations();
 
         List<String> content;
         try {
-            content = fo.fileToList(INPUT_FILENAME);
+            content = fo.fileToList(inputFilename);
         } catch (IOException e) {
-            List<String> error = Arrays.asList("File not found: " + INPUT_FILENAME);
-            fo.listToFile(error, OUTPUT_FILENAME);
+            List<String> error = Arrays.asList("File not found: " + inputFilename);
+            fo.listToFile(error, outputFilename);
             return;
         }
 
-//        ICalculator calculator = new BadCalculator();
         ICalculator calculator = new CharCalculator();
         LineProcessor processor = new LineProcessor(calculator);
         List<String> output = processor.processLines(content);
-        fo.listToFile(output, OUTPUT_FILENAME);
+        fo.listToFile(output, outputFilename);
 
     }
 }
