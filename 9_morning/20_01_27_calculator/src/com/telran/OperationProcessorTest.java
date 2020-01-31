@@ -38,4 +38,13 @@ public class OperationProcessorTest {
         assertEquals(expected, op.processString(line));
     }
 
+    @Test
+    public void testProcessString_illegalLine_wrongFirstNumber() {
+        String line = "asd,+,2";
+
+        String expected = line + OperationProcessor.DELIMITER + OperationProcessor.WRONG_FIRST_NUMBER_ERROR_MESSAGE;
+        assertEquals(expected, op.processString(line));
+
+    }
+
 }
