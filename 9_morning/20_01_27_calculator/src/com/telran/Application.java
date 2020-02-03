@@ -42,6 +42,7 @@ public class Application {
         List<String> operationPaths = getPaths();
 
         OperationManager om = new OperationManager(operationPaths);
+        om.init();
         ICalculator calculator = new ModernCalculator(om);
         OperationProcessor processor = new OperationProcessor(calculator);
         List<String> outputContent = processor.processStrings(content);
