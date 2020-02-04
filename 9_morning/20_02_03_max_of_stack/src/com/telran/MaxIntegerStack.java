@@ -1,29 +1,35 @@
 package com.telran;
 
-import java.util.List;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
-public class MaxStack {
+public class MaxIntegerStack {
 
-    private List<Integer> source;
-    private List<Integer> maxSource;
+    private Deque<Integer> source;
+    private Deque<Integer> maxSource;
+
+    public MaxIntegerStack() {
+        source = new ArrayDeque<>();
+        maxSource = new ArrayDeque<>();
+    }
 
     public void addLast(Integer elt) {
-        if (size() == 0 || elt > maxSource.get(size() - 1)) {
+        if (size() == 0 || elt > maxSource.getLast()) {
             maxSource.add(elt);
         } else {
-            maxSource.add(maxSource.get(size() - 1));
+            maxSource.add(maxSource.getLast());
         }
 
         source.add(elt);
     }
 
     public Integer getLast() {
-        return source.get(size() - 1);
+        return source.getLast();
     }
 
     public Integer removeLast() {
-        maxSource.remove(size() - 1);
-        return source.remove(size() - 1);
+        maxSource.removeLast();
+        return source.removeLast();
     }
 
     public int size() {
@@ -31,7 +37,7 @@ public class MaxStack {
     }
 
     public Integer getMax() {
-        return maxSource.get(size() - 1);
+        return maxSource.getLast();
     }
 
 }
