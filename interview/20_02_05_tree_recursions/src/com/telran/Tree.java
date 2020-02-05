@@ -9,8 +9,6 @@ public class Tree {
     }
 
     private int rSize(Node currentRoot) {
-        if (currentRoot == null)
-            return 0;
 
         int res = 1;
         for (Node child : currentRoot.children) {
