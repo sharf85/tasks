@@ -1,38 +1,61 @@
 package com.telran;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.ArrayDeque;
+import java.util.Comparator;
+import java.util.Deque;
 
-public class MaxStack {
+public class MaxStack<E> {
 
-    private List<Integer> source;
-    private List<Integer> maxSource;
+    private Deque<E> source;
+    private Deque<E> maxSource;
+    private Comparator<E> comparator;
 
-    public void addLast(Integer elt) {
-        if (size() == 0 || elt > maxSource.get(size() - 1)) {
-            maxSource.add(elt);
+    public MaxStack(Comparator<E> comparator) {
+        source = new ArrayDeque<>();
+        maxSource = new ArrayDeque<>();
+        this.comparator = comparator;
+    }
+
+    public MaxStack() {
+        source = new ArrayDeque<>();
+        maxSource = new ArrayDeque<>();
+        this.comparator = new ComparatorBasedOnComparable<>();
+    }
+
+    public void addLast(E elt) {
+        if (size() == 0 || comparator.compare(elt, maxSource.getLast()) > 0) {
+            maxSource.addLast(elt);
         } else {
-            maxSource.add(maxSource.get(size() - 1));
+            maxSource.addLast(maxSource.getLast());
         }
 
-        source.add(elt);
+        source.addLast(elt);
     }
 
-    public Integer getLast() {
-        return source.get(size() - 1);
+    public E getLast() {
+        return source.getLast();
     }
 
-    public Integer removeLast() {
-        maxSource.remove(size() - 1);
-        return source.remove(size() - 1);
+    public E removeLast() {
+        maxSource.removeLast();
+        return source.removeLast();
     }
 
     public int size() {
         return source.size();
     }
 
-    public Integer getMax() {
-        return maxSource.get(size() - 1);
+    public E getMax() {
+        return maxSource.getLast();
     }
 
+}
+
+class ComparatorBasedOnComparable<E> implements Comparator<E> {
+
+    @Override
+    public int compare(E o1, E o2) {
+        Comparable o1comparable = (Comparable) o1;
+        return o1comparable.compareTo(o2);
+    }
 }
