@@ -1,6 +1,7 @@
 package com.telran.collection;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class OurHashSet<E> implements OurSet<E> {
@@ -29,18 +30,15 @@ public class OurHashSet<E> implements OurSet<E> {
 
     @Override
     public boolean contains(E elt) {
-        return false;
+        return source.containsKey(elt);
     }
 
 
     @Override
     public boolean addAll(OurSet<E> other) {
-        OurHashSet<E> narrowedOther = (OurHashSet<E>) other;
-
         boolean res = false;
-        for (E elt : narrowedOther.source.keySet()) {
+        for (E elt : other) {
             res |= this.add(elt);
-//            res = this.add(elt) | res;
         }
 
         return res;
@@ -48,11 +46,39 @@ public class OurHashSet<E> implements OurSet<E> {
 
     @Override
     public boolean removeAll(OurSet<E> other) {
-        return false;
+        boolean res = false;
+        for (E elt : other) {
+            res |= this.remove(elt);
+        }
+        return res;
     }
 
     @Override
     public boolean retainAll(OurSet<E> other) {
-        return false;
+//        Iterator<E> iterator = this.iterator();
+//
+//        boolean res = false;
+//        while (iterator.hasNext()) {
+//            E elt = iterator.next();
+//
+//            if (!other.contains(elt)) {
+//                iterator.remove();
+//                res = true;
+//            }
+//        }
+
+        OurSet<E> thisSubtractedOther = new OurHashSet<>();
+
+        for (E elt : this) {
+            if (!other.contains(elt))
+                thisSubtractedOther.add(elt);
+        }
+
+        return this.removeAll(thisSubtractedOther);
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return source.keySet().iterator();
     }
 }

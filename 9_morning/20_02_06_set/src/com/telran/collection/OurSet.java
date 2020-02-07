@@ -1,6 +1,6 @@
 package com.telran.collection;
 
-public interface OurSet<E> {
+public interface OurSet<E> extends Iterable<E> {
 
     /**
      * adds a new element to the set
