@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 public class OurTreeSet<E> implements OurSet<E> {
 
-    private TreeNode<E> root;
+    TreeNode<E> root;
     private Comparator<E> comparator;
     private int size;
 
@@ -146,7 +146,7 @@ public class OurTreeSet<E> implements OurSet<E> {
         return new OurTreeSetIterator<>(this);
     }
 
-    private static class TreeNode<E> {
+    static class TreeNode<E> {
         TreeNode<E> parent;
         TreeNode<E> left;
         TreeNode<E> right;
@@ -157,17 +157,44 @@ public class OurTreeSet<E> implements OurSet<E> {
 
 class OurTreeSetIterator<E> implements Iterator<E> {
 
-    public OurTreeSetIterator(OurTreeSet<E> treeSet) {
-        
+    private OurTreeSet<E> treeSet;
+    private OurTreeSet.TreeNode<E> current;
+
+    OurTreeSetIterator(OurTreeSet<E> treeSet) {
+        this.treeSet = treeSet;
+        this.current = treeSet.root == null ? null : getLeast(treeSet.root);
+    }
+
+    private OurTreeSet.TreeNode<E> getLeast(OurTreeSet.TreeNode<E> current) {
+        return null;
     }
 
     @Override
     public boolean hasNext() {
-        return false;
+        return current != null;
     }
 
     @Override
     public E next() {
+        E res = current.key;
+
+        if (current.right != null) {
+            current = getLeast(current.right);
+        } else {
+            current = firstRightParent(current);
+        }
+
+        return res;
+    }
+
+    /**
+     * the method finds the first parent which is to the right from current
+     *
+     * @param current element
+     * @return next element by order if exists or null, if current is the most right elt in
+     * the treeSet
+     */
+    private OurTreeSet.TreeNode<E> firstRightParent(OurTreeSet.TreeNode<E> current) {
         return null;
     }
 }
