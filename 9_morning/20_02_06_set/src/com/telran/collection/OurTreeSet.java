@@ -2,7 +2,6 @@ package com.telran.collection;
 
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.TreeSet;
 
 public class OurTreeSet<E> implements OurSet<E> {
 
@@ -66,19 +65,46 @@ public class OurTreeSet<E> implements OurSet<E> {
             return false;
 
         if (nodeToRemove.left == null || nodeToRemove.right == null)
-            removeByFirstCase(nodeToRemove);
+            linealRemove(nodeToRemove);
         else
-            removeBySecondCase(nodeToRemove);
+            junctionRemove(nodeToRemove);
 
+        size--;
         return true;
     }
 
-    private void removeBySecondCase(TreeNode<E> nodeToRemove) {
+    private void junctionRemove(TreeNode<E> nodeToRemove) {
+        TreeNode<E> needle = nodeToRemove.right;
+        while (needle.left != null)
+            needle = needle.left;
 
+        nodeToRemove.key = needle.key;
+        linealRemove(needle);
     }
 
-    private void removeByFirstCase(TreeNode<E> nodeToRemove) {
+    private void linealRemove(TreeNode<E> nodeToRemove) {
+        TreeNode<E> parent = nodeToRemove.parent;
+        TreeNode<E> child = nodeToRemove.left == null ? nodeToRemove.right : nodeToRemove.left;
 
+        if (parent == null) {
+            root = child;
+        } else if (parent.right == nodeToRemove) {
+            parent.right = child;
+        } else {
+            parent.left = child;
+        }
+
+        if (child != null)
+            child.parent = parent;
+
+        clearNode(nodeToRemove);
+    }
+
+    private void clearNode(TreeNode<E> nodeToRemove) {
+        nodeToRemove.key = null;
+        nodeToRemove.left = null;
+        nodeToRemove.right = null;
+        nodeToRemove.parent = null;
     }
 
     @Override
@@ -117,7 +143,7 @@ public class OurTreeSet<E> implements OurSet<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new OurTreeSetIterator<>(this);
     }
 
     private static class TreeNode<E> {
@@ -126,5 +152,22 @@ public class OurTreeSet<E> implements OurSet<E> {
         TreeNode<E> right;
 
         E key;
+    }
+}
+
+class OurTreeSetIterator<E> implements Iterator<E> {
+
+    public OurTreeSetIterator(OurTreeSet<E> treeSet) {
+        
+    }
+
+    @Override
+    public boolean hasNext() {
+        return false;
+    }
+
+    @Override
+    public E next() {
+        return null;
     }
 }
