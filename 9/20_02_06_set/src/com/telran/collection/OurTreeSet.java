@@ -52,13 +52,69 @@ public class OurTreeSet<E> implements OurSet<E> {
 
     @Override
     public boolean remove(E elt) {
-        return false;
+        TreeNode<E> nodeToRemove = findNode(elt);
+        if (nodeToRemove == null)
+            return false;
+
+        if (nodeToRemove.left == null || nodeToRemove.right == null)
+            linealRemove(nodeToRemove);
+        else
+            junctionRemove(nodeToRemove);
+
+        size--;
+        return true;
+    }
+
+    private void junctionRemove(TreeNode<E> nodeToRemove) {
+        TreeNode<E> needle = nodeToRemove.right;
+
+        while (needle.left != null)
+            needle = needle.left;
+
+        nodeToRemove.key = needle.key;
+        linealRemove(needle);
+    }
+
+    private void linealRemove(TreeNode<E> nodeToRemove) {
+        TreeNode<E> parent = nodeToRemove.parent;
+        TreeNode<E> child = nodeToRemove.left == null ? nodeToRemove.right : nodeToRemove.left;
+
+        if (parent == null) {
+            root = child;
+        } else if (parent.left == nodeToRemove) {
+            parent.left = child;
+        } else {
+            parent.right = child;
+        }
+
+        if (child != null)
+            child.parent = parent;
+
+        clearNode(nodeToRemove);
+    }
+
+    private void clearNode(TreeNode<E> nodeToRemove) {
+        nodeToRemove.right = null;
+        nodeToRemove.left = null;
+        nodeToRemove.parent = null;
+        nodeToRemove.key = null;
     }
 
     @Override
     public boolean contains(E elt) {
-        return false;
+        return findNode(elt) != null;
     }
+
+    private TreeNode<E> findNode(E elt) {
+        TreeNode<E> current = root;
+
+        while (current != null && comparator.compare(elt, current.key) != 0) {
+            current = comparator.compare(elt, current.key) < 0 ? current.left : current.right;
+        }
+
+        return current;
+    }
+
 
     @Override
     public int size() {
@@ -82,7 +138,37 @@ public class OurTreeSet<E> implements OurSet<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new Iterator<E>() {
+
+            TreeNode<E> current = getLeast(root);
+
+            private TreeNode<E> getLeast(TreeNode<E> root) {
+                TreeNode<E> needle = root;
+//TODO complete
+                return needle;
+            }
+
+            @Override
+            public boolean hasNext() {
+                return current != null;
+            }
+
+            @Override
+            public E next() {
+                E res = current.key;
+
+                if (current.right != null)
+                    current = getLeast(current.right);
+                else
+                    current = getRightParent(current);
+
+                return res;
+            }
+
+            private TreeNode<E> getRightParent(TreeNode<E> current) {
+                return null;
+            }
+        };
     }
 
     private static class TreeNode<E> {
