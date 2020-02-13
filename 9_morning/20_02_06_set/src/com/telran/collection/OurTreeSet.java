@@ -3,7 +3,7 @@ package com.telran.collection;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class OurTreeSet<E> implements OurSet<E> {
+public class OurTreeSet<E> extends OurAbstractSet<E> {
 
     TreeNode<E> root;
     private Comparator<E> comparator;
@@ -127,21 +127,6 @@ public class OurTreeSet<E> implements OurSet<E> {
     }
 
     @Override
-    public boolean addAll(OurSet<E> other) {
-        return false;
-    }
-
-    @Override
-    public boolean removeAll(OurSet<E> other) {
-        return false;
-    }
-
-    @Override
-    public boolean retainAll(OurSet<E> other) {
-        return false;
-    }
-
-    @Override
     public Iterator<E> iterator() {
         return new OurTreeSetIterator<>(this);
     }
@@ -165,8 +150,16 @@ class OurTreeSetIterator<E> implements Iterator<E> {
         this.current = treeSet.root == null ? null : getLeast(treeSet.root);
     }
 
+    /**
+     * finds the node with the least element of the collection
+     *
+     * @param current - the root of the tree to find the least. Must be non-zero
+     * @return the node with the least element of the tree with root in current
+     */
     private OurTreeSet.TreeNode<E> getLeast(OurTreeSet.TreeNode<E> current) {
-        return null;
+        while (current.left != null)
+            current = current.left;
+        return current;
     }
 
     @Override
@@ -195,6 +188,15 @@ class OurTreeSetIterator<E> implements Iterator<E> {
      * the treeSet
      */
     private OurTreeSet.TreeNode<E> firstRightParent(OurTreeSet.TreeNode<E> current) {
-        return null;
+//        OurTreeSet.TreeNode<E> parent = current.parent;
+//        while (parent != null && parent.left != current) {
+//            current = parent;
+//            parent = parent.parent;
+//        }
+
+        while (current.parent != null && current.parent.left != current)
+            current = current.parent;
+
+        return current.parent;
     }
 }

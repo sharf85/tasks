@@ -136,4 +136,89 @@ public class OurTreeSetTest {
         assertEquals(3, ourTreeSet.size());
         assertFalse(ourTreeSet.contains(sample01));
     }
+
+    @org.junit.Test
+    public void testAddAll_NonEmptySet_SameElementsWereNotAdded() {
+        Integer sample01 = 5;
+        Integer sample02 = 10;
+        Integer sample03 = 15;
+        ourTreeSet.add(sample01);
+        ourTreeSet.add(sample02);
+        ourTreeSet.add(sample03);
+        OurHashSet<Integer> testSet = new OurHashSet<>();
+        testSet.add(sample01);
+        assertFalse(ourTreeSet.addAll(testSet));
+    }
+
+    @org.junit.Test
+    public void testAddAll_NonEmptySet_NewElementsWereAdded() {
+        Integer sample01 = 5;
+        Integer sample02 = 10;
+        Integer sample03 = 15;
+        Integer sample04 = 20;
+        ourTreeSet.add(sample01);
+        ourTreeSet.add(sample02);
+        OurHashSet<Integer> testSet = new OurHashSet<>();
+        testSet.add(sample03);
+        testSet.add(sample04);
+        assertTrue(ourTreeSet.addAll(testSet));
+        assertTrue(ourTreeSet.contains(sample03));
+        assertTrue(ourTreeSet.contains(sample04));
+        assertEquals(4, ourTreeSet.size());
+    }
+
+    @org.junit.Test
+    public void testRemoveAll_NonEmptySet_AllSameElementsWereRemoved() {
+        Integer sample01 = 5;
+        Integer sample02 = 10;
+        Integer sample03 = 15;
+        Integer sample04 = 20;
+        ourTreeSet.add(sample01);
+        ourTreeSet.add(sample02);
+        ourTreeSet.add(sample03);
+        OurHashSet<Integer> testSet = new OurHashSet<>();
+        testSet.add(sample01);
+        testSet.add(sample04);
+        assertTrue(ourTreeSet.removeAll(testSet));
+        assertFalse(ourTreeSet.contains(sample01));
+        assertTrue(ourTreeSet.contains(sample02));
+        assertTrue(ourTreeSet.contains(sample03));
+        assertEquals(2, ourTreeSet.size());
+    }
+
+    @org.junit.Test
+    public void retainAll_NonEmptySetsWithSameElements_SetContainsRetainedElementsOnly() {
+        Integer sample01 = 5;
+        Integer sample02 = 10;
+        Integer sample03 = 15;
+        Integer sample04 = 20;
+        ourTreeSet.add(sample01);
+        ourTreeSet.add(sample02);
+        ourTreeSet.add(sample03);
+        OurHashSet<Integer> testSet = new OurHashSet<>();
+        testSet.add(sample01);
+        testSet.add(sample02);
+        testSet.add(sample04);
+        assertTrue(ourTreeSet.retainAll(testSet));
+        assertTrue(ourTreeSet.contains(sample01));
+        assertTrue(ourTreeSet.contains(sample02));
+        assertFalse(ourTreeSet.contains(sample03));
+        assertFalse(ourTreeSet.contains(sample04));
+        assertEquals(2, ourTreeSet.size());
+    }
+
+    @org.junit.Test
+    public void retainAll_NonEmptySetsWithNoElements_SetContainsZeroElementsOnly() {
+        Integer sample01 = 5;
+        Integer sample02 = 10;
+        Integer sample03 = 15;
+        ourTreeSet.add(sample01);
+        ourTreeSet.add(sample02);
+        OurHashSet<Integer> testSet = new OurHashSet<>();
+        testSet.add(sample01);
+        testSet.add(sample02);
+        testSet.add(sample03);
+        assertFalse(ourTreeSet.retainAll(testSet));
+        assertEquals(2, ourTreeSet.size());
+    }
 }
