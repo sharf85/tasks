@@ -3,7 +3,7 @@ package com.telran.collection;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class OurTreeSet<E> implements OurSet<E> {
+public class OurTreeSet<E> extends OurAbstractSet<E> {
 
     private TreeNode<E> root;
     private int size;
@@ -122,29 +122,19 @@ public class OurTreeSet<E> implements OurSet<E> {
     }
 
     @Override
-    public boolean addAll(OurSet<E> other) {
-        return false;
-    }
-
-    @Override
-    public boolean removeAll(OurSet<E> other) {
-        return false;
-    }
-
-    @Override
-    public boolean retainAll(OurSet<E> other) {
-        return false;
-    }
-
-    @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
 
-            TreeNode<E> current = getLeast(root);
+            TreeNode<E> current = init(root);
+
+            private TreeNode<E> init(TreeNode<E> root) {
+                return root == null ? null : getLeast(root);
+            }
 
             private TreeNode<E> getLeast(TreeNode<E> root) {
                 TreeNode<E> needle = root;
-//TODO complete
+                while (needle.left != null)
+                    needle = needle.left;
                 return needle;
             }
 
@@ -165,8 +155,22 @@ public class OurTreeSet<E> implements OurSet<E> {
                 return res;
             }
 
+            //            private TreeNode<E> getRightParent(TreeNode<E> current) {
+//                TreeNode<E> parent = current.parent;
+//
+//                while (parent != null && parent.left != current) {
+//                    current = parent;
+//                    parent = parent.parent;
+//                }
+//
+//                return parent;
+//            }
             private TreeNode<E> getRightParent(TreeNode<E> current) {
-                return null;
+                while (current.parent != null && current.parent.left != current) {
+                    current = current.parent;
+                }
+
+                return current.parent;
             }
         };
     }
