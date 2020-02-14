@@ -16,4 +16,12 @@ public class FinishInfo {
         this.tarakanId = tarakanId;
         this.finishTime = finishTime;
     }
+
+    public int getTarakanId() {
+        return tarakanId;
+    }
+
+    public long getFinishTime() {
+        return finishTime;
+    }
 }
