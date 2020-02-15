@@ -1,11 +1,46 @@
 package com.telran.collection;
 
+import org.junit.Test;
+
+import java.util.Iterator;
+
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class OurTreeSetTest {
-    private OurTreeSet<Integer> ourTreeSet = new OurTreeSet<>();
+    private OurSet<Integer> ourTreeSet = new OurTreeSet<>();
+
+    @Test
+    public void testHasNext_EmptySet_False() {
+        Iterator<Integer> test = ourTreeSet.iterator();
+        assertFalse(test.hasNext());
+    }
+
+    @Test
+    public void testNext_NonEmptySetTree_IncreasingNumberOrder() {
+        Integer sample01 = 10;
+        Integer sample02 = 8;
+        Integer sample03 = 15;
+        Integer sample04 = 13;
+        Integer sample05 = 14;
+        ourTreeSet.add(sample01);
+        ourTreeSet.add(sample02);
+        ourTreeSet.add(sample03);
+        ourTreeSet.add(sample04);
+        ourTreeSet.add(sample05);
+        int[] expected = {8, 10, 13, 14, 15};
+        Iterator<Integer> test = ourTreeSet.iterator();
+
+        int i = 0;
+        while (test.hasNext()) {
+            Integer num = test.next();
+            assertEquals(expected[i++], (long) num);
+        }
+
+        assertEquals(5, i);
+    }
+
 
     @org.junit.Test
     public void testSize_EmptySet_Zero() {
@@ -221,4 +256,5 @@ public class OurTreeSetTest {
         assertFalse(ourTreeSet.retainAll(testSet));
         assertEquals(2, ourTreeSet.size());
     }
+
 }
