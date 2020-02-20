@@ -1,11 +1,15 @@
 package com.telran;
 
+import java.io.PrintWriter;
+
 public class ReceiverThread extends Thread {
 
     Messenger messenger;
+    PrintWriter pw;
 
-    public ReceiverThread(Messenger messenger) {
+    public ReceiverThread(Messenger messenger, PrintWriter pw) {
         this.messenger = messenger;
+        this.pw = pw;
     }
 
     @Override
@@ -13,7 +17,9 @@ public class ReceiverThread extends Thread {
         while (true) {
             try {
                 String line = messenger.getMessage();
-                System.out.println(line + " " + getName());
+                synchronized (ReceiverThread.class) {
+                    pw.println(line + " " + getName());
+                }
             } catch (InterruptedException e) {
                 return;
             }

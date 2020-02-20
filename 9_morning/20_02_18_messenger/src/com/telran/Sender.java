@@ -19,7 +19,7 @@ public class Sender extends Thread {
             while ((line = isr.readLine()) != null && !line.equals("exit")) {
                 messenger.addMessage(line);
             }
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
