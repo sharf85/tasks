@@ -1,6 +1,6 @@
-package com.telran.operation;
+package com.telran.handler.operation;
 
-import com.telran.IOperation;
+import com.telran.handler.IOperation;
 
 public class ReverseOperation implements IOperation {
     private static final String NAME = "reverse";
@@ -12,6 +12,6 @@ public class ReverseOperation implements IOperation {
 
     @Override
     public String operate(String input) {
-        return null;
+        return new StringBuilder(input).reverse().toString();
     }
 }
