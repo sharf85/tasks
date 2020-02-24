@@ -1,6 +1,6 @@
-package com.telran.operation;
+package com.telran.handler.operation;
 
-import com.telran.IOperation;
+import com.telran.handler.IOperation;
 
 public class UpperCaseOperation implements IOperation {
 
@@ -13,6 +13,6 @@ public class UpperCaseOperation implements IOperation {
 
     @Override
     public String operate(String input) {
-        return null;
+        return input.toUpperCase();
     }
 }

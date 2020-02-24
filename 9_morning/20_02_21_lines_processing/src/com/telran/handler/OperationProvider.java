@@ -1,4 +1,4 @@
-package com.telran;
+package com.telran.handler;
 
 import java.util.Map;
 
