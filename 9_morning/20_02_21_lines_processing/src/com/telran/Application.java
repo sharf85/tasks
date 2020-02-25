@@ -12,11 +12,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class Application {
@@ -30,7 +28,6 @@ public class Application {
         FileService fs = new FileService(pw, br);
 
         BlockingDeque<String> deque = new LinkedBlockingDeque<>();
-        fs.readFileToQueue(INPUT_FILENAME, deque);
 
         Map<String, IOperation> operationByName = new HashMap<>();
         operationByName.put("lowercase", new LowerCaseOperation());

@@ -22,6 +22,7 @@ public class TextProducer implements Runnable {
             while ((line = fs.readLine()) != null) {
                 deque.addLast(line);
             }
+            deque.add("exit");
         } catch (IOException e) {
             e.printStackTrace();
         }
