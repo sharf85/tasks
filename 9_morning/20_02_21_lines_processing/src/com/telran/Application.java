@@ -7,16 +7,14 @@ import com.telran.handler.operation.LowerCaseOperation;
 import com.telran.handler.operation.UpperCaseOperation;
 import com.telran.producer.TextProducer;
 import com.telran.service.FileService;
+import com.telran.service.PropertiesService;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class Application {
@@ -30,14 +28,13 @@ public class Application {
         FileService fs = new FileService(pw, br);
 
         BlockingDeque<String> deque = new LinkedBlockingDeque<>();
-        fs.readFileToQueue(INPUT_FILENAME, deque);
 
-        Map<String, IOperation> operationByName = new HashMap<>();
-        operationByName.put("lowercase", new LowerCaseOperation());
-        operationByName.put("uppercase", new UpperCaseOperation());
-        //TODO remake this using config.props file, as it's done in the Calculator project
-
-        OperationProvider op = new OperationProvider(operationByName);
+        //load props
+        PropertiesService ps = new PropertiesService("config/config.props");
+        List<String> operationPaths = ps.getOperationPaths();
+        //load operations by paths
+        OperationProvider op = new OperationProvider(operationPaths);
+        op.load();
 
         Thread[] producers = new Thread[2];
         for (int i = 0; i < producers.length; i++) {
@@ -59,4 +56,5 @@ public class Application {
         pw.close();
         br.close();
     }
+
 }

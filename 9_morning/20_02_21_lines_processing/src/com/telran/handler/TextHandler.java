@@ -8,10 +8,13 @@ public class TextHandler implements Runnable {
 
     private static final String INCORRECT_LINE = "Incorrect line";
     private static final String WRONG_OPERATION = "Wrong operation";
-    private final FileService fileService;
     private String delimiter = "#";
+
+    private final FileService fileService;
     private OperationProvider op;
     private BlockingDeque<String> lines;
+
+    private volatile static boolean isAlive = true;
 
     public TextHandler(OperationProvider op, BlockingDeque<String> lines, FileService fileService) {
         this.op = op;
@@ -21,10 +24,17 @@ public class TextHandler implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
-            String line = lines.pollFirst();
-            if (line == null)
+        while (isAlive) {
+            String line;
+            try {
+                line = lines.takeFirst();
+            } catch (InterruptedException e) {
                 return;
+            }
+            if (line.equals("exit")) {
+                isAlive = false;
+                return;
+            }
 
             String[] parts = line.split(delimiter);
 
