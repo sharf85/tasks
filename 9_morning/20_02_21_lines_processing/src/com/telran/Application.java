@@ -1,10 +1,7 @@
 package com.telran;
 
-import com.telran.handler.IOperation;
 import com.telran.handler.OperationProvider;
 import com.telran.handler.TextHandler;
-import com.telran.handler.operation.LowerCaseOperation;
-import com.telran.handler.operation.UpperCaseOperation;
 import com.telran.producer.TextProducer;
 import com.telran.service.FileService;
 import com.telran.service.PropertiesService;
@@ -13,7 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.List;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
