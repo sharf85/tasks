@@ -1,0 +1,2 @@
+operations_package=com.telran.handler.operatio
+operations=LowerCaseOperation,UpperCaseOperation,ReverseOperation
