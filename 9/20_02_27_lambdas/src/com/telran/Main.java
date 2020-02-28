@@ -3,6 +3,7 @@ package com.telran;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class Main {
 
@@ -35,5 +36,13 @@ public class Main {
 
         System.out.println(mul.apply(1, 4));
 
+    }
+
+    public static <T> Predicate<T> disjunction(List<Predicate<T>> predicates) {
+        Predicate<T> res = t -> false;
+        for (Predicate<T> predicate : predicates) {
+            res = res.or(predicate);
+        }
+        return res;
     }
 }
