@@ -3,6 +3,8 @@ package com.telran;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -34,5 +36,14 @@ public class Main {
         };
 
         System.out.println(mul.apply(1, 4));
+
+//        Stream<Double> stream = Stream.generate(Math::random);
+        Stream<Double> stream = Stream.of(1d, 2d);
+        stream.sorted().limit(10).collect(Collectors.toList()).forEach(System.out::println);
+//        System.out.println(stream.sorted().limit(10).collect(Collectors.toList()).forEach(System.out::println););
+        String jopa = "jopa";
+
+        BiFunction<String, String, String> func = String::concat;
+        Function<String, String> funcJopa = jopa::concat;
     }
 }
