@@ -2,6 +2,10 @@ package com.telran;
 
 import java.util.*;
 
+/**
+ * The class has a set of words. The method split tries to split a given text into the words
+ * from the vocabulary (set of words)
+ */
 public class Dictionary {
     private Set<String> words;
 
