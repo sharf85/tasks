@@ -1,0 +1,11 @@
+*
+*.*
+!/*
+!/*/*
+!/*/*/src/
+!/*/*/src/com/
+!/*/*/src/com/telran/
+!/*/*/src/com/telran/*
+!/*/*/src/com/telran/**.java
+
+.DS_store
