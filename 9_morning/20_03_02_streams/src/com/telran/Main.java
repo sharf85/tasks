@@ -19,6 +19,17 @@ public class Main {
 
         System.out.println(stream.reduce(String::concat).orElse(""));
 
+
+        System.out.println(isPrime(2));
+        System.out.println(isPrime(3));
+        System.out.println(isPrime(4));
+        System.out.println(isPrime(5));
+        System.out.println(isPrime(6));
+        System.out.println(isPrime(7));
+        System.out.println(isPrime(8));
+        System.out.println(isPrime(9));
+        System.out.println(isPrime(10));
+
     }
 
     public int filter(int[] array) {
@@ -51,6 +62,11 @@ public class Main {
         return strings
                 .stream()
                 .mapToInt(value -> value.length());
+    }
+
+    public static boolean isPrime(int n) {
+        return IntStream.rangeClosed(2, (int) Math.sqrt(n))
+                .noneMatch(num -> n % num == 0);
     }
 
 }
