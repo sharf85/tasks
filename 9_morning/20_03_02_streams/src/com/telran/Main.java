@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 public class Main {
@@ -30,6 +31,9 @@ public class Main {
         System.out.println(isPrime(9));
         System.out.println(isPrime(10));
 
+
+        System.out.println(factorial(3));
+        System.out.println(factorial(-2));
     }
 
     public int filter(int[] array) {
@@ -67,6 +71,12 @@ public class Main {
     public static boolean isPrime(int n) {
         return IntStream.rangeClosed(2, (int) Math.sqrt(n))
                 .noneMatch(num -> n % num == 0);
+    }
+
+    public static long factorial(int n) {
+        return LongStream.rangeClosed(1, n)
+                .reduce((currentResult, currentNum) -> currentResult * currentNum)
+                .orElse(0);
     }
 
 }
