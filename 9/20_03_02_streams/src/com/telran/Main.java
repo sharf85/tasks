@@ -14,7 +14,7 @@ public class Main {
 
 
         List<String> shortStrings =
-                new ArrayList<>(Arrays.asList("I", "am", "a", "great", "person"));
+                new ArrayList<>(Arrays.asList("I", "am", "a", "great", "person", "am"));
 
         Stream<String> stream = shortStrings.stream()
                 .filter(str -> str.length() < 4);
@@ -25,6 +25,8 @@ public class Main {
 
         System.out.println(stream.count());
 
+        System.out.println(concatLongString(shortStrings));
+
     }
 
     static String concatFromLongStrings(Collection<String> strings) {
@@ -32,6 +34,15 @@ public class Main {
                 .filter(str -> str.length() > 5)
                 .map(String::toLowerCase)
                 .reduce((currentRes, currentElt) -> currentRes.concat(currentElt))
+                .orElse("");
+    }
+
+    static String concatLongString(Collection<String> strings) {
+        return strings.stream()
+                .filter(str -> str.length() < 5)
+                .map(String::toUpperCase)
+                .distinct()
+                .reduce(String::concat)
                 .orElse("");
     }
 }
