@@ -1,12 +1,11 @@
 package com.telran;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.partitioningBy;
 
 public class Main {
 
@@ -34,6 +33,18 @@ public class Main {
 
         System.out.println(factorial(3));
         System.out.println(factorial(-2));
+
+
+        List<String> possiblePalindromes = Arrays.asList(
+                "aba",
+                "aab",
+                "aaba",
+                "aabaa",
+                "heleh",
+                "pamam",
+                "pamap");
+
+        System.out.println(palindromeSplitting(possiblePalindromes));
     }
 
     public int filter(int[] array) {
@@ -77,6 +88,15 @@ public class Main {
         return LongStream.rangeClosed(1, n)
                 .reduce((currentResult, currentNum) -> currentResult * currentNum)
                 .orElse(0);
+    }
+
+    public static Map<Boolean, List<String>> palindromeSplitting(Collection<String> strings) {
+        return strings.stream()
+                .collect(partitioningBy(
+                        str -> new StringBuilder(str)
+                                .reverse()
+                                .toString()
+                                .equals(str)));
     }
 
 }
