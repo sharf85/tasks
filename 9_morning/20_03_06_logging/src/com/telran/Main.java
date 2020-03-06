@@ -3,9 +3,9 @@ package com.telran;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-import static java.util.stream.Collectors.counting;
-import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.*;
 
 public class Main {
 
@@ -38,9 +38,32 @@ public class Main {
                 .collect(groupingBy(LogEntry::getUrl, counting()));
         System.out.println(visitByUrl);
 
-        // count distinct users per each url
-        Map<String, Integer> usersByUrl = logs.stream()
-                .collect(groupingBy(LogEntry::getUrl, new DistinctCountingCollector()));
+        Map<String, Integer> usersByUrl = logs
+                .stream()
+                .collect(
+                        groupingBy(
+                                LogEntry::getUrl,
+                                mapping(LogEntry::getUsername,
+                                        new DistinctCountingCollector<>()
+                                )
+                        )
+                );
+
         System.out.println(usersByUrl);
+
+
+        Map<String, Integer> usersByUrl2 = logs
+                .stream()
+                .collect(
+                        groupingBy(
+                                LogEntry::getUrl,
+                                mapping(LogEntry::getUsername,
+                                        collectingAndThen(toSet(), Set::size)
+                                )
+                        )
+                );
+
+        System.out.println(usersByUrl2);
+
     }
 }
