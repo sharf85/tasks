@@ -1,5 +1,10 @@
 package com.telran;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -35,9 +40,11 @@ public class Main {
 
         // count number of visits
         Map<String, Long> visitByUrl = logs.stream()
+                .parallel()
                 .collect(groupingBy(LogEntry::getUrl, counting()));
         System.out.println(visitByUrl);
 
+        // count numbers of unique users per url
         Map<String, Integer> usersByUrl = logs
                 .stream()
                 .collect(
@@ -64,6 +71,19 @@ public class Main {
                 );
 
         System.out.println(usersByUrl2);
+
+        Map<String, Set<String>> usersByUrl3 = logs
+                .stream()
+                .collect(
+                        groupingBy(
+                                LogEntry::getUrl,
+                                mapping(LogEntry::getUsername,
+                                        toSet()
+                                )
+                        )
+                );
+
+        System.out.println(usersByUrl3);
 
     }
 }

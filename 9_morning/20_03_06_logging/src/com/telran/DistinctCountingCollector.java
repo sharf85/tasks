@@ -18,7 +18,7 @@ public class DistinctCountingCollector<T> implements Collector<T, HashSet<T>, In
 
     @Override
     public BiConsumer<HashSet<T>, T> accumulator() {
-        return HashSet::add;
+        return (innerCollection, elt) -> innerCollection.add(elt);
     }
 
     @Override
