@@ -13,13 +13,13 @@ public class Client {
 
         BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
 
-        PrintStream ps = new PrintStream(socket.getOutputStream());
-        BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        PrintStream socketOutput = new PrintStream(socket.getOutputStream());
+        BufferedReader socketInput = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
         String line;
         while ((line = consoleReader.readLine()) != null && !line.equals("exit")) {
-            ps.println(line);
-            System.out.println("from the server: " + br.readLine());
+            socketOutput.println(line);
+            System.out.println("from the server: " + socketInput.readLine());
         }
         socket.close();
     }

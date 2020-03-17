@@ -19,7 +19,7 @@ public class Server {
 //
 //            //the handling thread should open here.
 //        }
-        
+
         Socket socket = server.accept();
 
         BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
