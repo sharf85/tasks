@@ -13,19 +13,18 @@ public class Server {
 
     public static void main(String[] args) throws IOException {
         ServerSocket server = new ServerSocket(PORT);
+
+        ExecutorService executor = Executors.newFixedThreadPool(10);
+
         while (true) {
 
             Socket socket = server.accept();
+            ServerTask task = new ServerTask(socket);
 
-            BufferedReader socketInput = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintStream socketOutput = new PrintStream(socket.getOutputStream());
+            executor.execute(task);
+            //can execute >= 1 second
+//            new Thread(task).start();
 
-            String line;
-            while ((line = socketInput.readLine()) != null) {
-                line = line + " hello";
-                socketOutput.println(line);
-            }
-            socket.close();
         }
         //connection established
     }
