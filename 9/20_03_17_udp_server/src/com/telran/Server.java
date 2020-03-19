@@ -3,9 +3,8 @@ package com.telran;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.SocketException;
 
-public class Main {
+public class Server {
 
     private static final int PORT = 3003;
     private static final int DATA_SIZE = 1024;
@@ -33,6 +32,8 @@ public class Main {
                     packetIn.getAddress(),
                     packetIn.getPort());
 
+            // the port of the datagram source
+            System.out.println(packetIn.getPort());
             socket.send(packetOut);
 
         }
