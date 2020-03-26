@@ -50,15 +50,17 @@ public class Server {
 
     public static void main(String[] args) throws IOException {
         // write your code here
-        DatagramSocket socket = new DatagramSocket(PORT);
+        DatagramSocket udpServer = new DatagramSocket(PORT);
         ExecutorService executor = Executors.newFixedThreadPool(10);
+
+
         while (true) {
-            //received a datagram
             byte[] incomingData = new byte[INCOMING_DATAGRAM_SIZE];
             DatagramPacket incomingPacket = new DatagramPacket(incomingData, INCOMING_DATAGRAM_SIZE);
-            socket.receive(incomingPacket);
+            //received a datagram
+            udpServer.receive(incomingPacket);
 
-            ServerTask task = new ServerTask(socket, incomingPacket);
+            ServerTask task = new ServerTask(udpServer, incomingPacket);
             executor.execute(task);
         }
     }
