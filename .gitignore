@@ -7,5 +7,6 @@
 !/*/*/src/com/telran/
 !/*/*/src/com/telran/*
 !/*/*/src/com/telran/**.java
+!/*/*/src/com/telran/**/*
 
 .DS_store
