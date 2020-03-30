@@ -26,7 +26,7 @@ public class TcpListener extends Thread {
             return;
         }
 
-        ExecutorService executor = Executors.newFixedThreadPool(10);
+        ExecutorService executor = Executors.newCachedThreadPool();
 
         while (true) {
             try {

@@ -27,10 +27,10 @@ public class HandlersListener extends Thread {
                 DatagramPacket packetFromHandler = new DatagramPacket(dataFromHandler, DATAGRAM_SIZE);
                 serverSocket.receive(packetFromHandler);
 
-                executor.execute(new Thread(new HandlerDataReceiver(
+                executor.execute(new HandlerDataReceiver(
                         packetFromHandler,
                         servers
-                )));
+                ));
             }
         } catch (IOException e) {
             e.printStackTrace();

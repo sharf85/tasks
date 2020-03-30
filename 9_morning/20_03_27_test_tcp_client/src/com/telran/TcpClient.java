@@ -15,6 +15,7 @@ public class TcpClient {
     public static void main(String[] args) throws IOException {
 
         ExecutorService executor = Executors.newFixedThreadPool(THREADS_NUM);
+//        ExecutorService executor = Executors.newCachedThreadPool();
         for (int i = 0; i < MESSAGES_NUM; i++) {
             Runnable task = new TcpRequest(OUTER_SERVER_HOST, OUTER_SEVER_TCP_PORT, MESSAGE);
             executor.execute(task);
