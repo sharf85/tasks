@@ -3,6 +3,10 @@
 !/*
 !/*/*
 !/*/*/pom.xml
+!/*/*/gradlew
+!/*/*/gradlew.bat
+!/*/*/gradle/
+!/*/*/gradle/**/*
 !/*/*/src/
 !/*/*/src/com/
 !/*/*/src/com/telran/
