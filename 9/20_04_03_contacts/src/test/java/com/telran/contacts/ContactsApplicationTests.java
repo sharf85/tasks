@@ -1,10 +1,10 @@
-package com.telran.users;
+package com.telran.contacts;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class UsersApplicationTests {
+class ContactsApplicationTests {
 
     @Test
     void contextLoads() {
