@@ -5,6 +5,8 @@
 !/*/*/pom.xml
 !/*/*/gradlew
 !/*/*/gradlew.bat
+!/*/*/settings.gradle
+!/*/*/build.gradle
 !/*/*/gradle/
 !/*/*/gradle/**/*
 !/*/*/src/
