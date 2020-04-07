@@ -20,7 +20,11 @@
         </li>
         <li class="collection-item" th:each="contact: ${contacts}">
             <div>
-                <span th:text="${contact.name} + ' ' + ${contact.lastName}"></span>
+
+                <a th:href="'/contact/' + ${contact.id}"><span
+                        th:text="${contact.name} + ' ' + ${contact.lastName}"></span>
+                </a>
+
                 <span class="secondary-content">
                     <a th:href="'/edit-contact/' + ${contact.id}">
                         <i class="material-icons teal-text text-darken-1">create</i>
@@ -29,6 +33,7 @@
                         <i class="material-icons  deep-orange-text text-darken-1">delete</i>
                     </a>
                 </span>
+
             </div>
         </li>
     </ul>

@@ -19,7 +19,6 @@ public class MemoryContactRepo implements IContactRepo {
     @Override
     public void add(Contact contact) {
         contact.setId(currentId.incrementAndGet());
-//        source.put(currentId.get(), contact);
         source.put(contact.getId(), contact);
     }
 
@@ -30,12 +29,12 @@ public class MemoryContactRepo implements IContactRepo {
 
     @Override
     public void edit(Contact contact) {
-
+        source.replace(contact.getId(), contact);
     }
 
     @Override
     public Contact remove(int id) {
-        return null;
+        return source.remove(id);
     }
 
     @Override

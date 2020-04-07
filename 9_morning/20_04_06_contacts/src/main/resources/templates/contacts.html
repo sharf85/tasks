@@ -24,8 +24,8 @@
             <div>
                 <span th:text="${contact.name} + ' ' + ${contact.lastName}"></span>
                 <span class="secondary-content">
-                    <i class="material-icons teal-text text-darken-1">create</i>
-                    <i class="material-icons  deep-orange-text text-darken-1">delete</i>
+                    <a th:href="'/contact/edit/' + ${contact.id}"><i class="material-icons teal-text text-darken-1">create</i></a>
+                    <a th:href="'/contact/remove/' + ${contact.id}"><i class="material-icons  deep-orange-text text-darken-1">delete</i></a>
                 </span>
             </div>
         </li>
