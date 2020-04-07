@@ -4,6 +4,8 @@ import com.telran.contacts.dto.Contact;
 import com.telran.contacts.repository.IContactRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ContactService {
 
@@ -19,5 +21,9 @@ public class ContactService {
 
     public Contact get(int id) {
         return contactRepo.get(id);
+    }
+
+    public List<Contact> getAll() {
+        return contactRepo.getAll();
     }
 }
