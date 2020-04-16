@@ -1,7 +1,9 @@
 package com.telran.person;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class PersonApplication {
@@ -10,4 +12,9 @@ public class PersonApplication {
         SpringApplication.run(PersonApplication.class, args);
     }
 
+//    @Bean
+//    public ObjectMapper jacksonObjectMapper() {
+//        return new ObjectMapper();
+//                .setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+//    }
 }

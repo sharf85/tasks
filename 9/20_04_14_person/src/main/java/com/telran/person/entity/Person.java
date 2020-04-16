@@ -11,7 +11,7 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int id = 10;
 
     private String name;
     private String lastName;
@@ -40,5 +40,17 @@ public class Person {
 
     public LocalDate getBirthday() {
         return birthday;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 }

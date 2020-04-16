@@ -3,11 +3,14 @@ package com.telran.person.persistence;
 import com.telran.person.entity.Person;
 import org.springframework.data.repository.CrudRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface PersonRepo extends CrudRepository<Person, Integer> {
 
-    public List<Person> findByName(String name);
+    List<Person> findByName(String name);
 
-    public List<Person> findAll();
+    List<Person> findAll();
+
+    List<Person> findByBirthdayAfterAndBirthdayBefore(LocalDate earliestBirthday, LocalDate latestBirthday);
 }
