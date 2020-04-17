@@ -3,16 +3,19 @@ package com.telran.person.controller;
 import com.telran.person.dto.PersonDto;
 import com.telran.person.service.PersonService;
 import com.telran.person.validation.ViolationDto;
+import com.telran.person.validation.annotation.FullName;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
+@Validated
 public class PersonController {
 
     PersonService personService;
@@ -32,7 +35,7 @@ public class PersonController {
     }
 
     @GetMapping("/person/{id}")
-    public PersonDto getById(@PathVariable int id) {
+    public PersonDto getById(@PathVariable @Min(1) int id) {
         return personService.getById(id);
     }
 
@@ -55,15 +58,6 @@ public class PersonController {
     public List<PersonDto> getAllFilteredByAge(@RequestParam(required = false, defaultValue = "0") int min,
                                                @RequestParam(required = false, defaultValue = "" + Integer.MAX_VALUE) int max) {
         return personService.getAllConstrainedByAge(min, max);
-    }
-
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public List<ViolationDto> handleValidationException(MethodArgumentNotValidException ex) {
-        return ex.getBindingResult().getAllErrors().stream()
-                .map(error -> new ViolationDto(((FieldError) error).getField(), error.getDefaultMessage()))
-                .collect(Collectors.toList());
     }
 
 }
