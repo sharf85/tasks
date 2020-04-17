@@ -2,12 +2,15 @@ package com.telran.person.controller;
 
 import com.telran.person.dto.PersonDto;
 import com.telran.person.service.PersonService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
+@Validated
 public class PersonController {
 
     private final PersonService personService;
@@ -32,7 +35,7 @@ public class PersonController {
     }
 
     @GetMapping("/person/{id}")
-    public PersonDto getPersonById(@PathVariable int id) {
+    public PersonDto getPersonById(@PathVariable @Min(1) int id) {
         return personService.getById(id);
     }
 
@@ -52,4 +55,5 @@ public class PersonController {
             @RequestParam(defaultValue = "" + Integer.MAX_VALUE) int max) {
         return personService.filterByAge(min, max);
     }
+
 }
