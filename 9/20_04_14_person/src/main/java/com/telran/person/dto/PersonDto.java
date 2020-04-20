@@ -2,9 +2,11 @@ package com.telran.person.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.telran.person.validation.annotation.FullNameMaxLength;
+import com.telran.person.validation.annotation.NonYoungerThan;
 
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 
 @FullNameMaxLength(15)
 public class PersonDto {
@@ -18,9 +20,10 @@ public class PersonDto {
     public String lastName;
 
     @JsonFormat(pattern = "yyyy.MM.dd")
-    //TODO sort out with Past, PastOrPresent, Future, FutureOrPresent
-    //TODO write also a custom annotation validating more than 18 yo.
+    @NonYoungerThan(20)
     public LocalDate birthday;
+
+    public List<NumberDto> numbers;
 
     public PersonDto() {
     }

@@ -1,9 +1,13 @@
 package com.telran.person.service;
 
+import com.telran.person.dto.NumberDto;
 import com.telran.person.dto.PersonDto;
+import com.telran.person.entity.Number;
 import com.telran.person.entity.Person;
+import com.telran.person.persistence.NumberRepo;
 import com.telran.person.persistence.PersonRepo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
@@ -14,14 +18,20 @@ import java.util.stream.Collectors;
 public class PersonService {
     private static final String PERSON_NOT_FOUND = "Person not found";
     private PersonRepo personRepo;
+    private NumberRepo numberRepo;
 
-    public PersonService(PersonRepo personRepo) {
+    public PersonService(PersonRepo personRepo, NumberRepo numberRepo) {
         this.personRepo = personRepo;
+        this.numberRepo = numberRepo;
     }
 
     public void create(PersonDto personDto) {
         Person person = new Person(personDto.firstName, personDto.lastName, personDto.birthday);
         personRepo.save(person);
+
+        personDto.numbers.stream()
+                .map(numberIn -> new Number(person, numberIn.number))
+                .forEach(numberRepo::save);
     }
 
     public List<PersonDto> getAll() {
@@ -52,9 +62,15 @@ public class PersonService {
 
     public PersonDto getById(int id) {
         Person person = personRepo.findById(id).orElseThrow(() -> new EntityNotFoundException(PERSON_NOT_FOUND));
-        return new PersonDto(person.getId(), person.getName(), person.getLastName(), person.getBirthday());
+        PersonDto res = new PersonDto(person.getId(), person.getName(), person.getLastName(), person.getBirthday());
+
+        res.numbers = person.getNumbers().stream()
+                .map(number -> new NumberDto(number.getId(), number.getNumber(), number.getPerson().getId()))
+                .collect(Collectors.toList());
+        return res;
     }
 
+    @Transactional
     public void edit(PersonDto personDto) {
         Person person = personRepo.findById(personDto.id).orElseThrow(() -> new EntityNotFoundException(PERSON_NOT_FOUND));
 
@@ -62,7 +78,7 @@ public class PersonService {
         person.setLastName(personDto.lastName);
         person.setBirthday(personDto.birthday);
 
-        personRepo.save(person);
+//        personRepo.save(person);
     }
 
     public List<PersonDto> filterByAge(int min, int max) {
@@ -70,7 +86,7 @@ public class PersonService {
         LocalDate earliestBirthday = now.minusYears(max);
         LocalDate latestBirthday = now.minusYears(min);
 
-        return personRepo.findByBirthdayAfterAndBirthdayBefore(earliestBirthday, latestBirthday).stream()
+        return personRepo.findByBirthdayBetweenCustom(earliestBirthday, latestBirthday).stream()
                 .map(person -> new PersonDto(
                         person.getId(),
                         person.getName(),

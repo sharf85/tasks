@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class ExceptionsHandler {
@@ -42,11 +42,12 @@ public class ExceptionsHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public List<FieldViolationDto> handleParameterExceptions(ConstraintViolationException e) {
-
-        //TODO write real handling
-        List<FieldViolationDto> res = Arrays.asList(new FieldViolationDto("tel", "ran"));
-
-        return res;
+        return e.getConstraintViolations().stream()
+                .map(violation -> new FieldViolationDto(
+                        violation.getPropertyPath().toString(),
+                        violation.getMessage()
+                ))
+                .collect(Collectors.toList());
     }
 
 }

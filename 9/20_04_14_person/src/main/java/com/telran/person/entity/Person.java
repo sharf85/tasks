@@ -1,21 +1,28 @@
 package com.telran.person.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id = 10;
+    private int id;
 
     private String name;
     private String lastName;
     private LocalDate birthday;
+
+    @OneToMany(mappedBy = "person")
+    private List<Number> numbers = new ArrayList<>();
 
     public Person() {
     }
@@ -52,5 +59,13 @@ public class Person {
 
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
+    }
+
+    public List<Number> getNumbers() {
+        return Collections.unmodifiableList(numbers);
+    }
+
+    public void addNumber(Number number) {
+        numbers.add(number);
     }
 }
