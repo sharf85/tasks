@@ -2,6 +2,9 @@ package com.telran.person.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 public class Person {
@@ -14,15 +17,20 @@ public class Person {
     private String lastName;
     private LocalDate birthday;
 
+    @OneToMany(mappedBy = "person")
+    private List<PhoneNumber> numbers = new ArrayList<>();
+    ;
+
     public Person() {
     }
 
     public Person(String name,
                   String lastName,
-                  int age) {
+                  LocalDate birthday
+    ) {
         this.name = name;
         this.lastName = lastName;
-        this.age = age;
+        this.birthday = birthday;
     }
 
     public int getId() {
@@ -37,10 +45,6 @@ public class Person {
         return lastName;
     }
 
-    public int getAge() {
-        return age;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -49,7 +53,19 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    public List<PhoneNumber> getNumbers() {
+        return Collections.unmodifiableList(numbers);
+    }
+
+    public void addNumber(PhoneNumber number) {
+        numbers.add(number);
     }
 }
