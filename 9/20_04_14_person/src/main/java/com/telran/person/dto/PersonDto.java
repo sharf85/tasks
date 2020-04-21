@@ -3,12 +3,15 @@ package com.telran.person.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.telran.person.validation.annotation.FullNameMaxLength;
 import com.telran.person.validation.annotation.NonYoungerThan;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 
 @FullNameMaxLength(15)
+@NoArgsConstructor
 public class PersonDto {
 
     public int id;
@@ -25,21 +28,10 @@ public class PersonDto {
 
     public List<NumberDto> numbers;
 
-    public PersonDto() {
-    }
-
     public PersonDto(int id, String firstName, String lastName, LocalDate birthday) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
-    }
-
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
-
-    public LocalDate getBirthday() {
-        return birthday;
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface PersonRepo extends CrudRepository<Person, Integer> {
+public interface IPersonRepo extends CrudRepository<Person, Integer> {
 
     List<Person> findByName(String name);
 

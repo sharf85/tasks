@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 
 @Entity
+//TODO lombokize this
 public class Number {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,11 +1,12 @@
 package com.telran.person.service;
 
-import com.telran.person.dto.NumberDto;
 import com.telran.person.dto.PersonDto;
 import com.telran.person.entity.Number;
 import com.telran.person.entity.Person;
-import com.telran.person.persistence.NumberRepo;
-import com.telran.person.persistence.PersonRepo;
+import com.telran.person.mapper.NumberMapper;
+import com.telran.person.mapper.PersonMapper;
+import com.telran.person.persistence.INumberRepo;
+import com.telran.person.persistence.IPersonRepo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,13 +17,18 @@ import java.util.stream.Collectors;
 
 @Service
 public class PersonService {
-    private static final String PERSON_NOT_FOUND = "Person not found";
-    private PersonRepo personRepo;
-    private NumberRepo numberRepo;
+    static final String PERSON_NOT_FOUND = "Person not found";
 
-    public PersonService(PersonRepo personRepo, NumberRepo numberRepo) {
+    final private IPersonRepo personRepo;
+    final private INumberRepo numberRepo;
+    final private PersonMapper personMapper;
+    final private NumberMapper numberMapper;
+
+    public PersonService(IPersonRepo personRepo, INumberRepo numberRepo, PersonMapper personMapper, NumberMapper numberMapper) {
         this.personRepo = personRepo;
         this.numberRepo = numberRepo;
+        this.personMapper = personMapper;
+        this.numberMapper = numberMapper;
     }
 
     public void create(PersonDto personDto) {
@@ -36,23 +42,13 @@ public class PersonService {
 
     public List<PersonDto> getAll() {
         return personRepo.findAll().stream()
-                .map(person -> new PersonDto(
-                        person.getId(),
-                        person.getName(),
-                        person.getLastName(),
-                        person.getBirthday()
-                ))
+                .map(personMapper::mapPersonToDto)
                 .collect(Collectors.toList());
     }
 
     public List<PersonDto> getByName(String firstName) {
         return personRepo.findByName(firstName).stream()
-                .map(person -> new PersonDto(
-                        person.getId(),
-                        person.getName(),
-                        person.getLastName(),
-                        person.getBirthday()
-                ))
+                .map(personMapper::mapPersonToDto)
                 .collect(Collectors.toList());
     }
 
@@ -62,10 +58,10 @@ public class PersonService {
 
     public PersonDto getById(int id) {
         Person person = personRepo.findById(id).orElseThrow(() -> new EntityNotFoundException(PERSON_NOT_FOUND));
-        PersonDto res = new PersonDto(person.getId(), person.getName(), person.getLastName(), person.getBirthday());
+        PersonDto res = personMapper.mapPersonToDto(person);
 
         res.numbers = person.getNumbers().stream()
-                .map(number -> new NumberDto(number.getId(), number.getNumber(), number.getPerson().getId()))
+                .map(numberMapper::mapNumberToDto)
                 .collect(Collectors.toList());
         return res;
     }
@@ -87,12 +83,7 @@ public class PersonService {
         LocalDate latestBirthday = now.minusYears(min);
 
         return personRepo.findByBirthdayBetweenCustom(earliestBirthday, latestBirthday).stream()
-                .map(person -> new PersonDto(
-                        person.getId(),
-                        person.getName(),
-                        person.getLastName(),
-                        person.getBirthday()
-                ))
+                .map(personMapper::mapPersonToDto)
                 .collect(Collectors.toList());
     }
 }

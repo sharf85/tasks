@@ -1,18 +1,14 @@
 package com.telran.person.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
 public class NumberDto {
     public int id;
 
     public String number;
 
     public int personId;
-
-    public NumberDto(int id, String number, int personId) {
-        this.id = id;
-        this.number = number;
-        this.personId = personId;
-    }
-
-    public NumberDto() {
-    }
 }

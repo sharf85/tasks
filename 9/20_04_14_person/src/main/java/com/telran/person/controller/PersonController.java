@@ -20,12 +20,12 @@ public class PersonController {
     }
 
     @PostMapping("/person")
-    public void createPerson(@RequestBody @Valid PersonDto personDto) {
+    public void create(@RequestBody @Valid PersonDto personDto) {
         personService.create(personDto);
     }
 
     @PutMapping("/person")
-    public void editPerson(@RequestBody @Valid PersonDto personDto) {
+    public void edit(@RequestBody @Valid PersonDto personDto) {
         personService.edit(personDto);
     }
 
@@ -35,12 +35,12 @@ public class PersonController {
     }
 
     @GetMapping("/person/{id}")
-    public PersonDto getPersonById(@PathVariable @Min(1) int id) {
+    public PersonDto getById(@PathVariable @Min(1) int id) {
         return personService.getById(id);
     }
 
     @DeleteMapping("/person/{id}")
-    public void removePerson(@PathVariable int id) {
+    public void remove(@PathVariable int id) {
         personService.removeById(id);
     }
 
@@ -55,5 +55,5 @@ public class PersonController {
             @RequestParam(defaultValue = "" + Integer.MAX_VALUE) int max) {
         return personService.filterByAge(min, max);
     }
-
+    //TODO move here mapping from entity to DTO
 }
