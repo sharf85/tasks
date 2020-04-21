@@ -2,6 +2,7 @@ package com.telran.person.service;
 
 import com.telran.person.dto.NumberDto;
 import com.telran.person.dto.PersonDto;
+import com.telran.person.mapper.PersonMapper;
 import com.telran.person.model.Person;
 import com.telran.person.model.PhoneNumber;
 import com.telran.person.persistence.INumberRepository;
@@ -14,16 +15,21 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+//TODO replace numbers mapping with the NumberMapper
 @Service
 public class PersonService {
 
-    private static final String PERSON_NOT_FOUND = "Person not found";
+    static final String PERSON_NOT_FOUND = "Person not found";
     final IPersonRepository personRepository;
     final INumberRepository numberRepository;
 
-    public PersonService(IPersonRepository personRepository, INumberRepository numberRepository) {
+    final PersonMapper personMapper;
+
+    public PersonService(IPersonRepository personRepository, INumberRepository numberRepository, PersonMapper personMapper) {
         this.personRepository = personRepository;
         this.numberRepository = numberRepository;
+        this.personMapper = personMapper;
     }
 
     public void add(PersonDto personDto) {
@@ -48,7 +54,7 @@ public class PersonService {
 
     public PersonDto getById(int id) {
         Person person = personRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(PERSON_NOT_FOUND));
-        PersonDto personDto = new PersonDto(id, person.getName(), person.getLastName(), person.getBirthday());
+        PersonDto personDto = personMapper.mapPersonToDto(person);
         personDto.numbers = person.getNumbers().stream()
                 .map(number -> new NumberDto(number.getId(), number.getNumber(), number.getPerson().getId()))
                 .collect(Collectors.toList());
@@ -65,10 +71,7 @@ public class PersonService {
         List<Person> persons = personRepository.findAll();
 
         return persons.stream()
-                .map(person -> new PersonDto(person.getId(),
-                        person.getName(),
-                        person.getLastName(),
-                        person.getBirthday()))
+                .map(personMapper::mapPersonToDto)
                 .collect(Collectors.toList());
 
     }
@@ -77,10 +80,7 @@ public class PersonService {
         List<Person> persons = personRepository.findByName(name);
 
         return persons.stream()
-                .map(person -> new PersonDto(person.getId(),
-                        person.getName(),
-                        person.getLastName(),
-                        person.getBirthday()))
+                .map(personMapper::mapPersonToDto)
                 .collect(Collectors.toList());
 
     }
@@ -97,11 +97,15 @@ public class PersonService {
         List<Person> persons = personRepository.findByBirthdayBetweenCustom(after, before);
 
         return persons.stream()
-                .map(person -> new PersonDto(person.getId(),
-                        person.getName(),
-                        person.getLastName(),
-                        person.getBirthday()))
+                .map(personMapper::mapPersonToDto)
                 .collect(Collectors.toList());
+    }
 
+    public List<NumberDto> getNumbersByPersonId(int id) {
+        Person person = personRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(PERSON_NOT_FOUND));
+
+        return person.getNumbers().stream()
+                .map(number -> new NumberDto(number.getId(), number.getNumber(), number.getPerson().getId()))
+                .collect(Collectors.toList());
     }
 }

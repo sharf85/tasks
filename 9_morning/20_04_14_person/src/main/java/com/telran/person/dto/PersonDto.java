@@ -8,11 +8,9 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 
-@FullName(10)
+//TODO use lombok
+@FullName(20)
 public class PersonDto {
-
-    public PersonDto() {
-    }
 
     public PersonDto(int id,
                      String firstName,
