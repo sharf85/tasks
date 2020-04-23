@@ -1,7 +1,7 @@
 package com.telran.person.service;
 
-import com.telran.person.dto.NumberDto;
 import com.telran.person.dto.PersonDto;
+import com.telran.person.mapper.NumberMapper;
 import com.telran.person.mapper.PersonMapper;
 import com.telran.person.model.Person;
 import com.telran.person.model.PhoneNumber;
@@ -15,8 +15,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
-//TODO replace numbers mapping with the NumberMapper
 @Service
 public class PersonService {
 
@@ -25,11 +23,13 @@ public class PersonService {
     final INumberRepository numberRepository;
 
     final PersonMapper personMapper;
+    final NumberMapper numberMapper;
 
-    public PersonService(IPersonRepository personRepository, INumberRepository numberRepository, PersonMapper personMapper) {
+    public PersonService(IPersonRepository personRepository, INumberRepository numberRepository, PersonMapper personMapper, NumberMapper numberMapper) {
         this.personRepository = personRepository;
         this.numberRepository = numberRepository;
         this.personMapper = personMapper;
+        this.numberMapper = numberMapper;
     }
 
     public void add(PersonDto personDto) {
@@ -56,7 +56,7 @@ public class PersonService {
         Person person = personRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(PERSON_NOT_FOUND));
         PersonDto personDto = personMapper.mapPersonToDto(person);
         personDto.numbers = person.getNumbers().stream()
-                .map(number -> new NumberDto(number.getId(), number.getNumber(), number.getPerson().getId()))
+                .map(numberMapper::mapNumberToDto)
                 .collect(Collectors.toList());
 
         return personDto;
@@ -98,14 +98,6 @@ public class PersonService {
 
         return persons.stream()
                 .map(personMapper::mapPersonToDto)
-                .collect(Collectors.toList());
-    }
-
-    public List<NumberDto> getNumbersByPersonId(int id) {
-        Person person = personRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(PERSON_NOT_FOUND));
-
-        return person.getNumbers().stream()
-                .map(number -> new NumberDto(number.getId(), number.getNumber(), number.getPerson().getId()))
                 .collect(Collectors.toList());
     }
 }

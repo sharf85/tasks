@@ -26,7 +26,7 @@ public class Person {
     @Setter
     private LocalDate birthday;
 
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "person", cascade = CascadeType.REMOVE)
     private List<PhoneNumber> numbers = new ArrayList<>();
 
     public Person(String name,

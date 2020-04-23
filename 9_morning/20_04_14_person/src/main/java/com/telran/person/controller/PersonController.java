@@ -82,9 +82,4 @@ public class PersonController {
         return personService.getAllConstrainedByBirthdays(after, before);
     }
 
-    @GetMapping("/person/{id}/number")
-    public List<NumberDto> getNumbersByPersonId(@PathVariable int id) {
-        return personService.getNumbersByPersonId(id);
-    }
-
 }

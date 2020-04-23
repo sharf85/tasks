@@ -2,14 +2,15 @@ package com.telran.person.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.telran.person.validation.annotation.FullName;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 
-//TODO use lombok
 @FullName(20)
+@NoArgsConstructor
 public class PersonDto {
 
     public PersonDto(int id,

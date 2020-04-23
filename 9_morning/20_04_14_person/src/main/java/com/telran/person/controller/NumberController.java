@@ -4,6 +4,8 @@ import com.telran.person.dto.NumberDto;
 import com.telran.person.service.NumberService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class NumberController {
 
@@ -13,25 +15,34 @@ public class NumberController {
         this.numberService = numberService;
     }
 
+    @GetMapping("/person/{personId}/number")
+    public List<NumberDto> getNumbersByPersonId(@PathVariable int personId) {
+        return numberService.getByPersonId(personId);
+    }
+
     //TODO add number to a person, edit number, remove number, get by id
-    @PostMapping("/number")
-    public void create(@RequestBody NumberDto numberDto) {
+    @PostMapping("/person/{personId}/number")
+    public void create(@RequestBody NumberDto numberDto, @PathVariable int personId) {
+        numberDto.personId = personId;
         numberService.create(numberDto);
     }
 
     @GetMapping("/number/{id}")
-    public void getById(@PathVariable int id) {
-
+//    @GetMapping("/person/{personId}/number/{id}")
+    public NumberDto getById(@PathVariable int id) {
+        return numberService.getById(id);
     }
 
     @PutMapping("/number")
+//    @PutMapping("person/{personId}/number")
     public void edit(@RequestBody NumberDto numberDto) {
-
+        numberService.edit(numberDto);
     }
 
-    @DeleteMapping("/number/{id}")
+    //    @DeleteMapping("person/{personId}/number/{id}")
+    @DeleteMapping("number/{id}")
     public void removeById(@PathVariable int id) {
-
+        numberService.removeById(id);
     }
 
 }

@@ -1,6 +1,10 @@
 package com.telran.person.dto;
 
-//TODO use lombok
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
 public class NumberDto {
     public int id;
 
