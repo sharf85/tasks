@@ -3,8 +3,6 @@ package com.telran.person.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -20,7 +18,6 @@ public class Number {
     private String number;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Person person;
 
     public Number(Person person, String number) {

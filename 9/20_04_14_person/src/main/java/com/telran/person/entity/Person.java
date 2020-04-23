@@ -26,7 +26,7 @@ public class Person {
     @Setter
     private LocalDate birthday;
 
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "person", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Number> numbers = new ArrayList<>();
 
     public Person(String name, String lastName, LocalDate birthday) {
