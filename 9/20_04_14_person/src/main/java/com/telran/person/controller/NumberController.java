@@ -2,10 +2,9 @@ package com.telran.person.controller;
 
 import com.telran.person.dto.NumberDto;
 import com.telran.person.service.NumberService;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class NumberController {
@@ -21,5 +20,24 @@ public class NumberController {
         numberService.create(numberIn);
     }
 
-    //TODO edit, get, remove
+    @GetMapping("person/{id}/number")
+    public List<NumberDto> getByPersonId(@PathVariable int id) {
+        return numberService.getByPersonId(id);
+    }
+
+    @GetMapping("/number/{id}")
+    public NumberDto getById(@PathVariable int id) {
+        return numberService.getById(id);
+    }
+
+    @PutMapping("/number")
+    public void getById(@RequestBody NumberDto numberIn) {
+        numberService.edit(numberIn);
+    }
+
+    @DeleteMapping("/number/{id}")
+    public void removeById(@PathVariable int id) {
+        numberService.removeById(id);
+    }
+
 }

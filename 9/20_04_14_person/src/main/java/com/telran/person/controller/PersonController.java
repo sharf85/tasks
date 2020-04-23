@@ -55,5 +55,4 @@ public class PersonController {
             @RequestParam(defaultValue = "" + Integer.MAX_VALUE) int max) {
         return personService.filterByAge(min, max);
     }
-    //TODO move here mapping from entity to DTO
 }

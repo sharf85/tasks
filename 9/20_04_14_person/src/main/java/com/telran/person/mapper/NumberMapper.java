@@ -7,6 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class NumberMapper {
     public NumberDto mapNumberToDto(Number number) {
-        return new NumberDto(/*TODO complete*/);
+        return new NumberDto(number.getId(), number.getNumber(), number.getPerson().getId());
     }
 }
