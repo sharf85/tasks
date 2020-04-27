@@ -34,4 +34,10 @@ class IPersonRepositoryTest {
         assertEquals("Kotov", foundPersons.get(0).getLastName());
         assertEquals(kotusBirthday, foundPersons.get(0).getBirthday());
     }
+
+    @Test
+    public void testFindAll_noPersonsExist_emptyList() {
+        List<Person> foundPersons = personRepository.findAll();
+        assertEquals(0, foundPersons.size());
+    }
 }

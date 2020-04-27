@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PersonMapper {
+
     public PersonDto mapPersonToDto(Person person) {
         return new PersonDto(
                 person.getId(),

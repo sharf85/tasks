@@ -42,4 +42,8 @@ public class Person {
         return Collections.unmodifiableList(numbers);
     }
 
+    public void add(PhoneNumber number) {
+        numbers.add(number);
+    }
+
 }
