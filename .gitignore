@@ -1,5 +1,6 @@
 *
 *.*
+
 !/*
 !/*/*
 !/*/*/pom.xml
@@ -9,6 +10,7 @@
 !/*/*/build.gradle
 !/*/*/gradle/
 !/*/*/gradle/**/*
+
 !/*/*/src/
 !/*/*/src/com/
 !/*/*/src/com/telran/
@@ -23,6 +25,10 @@
 #!/*/*/src/main/com/telran/**.java
 !/*/*/src/main/com/telran/**/*
 
+!/*/*/**/*.js
+!/*/*/**/*.html
+!/*/*/**/*.css
+
 !/*/*/src/test/
 !/*/*/src/test/com/
 !/*/*/src/test/com/telran/
@@ -30,5 +36,5 @@
 #!/*/*/src/test/com/telran/**.java
 !/*/*/src/test/com/telran/**/*
 
-
+/*.docx
 .DS_store
