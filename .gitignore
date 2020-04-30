@@ -25,9 +25,12 @@
 #!/*/*/src/main/com/telran/**.java
 !/*/*/src/main/com/telran/**/*
 
-!/*/*/**/*.js
-!/*/*/**/*.html
-!/*/*/**/*.css
+!/*/*/js/
+!/*/*/js/*.js
+!/*/*/lib/
+!/*/*/lib/*.html
+!/*/*/css/
+!/*/*/css/*.css
 
 !/*/*/src/test/
 !/*/*/src/test/com/
