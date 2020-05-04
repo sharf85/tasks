@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Contact</title>
+</head>
+<body>
+
+
+<form action="#" class="col s12 create-form" th:action="@{/contact}" th:object="${contact}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <div class="row">
+        <div class="col s12"><h4>Contact</h4></div>
+        <div class="input-field col s5">
+            <label for="firstName" class="active">Name</label>
+            <input id="firstName" type="text" class="validate" th:field="*{name}">
+        </div>
+        <div class="input-field col s5">
+            <label for="lastName" class="active">Last Name</label>
+            <input id="lastName" type="text" class="validate" th:field="*{lastName}">
+        </div>
+        <div class="col s1">
+            <button type="submit" class="col s12 waves-effect waves-light btn blue darken-1">Submit</button>
+        </div>
+        <div class="col s1">
+            <!--            <row>-->
+            <a href="/" class="col s12 waves-effect waves-light btn blue darken-1">Cancel</a>
+            <!--            <button type="reset" class="col s12 waves-effect waves-light btn blue darken-1"></button>-->
+            <!--            </row>-->
+        </div>
+    </div>
+</form>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

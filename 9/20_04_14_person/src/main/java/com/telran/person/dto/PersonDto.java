@@ -3,7 +3,6 @@ package com.telran.person.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.telran.person.validation.annotation.FullNameMaxLength;
 import com.telran.person.validation.annotation.NonYoungerThan;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Size;
