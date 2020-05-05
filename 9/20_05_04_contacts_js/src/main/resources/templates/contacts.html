@@ -21,13 +21,14 @@
             <a href="/" class="col s12 waves-effect waves-light btn blue darken-1" data-action="cancel"
                style="display: none">Cancel</a>
         </div>
+        <input type="hidden" name="id">
         <div class="input-field col s5">
-            <label class="active">Name</label>
-            <input type="text" name="name">
+            <label for="nameField" class="active">Name</label>
+            <input type="text" name="name" id="nameField">
         </div>
         <div class="input-field col s5">
-            <label class="active">Last Name</label>
-            <input type="text" name="lastName">
+            <label for="lastNameField" class="active">Last Name</label>
+            <input type="text" name="lastName" id="lastNameField">
         </div>
     </div>
 </form>
@@ -38,24 +39,24 @@
         <li class="collection-header">
             <h4>Contacts</h4>
         </li>
-<!--        <li class="collection-item" th:each="contact: ${contacts}">-->
-<!--            <div>-->
+        <!--        <li class="collection-item" th:each="contact: ${contacts}">-->
+        <!--            <div>-->
 
-<!--                <a th:href="'/contact/' + ${contact.id}"><span-->
-<!--                        th:text="${contact.name} + ' ' + ${contact.lastName}"></span>-->
-<!--                </a>-->
+        <!--                <a th:href="'/contact/' + ${contact.id}"><span-->
+        <!--                        th:text="${contact.name} + ' ' + ${contact.lastName}"></span>-->
+        <!--                </a>-->
 
-<!--                <span class="secondary-content">-->
-<!--                    <a th:href="'/edit-contact/' + ${contact.id}">-->
-<!--                        <i class="material-icons teal-text text-darken-1">create</i>-->
-<!--                    </a>-->
-<!--                    <a th:href="'/remove-contact/' + ${contact.id}">-->
-<!--                        <i class="material-icons  deep-orange-text text-darken-1">delete</i>-->
-<!--                    </a>-->
-<!--                </span>-->
+        <!--                <span class="secondary-content">-->
+        <!--                    <a th:href="'/edit-contact/' + ${contact.id}">-->
+        <!--                        <i class="material-icons teal-text text-darken-1">create</i>-->
+        <!--                    </a>-->
+        <!--                    <a th:href="'/remove-contact/' + ${contact.id}">-->
+        <!--                        <i class="material-icons  deep-orange-text text-darken-1">delete</i>-->
+        <!--                    </a>-->
+        <!--                </span>-->
 
-<!--            </div>-->
-<!--        </li>-->
+        <!--            </div>-->
+        <!--        </li>-->
     </ul>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

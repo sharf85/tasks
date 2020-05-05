@@ -45,6 +45,12 @@ public class ContactController {
         contactService.create(contact);
     }
 
+    @PutMapping("/contact")
+    @ResponseBody
+    public void editContact(@RequestBody Contact contact) {
+        contactService.edit(contact);
+    }
+
 
     @GetMapping("/edit-contact/{id}")
     public String editContactForm(@PathVariable int id, Model model) {
@@ -72,9 +78,14 @@ public class ContactController {
         return new ModelAndView("forward:contacts");
     }
 
-    @GetMapping("/remove-contact/{id}")
-    public ModelAndView removeContact(@PathVariable int id) {
+    @DeleteMapping("/contact/{id}")
+    @ResponseBody
+    public void removeContact(@PathVariable int id) {
         contactService.remove(id);
-        return new ModelAndView("redirect:/");
     }
+//    @GetMapping("/remove-contact/{id}")
+//    public ModelAndView removeContact(@PathVariable int id) {
+//        contactService.remove(id);
+//        return new ModelAndView("redirect:/");
+//    }
 }
