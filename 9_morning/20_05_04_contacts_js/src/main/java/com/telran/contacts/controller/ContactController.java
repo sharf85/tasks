@@ -17,19 +17,31 @@ public class ContactController {
         this.contactService = contactService;
     }
 
+//    @GetMapping("/contact")
+//    public String contactForm(Model model) {
+//        model.addAttribute("contact", new Contact());
+//        return "contact-form";
+//    }
+
     @GetMapping("/contact")
-    public String contactForm(Model model) {
-        model.addAttribute("contact", new Contact());
-        return "contact-form";
+    @ResponseBody
+    public List<Contact> contactForm() {
+        return contactService.getAll();
     }
 
+//    @PostMapping("/contact")
+//    public String addContact(@RequestBody Contact contact) {
+//        if (contact.getId() == 0)
+//            contactService.add(contact);
+//        else
+//            contactService.edit(contact);
+//        return "redirect:/";
+//    }
+
     @PostMapping("/contact")
-    public String addContact(@RequestBody Contact contact) {
-        if (contact.getId() == 0)
-            contactService.add(contact);
-        else
-            contactService.edit(contact);
-        return "redirect:/";
+    @ResponseBody
+    public void addContact(@RequestBody Contact contact) {
+        contactService.add(contact);
     }
 
     @GetMapping("/")
@@ -58,9 +70,15 @@ public class ContactController {
         return "contact-form";
     }
 
-    @GetMapping("/contact/remove/{id}")
-    public String removeContact(@PathVariable int id) {
+//    @GetMapping("/contact/remove/{id}")
+//    public String removeContact(@PathVariable int id) {
+//        contactService.remove(id);
+//        return "redirect:/";
+//    }
+
+    //TODO use for remove contact
+    @DeleteMapping("/contact/{id}")
+    public void removeContact(@PathVariable int id) {
         contactService.remove(id);
-        return "redirect:/";
     }
 }

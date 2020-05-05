@@ -9,9 +9,17 @@
 </head>
 <body>
 
-<form class="row" id="add-contact-form">
-    <div class="col s3">
-        <button type="submit" class="waves-effect waves-light btn blue darken-1">Add</button>
+<form class="row" id="contact-form">
+    <div class="col s1">
+        <button class="col s12 waves-effect waves-light btn blue darken-1" id="add-button" data-action="add">Add</button>
+        <button class="col s12 waves-effect waves-light btn blue darken-1" style="display: none" data-action="edit">Edit
+        </button>
+    </div>
+    <div class="col s1">
+        <button class="col s12 waves-effect waves-light btn blue darken-1" style="display: none" data-action="cancel">Cancel
+        </button>
+    </div>
+    <div class="col s1">
     </div>
 
     <div class="input-field col s3">
@@ -32,23 +40,10 @@
 </form>
 
 <div class="row">
-    <ul class="collection with-header">
-        <li class="collection-header">
-            <h4>Contacts</h4>
-        </li>
-
-        <li class="collection-item" th:each="contact: ${contacts}">
-            <div>
-                <a th:href="'/contact/' + ${contact.id}">
-                    <span th:text="${contact.name} + ' ' + ${contact.lastName}"></span>
-                </a>
-                <span class="secondary-content">
-                    <a th:href="'/contact/edit/' + ${contact.id}"><i class="material-icons teal-text text-darken-1">create</i></a>
-                    <a th:href="'/contact/remove/' + ${contact.id}"><i
-                            class="material-icons  deep-orange-text text-darken-1">delete</i></a>
-                </span>
-            </div>
-        </li>
+    <ul class="collection with-header" id="contact-wrapper">
+<!--        <li class="collection-header">-->
+<!--            <h4>Contacts</h4>-->
+<!--        </li>-->
 
     </ul>
 </div>
