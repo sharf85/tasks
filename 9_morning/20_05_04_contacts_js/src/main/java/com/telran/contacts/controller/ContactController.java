@@ -44,6 +44,12 @@ public class ContactController {
         contactService.add(contact);
     }
 
+    @PutMapping("/contact")
+    @ResponseBody
+    public void editContact(@RequestBody Contact contact) {
+        contactService.edit(contact);
+    }
+
     @GetMapping("/")
     public String home() {
         return "forward:/contacts";
@@ -76,8 +82,8 @@ public class ContactController {
 //        return "redirect:/";
 //    }
 
-    //TODO use for remove contact
     @DeleteMapping("/contact/{id}")
+    @ResponseBody
     public void removeContact(@PathVariable int id) {
         contactService.remove(id);
     }

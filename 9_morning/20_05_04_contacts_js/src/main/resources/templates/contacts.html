@@ -11,17 +11,22 @@
 
 <form class="row" id="contact-form">
     <div class="col s1">
-        <button class="col s12 waves-effect waves-light btn blue darken-1" id="add-button" data-action="add">Add</button>
-        <button class="col s12 waves-effect waves-light btn blue darken-1" style="display: none" data-action="edit">Edit
+        <button class="col s12 waves-effect waves-light btn blue darken-1" id="add-button" data-action="addContact">
+            Add
+        </button>
+        <button class="col s12 waves-effect waves-light btn blue darken-1" style="display: none"
+                data-action="editContact">Edit
         </button>
     </div>
     <div class="col s1">
-        <button class="col s12 waves-effect waves-light btn blue darken-1" style="display: none" data-action="cancel">Cancel
+        <button class="col s12 waves-effect waves-light btn blue darken-1" style="display: none"
+                data-action="cancelEditing">Cancel
         </button>
     </div>
     <div class="col s1">
     </div>
 
+    <input type="hidden" name="id">
     <div class="input-field col s3">
         <input type="text" id="name" name="name">
         <label for="name">Name</label>
@@ -41,9 +46,9 @@
 
 <div class="row">
     <ul class="collection with-header" id="contact-wrapper">
-<!--        <li class="collection-header">-->
-<!--            <h4>Contacts</h4>-->
-<!--        </li>-->
+        <!--        <li class="collection-header">-->
+        <!--            <h4>Contacts</h4>-->
+        <!--        </li>-->
 
     </ul>
 </div>

@@ -3,10 +3,12 @@ document.addEventListener("DOMContentLoaded", function main() {
     const contactFormDom = document.getElementById("contact-form");
     const contactWrapperDom = document.getElementById("contact-wrapper");
 
-    const contactService = new ContactService(contactWrapperDom);
+    const contactService = new ContactService(contactWrapperDom, contactFormDom);
     const contactFormListener = new ContactFormListener(contactService);
+    const contactWrapperListener = new ContactWrapperListener(contactService);
 
     contactFormDom.addEventListener("click", contactFormListener);
+    contactWrapperDom.addEventListener("click", contactWrapperListener);
 
 });
 
@@ -18,13 +20,13 @@ class ContactFormListener {
     }
 
     handleEvent(event) {
-        event.preventDefault();
         const action = event.target.dataset.action;
         if (action !== undefined)
             this[action](event);//this.add()//this["add"]()}
     }
 
-    add(event) {
+    addContact(event) {
+        event.preventDefault();
         const contactFormDom = event.currentTarget;
         const contact = {
             name: contactFormDom.elements.name.value,
@@ -32,15 +34,25 @@ class ContactFormListener {
             age: contactFormDom.elements.age.value
         }
 
-        this.contactService.add(contact);
+        this.contactService.addContact(contact);
     }
 
-    edit(event) {
+    editContact(event) {
+        event.preventDefault();
 
+        const contactFormDom = event.currentTarget;
+        const contact = {
+            id: contactFormDom.elements.id.value,
+            name: contactFormDom.elements.name.value,
+            lastName: contactFormDom.elements.lastName.value,
+            age: contactFormDom.elements.age.value
+        }
+        this.contactService.editContact(contact);
     }
 
-    cancel(event) {
-
+    cancelEditing(event) {
+        event.preventDefault();
+        this.contactService.switchToAddForm();
     }
 }
 
@@ -49,26 +61,42 @@ class ContactWrapperListener {
         this.contactService = contactService;
     }
 
-    //TODO implement
-    remove() {
+    handleEvent(event) {
 
+        const action = event.target.dataset.action;
+        if (action !== undefined)
+            this[action](event);//this.add()//this["add"]()}
     }
 
-    edit() {
+    removeContact(event) {
+        event.preventDefault();
+        const contactDom = event.target.closest("li.collection-item");
+        const contactId = contactDom.contact.id;
+        this.contactService.removeById(contactId);
+    }
 
+    editContact(event) {
+        event.preventDefault();
+        const contactDom = event.target.closest("li.collection-item");
+        this.contactService.switchToEditForm(contactDom.contact);
     }
 }
 
 //like a service in Java
 class ContactService {
 
-    constructor(contactWrapperDom) {
+    constructor(contactWrapperDom, contactFormDom) {
         this.contactWrapperDom = contactWrapperDom;
+        this.contactFormDom = contactFormDom;
+
+        this.addButtonDom = contactFormDom.querySelector('[data-action="addContact"]');
+        this.editButtonDom = contactFormDom.querySelector('[data-action="editContact"]');
+        this.cancelButtonDom = contactFormDom.querySelector('[data-action="cancelEditing"]');
         this._reInit();
     }
 
     //sends data of a new contact to the server and updates the list of contacts
-    async add(contact) {
+    async addContact(contact) {
         const response = await fetch("/contact", {
             method: 'POST',
             headers: {
@@ -79,20 +107,63 @@ class ContactService {
 
         if (response.ok) {
             this._reInit();
+            this.clearForm();
         }
 
     }
 
     //sends data an existing contact to the server and updates the list of contacts
-    edit(contact) {
+    async editContact(contact) {
+        const response = await fetch("/contact", {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(contact)
+        })
 
+        if (response.ok) {
+            this._reInit();
+            this.switchToAddForm();
+        }
     }
 
     //sends a request to the server to remove the contact and update the list of contacts
     //TODO implement
-    removeById(id) {
+    async removeById(id) {
+        const response = await fetch(`/contact/${id}`, {
+            method: 'DELETE',
+        })
 
-        this._reInit();
+        if (response.ok) {
+            this._reInit();
+        }
+    }
+
+    switchToEditForm(contact) {
+        this.contactFormDom.elements.id.value = contact.id;
+        this.contactFormDom.elements.name.value = contact.name;
+        this.contactFormDom.elements.lastName.value = contact.lastName;
+        this.contactFormDom.elements.age.value = contact.age;
+
+        this.addButtonDom.style.display = "none";
+        this.editButtonDom.style.display = "block";
+        this.cancelButtonDom.style.display = "block";
+    }
+
+    switchToAddForm() {
+        this.clearForm();
+
+        this.addButtonDom.style.display = "block";
+        this.editButtonDom.style.display = "none";
+        this.cancelButtonDom.style.display = "none";
+    }
+
+    clearForm() {
+        this.contactFormDom.elements.id.value = "";
+        this.contactFormDom.elements.name.value = "";
+        this.contactFormDom.elements.lastName.value = "";
+        this.contactFormDom.elements.age.value = "";
     }
 
     async _reInit() {
@@ -122,17 +193,17 @@ class ContactService {
     _renderContact(contact) {
         const contactDom = document.createElement("li");
         contactDom.className = "collection-item";
-        contactDom.dataset.contact = contact;
+        contactDom.contact = contact;
         contactDom.innerHTML =
             `<div>
                 <a href="/contact/${contact.id}">
                     <span>${contact.name} ${contact.lastName}</span>
                 </a>
                 <span class="secondary-content">
-                    <a href="" data-action="edit"><i class="material-icons teal-text text-darken-1">create</i></a>
-<!--                    to get somewhere id of the contact to remove-->
-                    <a href="" data-action="delete" data-action="id">
-                        <i class="material-icons  deep-orange-text text-darken-1">delete</i></a>
+                    <a href="">
+                    <i data-action="editContact" class="material-icons teal-text text-darken-1">create</i></a>
+                    <a href="">
+                        <i data-action="removeContact" class="material-icons  deep-orange-text text-darken-1">delete</i></a>
                 </span>
             </div>`;
         return contactDom;
