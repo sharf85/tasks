@@ -1,0 +1,32 @@
+<form class="row" id="contact-form">
+  <div class="col s1">
+    <button class="col s12 waves-effect waves-light btn blue darken-1" (click)="onAdd()" [class.hide]="!isAddingState">
+      Add
+    </button>
+    <button class="col s12 waves-effect waves-light btn blue darken-1" [class.hide]="isAddingState">Edit
+    </button>
+  </div>
+  <div class="col s1">
+    <button class="col s12 waves-effect waves-light btn blue darken-1" [class.hide]="isAddingState">Cancel
+    </button>
+  </div>
+  <div class="col s1">
+  </div>
+
+  <input type="hidden" name="id" [(ngModel)]="contact.id">
+  <div class="input-field col s3">
+    <input type="text" id="name" name="name" [(ngModel)]="contact.name">
+    <label for="name">Name</label>
+  </div>
+
+  <div class="input-field col s3">
+    <input id="last_name" type="text" name="lastName" [(ngModel)]="contact.lastName">
+    <label for="last_name">Last Name</label>
+  </div>
+
+  <div class="input-field col s3">
+    <input id="age" type="text" name="age" [(ngModel)]="contact.age">
+    <label for="age">Age</label>
+  </div>
+
+</form>

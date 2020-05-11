@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  padding: 20px;
+}
+
+button {
+  margin-top: 20px;
+}
+
+i {
+  cursor: pointer;
+}
+
+.change-block {
+  display: none;
+}
