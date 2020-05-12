@@ -10,13 +10,18 @@ export class ContactService {
   }
 
   add(contact: Contact): void {
-    this.contacts.push(contact);
+    contact.id = this.contacts.length + 1;
+    const objectToAdd: Contact = Object.assign({}, contact);
+    this.contacts.push(objectToAdd);
   }
 
   getAll(): Contact[] {
     return this.contacts;
   }
 
+  remove(childContact: Contact) {
+    this.contacts = this.contacts.filter(value => value.id !== childContact.id);
+  }
 }
 
 const contacts: Contact[] = [

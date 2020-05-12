@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {ContactService} from './service/contact.service';
+import {Contact} from "./model/contact";
 
 @Component({
   selector: 'app-root',
@@ -8,11 +9,16 @@ import {ContactService} from './service/contact.service';
   providers: [ContactService]
 })
 export class AppComponent {
-  contactService: ContactService;
 
-  constructor(contactService: ContactService) {
-    this.contactService = contactService;
+  constructor(public contactService: ContactService) {
   }
 
+  contactToEdit: Contact;
+
   title = 'Contacts';
+
+  onEditContact($event: Contact) {
+    console.log($event);
+    this.contactToEdit = $event;
+  }
 }

@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Contact} from '../model/contact';
+import {ContactService} from "../service/contact.service";
 
 @Component({
   selector: 'app-contact-form',
@@ -8,10 +9,23 @@ import {Contact} from '../model/contact';
 })
 export class ContactFormComponent implements OnInit {
 
-  contact: Contact;
+  _contact: Contact;
+
+  get contact() {
+    return this._contact;
+  }
+
+  @Input()
+  set contact(value: Contact) {
+    if (value) {
+      this.isAddingState = false;
+      this._contact = value;
+    }
+  }
+
   isAddingState: boolean;
 
-  constructor() {
+  constructor(private contactService: ContactService) {
   }
 
   ngOnInit(): void {
@@ -19,7 +33,7 @@ export class ContactFormComponent implements OnInit {
     this.contact = new Contact();
   }
 
-  onAdd() {
-    console.log(this.contact);
+  onClickAdd() {
+    this.contactService.add(this.contact);
   }
 }
