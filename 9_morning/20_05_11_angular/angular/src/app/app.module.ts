@@ -14,7 +14,7 @@ import {ContactItemComponent} from './contact-item/contact-item.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
