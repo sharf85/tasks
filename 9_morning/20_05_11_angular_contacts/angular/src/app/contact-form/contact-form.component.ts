@@ -26,5 +26,10 @@ export class ContactFormComponent implements OnInit {
   onClickAdd() {
     console.log(this.contact);
     this.contactService.add(this.contact);
+    this.clearForm();
+  }
+
+  clearForm() {
+    this.contact = new Contact();
   }
 }
