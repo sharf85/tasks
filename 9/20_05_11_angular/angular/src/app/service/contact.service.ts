@@ -22,6 +22,11 @@ export class ContactService {
   remove(childContact: Contact) {
     this.contacts = this.contacts.filter(value => value.id !== childContact.id);
   }
+
+  edit(contact: Contact) {
+    const contactToEdit: Contact = this.contacts.find(value => value.id === contact.id);
+    Object.assign(contactToEdit, contact);
+  }
 }
 
 const contacts: Contact[] = [

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Contact} from '../model/contact';
-import {ContactService} from "../service/contact.service";
+import {ContactService} from '../service/contact.service';
 
 @Component({
   selector: 'app-contact-form',
@@ -9,7 +9,8 @@ import {ContactService} from "../service/contact.service";
 })
 export class ContactFormComponent implements OnInit {
 
-  _contact: Contact;
+  // tslint:disable-next-line:variable-name
+  private _contact: Contact;
 
   get contact() {
     return this._contact;
@@ -17,6 +18,7 @@ export class ContactFormComponent implements OnInit {
 
   @Input()
   set contact(value: Contact) {
+    console.log('here');
     if (value) {
       this.isAddingState = false;
       this._contact = value;
@@ -30,10 +32,21 @@ export class ContactFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAddingState = true;
-    this.contact = new Contact();
+    this._contact = new Contact();
   }
 
-  onClickAdd() {
+  onClickAdd(): void {
     this.contactService.add(this.contact);
+    this.clearForm();
+  }
+
+  onClickEdit(): void {
+    this.contactService.edit(this.contact);
+    this.clearForm();
+    this.isAddingState = true;
+  }
+
+  clearForm(): void {
+    this._contact = new Contact();
   }
 }

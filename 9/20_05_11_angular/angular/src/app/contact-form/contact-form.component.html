@@ -3,7 +3,7 @@
     <button class="col s12 waves-effect waves-light btn blue darken-1" (click)="onClickAdd()" [class.hide]="!isAddingState">
       Add
     </button>
-    <button class="col s12 waves-effect waves-light btn blue darken-1" [class.hide]="isAddingState">Edit
+    <button class="col s12 waves-effect waves-light btn blue darken-1" (click)="onClickEdit()" [class.hide]="isAddingState">Edit
     </button>
   </div>
   <div class="col s1">
