@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Contact} from '../model/contact';
 
 @Component({
@@ -11,10 +11,16 @@ export class ContactItemComponent implements OnInit {
   @Input()
   contact: Contact;
 
+  @Output()
+  edit: EventEmitter<Contact> = new EventEmitter();
+
   constructor() {
   }
 
   ngOnInit(): void {
   }
 
+  onClickEdit() {
+    this.edit.emit(this.contact);
+  }
 }

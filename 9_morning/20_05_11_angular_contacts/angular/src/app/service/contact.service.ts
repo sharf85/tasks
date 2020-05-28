@@ -17,4 +17,9 @@ export class ContactService {
   getAll(): Observable<Contact[]> {
     return of(CONTACTS);
   }
+
+  edit(contact: Contact) {
+    const contactToEdit = CONTACTS.find(value => value.id === contact.id);
+    Object.assign(contactToEdit, contact);
+  }
 }

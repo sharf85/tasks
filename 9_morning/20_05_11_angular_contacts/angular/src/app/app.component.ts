@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
   title = 'Contacts';
 
   contacts: Contact[];
+  contactToEdit: Contact;
 
   constructor(private contactService: ContactService) {
   }
@@ -21,4 +22,7 @@ export class AppComponent implements OnInit {
       .subscribe(value => this.contacts = value);
   }
 
+  onEditItem($event: Contact) {
+    this.contactToEdit = Object.assign([], $event);
+  }
 }
