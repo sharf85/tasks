@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {ContactService} from './service/contact.service';
-import {Contact} from "./model/contact";
+import {Contact} from './model/contact';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +18,6 @@ export class AppComponent {
   title = 'Contacts';
 
   onEditContact($event: Contact) {
-    console.log($event);
     this.contactToEdit = $event;
   }
 }

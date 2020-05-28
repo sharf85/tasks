@@ -1,38 +1,37 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Contact} from '../model/contact';
 import {ContactService} from '../service/contact.service';
+import {ContactEventService} from '../service/contact-event.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-contact-form',
   templateUrl: './contact-form.component.html',
   styleUrls: ['./contact-form.component.css']
 })
-export class ContactFormComponent implements OnInit {
+export class ContactFormComponent implements OnInit, OnDestroy {
 
-  // tslint:disable-next-line:variable-name
-  private _contact: Contact;
-
-  get contact() {
-    return this._contact;
-  }
-
-  @Input()
-  set contact(value: Contact) {
-    console.log('here');
-    if (value) {
-      this.isAddingState = false;
-      this._contact = value;
-    }
-  }
-
+  contact: Contact;
   isAddingState: boolean;
+  editContactSubscription: Subscription;
 
-  constructor(private contactService: ContactService) {
+  constructor(private contactService: ContactService,
+              private contactEventService: ContactEventService) {
   }
 
   ngOnInit(): void {
-    this.isAddingState = true;
-    this._contact = new Contact();
+    this.clearForm();
+    this.editContactSubscription = this.contactEventService.subscribeEditContact(this.onEditContact);
+  }
+
+  ngOnDestroy(): void {
+    this.editContactSubscription.unsubscribe();
+  }
+
+  // TODO: figure out why we placed here the arrow function (https://learn.javascript.ru/object-methods)
+  onEditContact = (value: Contact) => {
+    this.isAddingState = false;
+    this.contact = value;
   }
 
   onClickAdd(): void {
@@ -43,10 +42,11 @@ export class ContactFormComponent implements OnInit {
   onClickEdit(): void {
     this.contactService.edit(this.contact);
     this.clearForm();
-    this.isAddingState = true;
   }
 
   clearForm(): void {
-    this._contact = new Contact();
+    this.isAddingState = true;
+    this.contact = new Contact();
   }
+
 }
