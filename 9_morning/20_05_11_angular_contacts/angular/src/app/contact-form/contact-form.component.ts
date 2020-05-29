@@ -1,32 +1,37 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Contact} from '../model/contact';
 import {ContactService} from '../service/contact.service';
-import {THIS_EXPR} from '@angular/compiler/src/output/output_ast';
+import {ContactEventService} from '../service/contact-event.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-contact-form',
   templateUrl: './contact-form.component.html',
   styleUrls: ['./contact-form.component.css']
 })
-export class ContactFormComponent implements OnInit {
-
-  @Input()
-  set contactToEdit(value: Contact) {
-    this.contact = value;
-    this.isAddingState = false;
-  }
+export class ContactFormComponent implements OnInit, OnDestroy {
 
   contact: Contact;
 
   isAddingState: boolean;
-  private contactService: ContactService;
+  editContactSubs: Subscription;
 
-  constructor(contactService: ContactService) {
-    this.contactService = contactService;
+  constructor(private contactService: ContactService,
+              private contactEventService: ContactEventService) {
   }
 
   ngOnInit(): void {
     this.clearForm();
+    this.editContactSubs = this.contactEventService.subscribeEditContact((value) => this.onEditContact(value));
+  }
+
+  ngOnDestroy(): void {
+    this.editContactSubs.unsubscribe();
+  }
+
+  onEditContact(value: Contact) {
+    this.contact = value;
+    this.isAddingState = false;
   }
 
   onClickAdd() {
@@ -42,6 +47,10 @@ export class ContactFormComponent implements OnInit {
 
   onClickEdit() {
     this.contactService.edit(this.contact);
+    this.clearForm();
+  }
+
+  onClickCancel() {
     this.clearForm();
   }
 }

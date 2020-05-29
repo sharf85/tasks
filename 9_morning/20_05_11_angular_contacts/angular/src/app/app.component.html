@@ -1,9 +1,8 @@
 <h2>{{title}}</h2>
-<app-contact-form [contactToEdit]="contactToEdit"></app-contact-form>
+<app-contact-form></app-contact-form>
 <div class="row">
   <ul class="collection with-header" id="contact-wrapper">
-    <app-contact-item *ngFor="let contact of contacts"
-                      [contact]="contact"
-                      (edit)="onEditItem($event)"></app-contact-item>
+    <app-contact-item *ngFor="let contact of contactService.getAll()| async"
+                      [contact]="contact"></app-contact-item>
   </ul>
 </div>

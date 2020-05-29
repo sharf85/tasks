@@ -11,15 +11,15 @@ import {Contact} from './model/contact';
 export class AppComponent implements OnInit {
   title = 'Contacts';
 
-  contacts: Contact[];
+  // contacts: Contact[];
   contactToEdit: Contact;
 
-  constructor(private contactService: ContactService) {
+  constructor(public contactService: ContactService) {
   }
 
   ngOnInit(): void {
-    this.contactService.getAll()
-      .subscribe(value => this.contacts = value);
+    // this.contactService.getAll()
+    //   .subscribe(value => this.contacts = value);
   }
 
   onEditItem($event: Contact) {

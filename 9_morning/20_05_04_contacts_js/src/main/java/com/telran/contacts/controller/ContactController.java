@@ -19,12 +19,15 @@ public class ContactController {
 
     @GetMapping("/contact")
     @ResponseBody
+    //TODO: what is it?
+    @CrossOrigin()
     public List<Contact> contactForm() {
         return contactService.getAll();
     }
 
     @PostMapping("/contact")
     @ResponseBody
+    @CrossOrigin()
     public void addContact(@RequestBody Contact contact) {
         contactService.add(contact);
     }
@@ -41,14 +44,14 @@ public class ContactController {
         contactService.remove(id);
     }
 
-    @GetMapping("/")
-    public String home() {
-        return "forward:/contacts";
-    }
-
-    @GetMapping("/contacts")
-    public String getContacts() {
-        return "contacts";
-    }
+//    @GetMapping("/")
+//    public String home() {
+//        return "forward:/contacts";
+//    }
+//
+//    @GetMapping("/contacts")
+//    public String getContacts() {
+//        return "contacts";
+//    }
 
 }

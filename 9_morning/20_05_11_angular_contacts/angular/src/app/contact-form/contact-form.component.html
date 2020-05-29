@@ -10,7 +10,8 @@
     </button>
   </div>
   <div class="col s1">
-    <button class="col s12 waves-effect waves-light btn blue darken-1" [class.hide]="isAddingState">Cancel
+    <button class="col s12 waves-effect waves-light btn blue darken-1" [class.hide]="isAddingState"
+            (click)="onClickCancel()">Cancel
     </button>
   </div>
   <div class="col s1">

@@ -1,25 +1,41 @@
 import {Injectable} from '@angular/core';
 import {Contact} from '../model/contact';
 import {Observable, of} from 'rxjs';
-import {CONTACTS} from './contacts-mock';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class ContactService {
+  private host = 'http://localhost:8090/';
 
-  constructor() {
+  contacts: Observable<Contact[]>;
+
+  constructor(private httpClient: HttpClient) {
   }
 
   add(contact: Contact): void {
-    contact.id = CONTACTS.length + 1;
-    CONTACTS.push(contact);
+    this.httpClient.post(`${this.host}contact`, contact)
+      .subscribe(value => this.reloadContacts());
+
+  }
+
+  private reloadContacts() {
+    this.contacts = this.httpClient.get<Contact[]>(`${this.host}contact`);
   }
 
   getAll(): Observable<Contact[]> {
-    return of(CONTACTS);
+    if (!this.contacts) {
+      this.reloadContacts();
+    }
+    return this.contacts;
   }
 
   edit(contact: Contact) {
-    const contactToEdit = CONTACTS.find(value => value.id === contact.id);
-    Object.assign(contactToEdit, contact);
+    // const contactToEdit = CONTACTS.find(value => value.id === contact.id);
+    // Object.assign(contactToEdit, contact);
+  }
+
+  remove(contact: Contact) {
+    // const index = CONTACTS.findIndex(value => value.id === contact.id);
+    // CONTACTS.splice(index, 1);
   }
 }
