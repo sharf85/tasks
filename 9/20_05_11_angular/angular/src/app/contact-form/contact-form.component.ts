@@ -49,4 +49,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
     this.contact = new Contact();
   }
 
+  onClickCancel() {
+    this.clearForm();
+  }
 }

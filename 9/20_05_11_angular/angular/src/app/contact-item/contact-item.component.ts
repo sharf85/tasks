@@ -2,16 +2,13 @@ import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angula
 import {Contact} from '../model/contact';
 import {ContactService} from '../service/contact.service';
 import {ContactEventService} from '../service/contact-event.service';
-import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-contact-item',
   templateUrl: './contact-item.component.html',
   styleUrls: ['./contact-item.component.css']
 })
-export class ContactItemComponent implements OnInit
-  // , OnDestroy
-{
+export class ContactItemComponent implements OnInit {
 
   @Input()
   childContact: Contact;
@@ -20,15 +17,8 @@ export class ContactItemComponent implements OnInit
               private contactEventService: ContactEventService) {
   }
 
-  // subs: Subscription;
-  //
   ngOnInit(): void {
-    //   this.subs = this.contactEventService.subscribeEditContact((_) => console.log('on edit contact'));
   }
-
-  // ngOnDestroy(): void {
-  //   this.subs.unsubscribe();
-  // }
 
   onClickDelete() {
     this.contactService.remove(this.childContact);
@@ -37,6 +27,4 @@ export class ContactItemComponent implements OnInit
   onClickEdit() {
     this.contactEventService.emitEditContact(this.childContact);
   }
-
-
 }

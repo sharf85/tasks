@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ContactService} from './service/contact.service';
 import {Contact} from './model/contact';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -20,4 +21,5 @@ export class AppComponent {
   onEditContact($event: Contact) {
     this.contactToEdit = $event;
   }
+
 }

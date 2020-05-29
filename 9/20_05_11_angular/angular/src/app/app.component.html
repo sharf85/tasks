@@ -2,7 +2,7 @@
 <app-contact-form></app-contact-form>
 <div class="row">
   <ul class="collection with-header" id="contact-wrapper">
-    <app-contact-item *ngFor="let contact of contactService.getAll()"
+    <app-contact-item *ngFor="let contact of contactService.getAll() | async"
                       [childContact]="contact"
     ></app-contact-item>
   </ul>

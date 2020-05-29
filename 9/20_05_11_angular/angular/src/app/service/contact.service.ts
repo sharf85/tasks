@@ -1,38 +1,41 @@
 import {Injectable} from '@angular/core';
 import {Contact} from '../model/contact';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class ContactService {
-  contacts: Contact[];
 
-  constructor() {
-    this.contacts = contacts;
+  readonly CONTACT_PATH = 'contact';
+
+  contacts: Observable<Contact[]>;
+
+  constructor(private httpClient: HttpClient) {
   }
 
-  add(contact: Contact): void {
-    contact.id = this.contacts.length + 1;
-    const objectToAdd: Contact = Object.assign({}, contact);
-    this.contacts.push(objectToAdd);
+  private reloadContact(): void {
+    this.contacts = this.httpClient.get<Contact[]>(URL + this.CONTACT_PATH);
   }
 
-  getAll(): Contact[] {
+  getAll(): Observable<Contact[]> {
+    if (!this.contacts) {
+      this.reloadContact();
+    }
     return this.contacts;
   }
 
+  add(contact: Contact): void {
+    this.httpClient
+      .post(URL + this.CONTACT_PATH, contact)
+      .subscribe(_ => this.reloadContact());
+  }
+
+// TODO: complete
   remove(childContact: Contact) {
-    this.contacts = this.contacts.filter(value => value.id !== childContact.id);
   }
 
   edit(contact: Contact) {
-    const contactToEdit: Contact = this.contacts.find(value => value.id === contact.id);
-    Object.assign(contactToEdit, contact);
   }
 }
 
-const contacts: Contact[] = [
-  {id: 1, name: 'Vasya', lastName: 'Vasin', age: 20},
-  {id: 2, name: 'Petya', lastName: 'Vasin', age: 22},
-  {id: 3, name: 'Masha', lastName: 'Vasina', age: 21},
-  {id: 4, name: 'Tanya', lastName: 'Vasina', age: 19},
-  {id: 5, name: 'Tel', lastName: 'Ranov', age: 25},
-];
+const URL = 'http://localhost:8090/';
