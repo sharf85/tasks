@@ -30,11 +30,16 @@ export class ContactService {
       .subscribe(_ => this.reloadContact());
   }
 
-// TODO: complete
-  remove(childContact: Contact) {
+  remove(contact: Contact) {
+    this.httpClient
+      .delete(`${URL}${this.CONTACT_PATH}/${contact.id}`)
+      .subscribe(_ => this.reloadContact());
   }
 
   edit(contact: Contact) {
+    this.httpClient
+      .put(URL + this.CONTACT_PATH, contact)
+      .subscribe(_ => this.reloadContact());
   }
 }
 

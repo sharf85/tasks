@@ -15,7 +15,6 @@ export class ContactService {
   add(contact: Contact): void {
     this.httpClient.post(`${this.host}contact`, contact)
       .subscribe(value => this.reloadContacts());
-
   }
 
   private reloadContacts() {
@@ -29,13 +28,13 @@ export class ContactService {
     return this.contacts;
   }
 
-  edit(contact: Contact) {
-    // const contactToEdit = CONTACTS.find(value => value.id === contact.id);
-    // Object.assign(contactToEdit, contact);
+  edit(contact: Contact): void {
+    this.httpClient.put<void>(`${this.host}contact`, contact)
+      .subscribe(value => this.reloadContacts());
   }
 
   remove(contact: Contact) {
-    // const index = CONTACTS.findIndex(value => value.id === contact.id);
-    // CONTACTS.splice(index, 1);
+    this.httpClient.delete<void>(`${this.host}contact/${contact.id}`)
+      .subscribe(value => this.reloadContacts());
   }
 }

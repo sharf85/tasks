@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Contact} from '../model/contact';
 import {ContactService} from '../service/contact.service';
 import {ContactEventService} from '../service/contact-event.service';
@@ -30,7 +30,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   }
 
   onEditContact(value: Contact) {
-    this.contact = value;
+    Object.assign(this.contact, value);
     this.isAddingState = false;
   }
 

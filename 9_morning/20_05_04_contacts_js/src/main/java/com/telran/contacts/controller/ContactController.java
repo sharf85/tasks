@@ -19,7 +19,6 @@ public class ContactController {
 
     @GetMapping("/contact")
     @ResponseBody
-    //TODO: what is it?
     @CrossOrigin()
     public List<Contact> contactForm() {
         return contactService.getAll();
@@ -34,24 +33,26 @@ public class ContactController {
 
     @PutMapping("/contact")
     @ResponseBody
+    @CrossOrigin
     public void editContact(@RequestBody Contact contact) {
         contactService.edit(contact);
     }
 
     @DeleteMapping("/contact/{id}")
     @ResponseBody
+    @CrossOrigin
     public void removeContact(@PathVariable int id) {
         contactService.remove(id);
     }
 
-//    @GetMapping("/")
-//    public String home() {
-//        return "forward:/contacts";
-//    }
-//
-//    @GetMapping("/contacts")
-//    public String getContacts() {
-//        return "contacts";
-//    }
+    @GetMapping("/")
+    public String home() {
+        return "forward:/contacts";
+    }
+
+    @GetMapping("/contacts")
+    public String getContacts() {
+        return "contacts";
+    }
 
 }

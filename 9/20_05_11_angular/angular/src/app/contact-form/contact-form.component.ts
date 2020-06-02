@@ -31,7 +31,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   // TODO: figure out why we placed here the arrow function (https://learn.javascript.ru/object-methods)
   onEditContact = (value: Contact) => {
     this.isAddingState = false;
-    this.contact = value;
+    Object.assign(this.contact, value);
   }
 
   onClickAdd(): void {
