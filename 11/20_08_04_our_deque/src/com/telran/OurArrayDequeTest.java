@@ -2,11 +2,16 @@ package com.telran;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class OurArrayDequeTest {
 
-    OurDeque<Integer> deque = new OurArrayDeque<>(16);
+    OurArrayDeque<Integer> deque = new OurArrayDeque<>(16);
 
     @Test
     public void testSize_newInstance_0() {
@@ -193,5 +198,23 @@ class OurArrayDequeTest {
         deque.addFirst(8);
 
         assertThrows(OurDequeOverflowException.class, () -> deque.addLast(7));
+    }
+
+    @Test
+    public void testIterator() {
+        deque = new OurArrayDeque<>(2);
+        deque.addLast(3);
+        deque.addFirst(8);
+
+        Iterator<Integer> it = new ReversedOurArrayDequeIterator<>(deque);
+
+        List<Integer> result = new ArrayList<>();
+        while (it.hasNext()) {
+            int current = it.next();
+            result.add(current);
+        }
+
+        List<Integer> expected = Arrays.asList(3, 8);
+        assertEquals(expected, result);
     }
 }

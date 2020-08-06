@@ -1,12 +1,14 @@
 package com.telran;
 
+import java.util.Iterator;
+
 public class OurArrayDeque<T> implements OurDeque<T> {
 
-    private int size;
-    private int firstEltIndex;
-    private final int capacity;
+    int size;
+    int firstEltIndex;
+    final int capacity;
 
-    private final Object[] source;
+    final Object[] source;
 
     public OurArrayDeque(int capacity) {
         this.capacity = capacity;
@@ -78,5 +80,30 @@ public class OurArrayDeque<T> implements OurDeque<T> {
     @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new DefaultIterator();
+    }
+
+    private class DefaultIterator implements Iterator<T> {
+
+        /**
+         * the number of the current element from 0 to (size-1)
+         */
+        int currentIndexNumber;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndexNumber < size;
+        }
+
+        @Override
+        public T next() {
+            int indexInSourceToReturn = (firstEltIndex + currentIndexNumber) % capacity;
+            currentIndexNumber++;
+            return (T) source[indexInSourceToReturn];
+        }
     }
 }
