@@ -82,7 +82,7 @@ public class OurArrayDeque<T> implements OurDeque<T> {
         return size;
     }
 
-    @Override
+    //    @Override
     public Iterator<T> iterator() {
         return new DefaultIterator();
     }

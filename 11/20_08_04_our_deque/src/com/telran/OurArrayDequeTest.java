@@ -201,20 +201,34 @@ class OurArrayDequeTest {
     }
 
     @Test
-    public void testIterator() {
+    void testDefaultIterator() {
+        deque = new OurArrayDeque<>(2);
+        deque.addLast(3);
+        deque.addFirst(8);
+        Iterator<Integer> it = deque.iterator();
+        List<Integer> res = new ArrayList<>();
+        while (it.hasNext()) {
+            int current = it.next();
+            res.add(current);
+        }
+        List<Integer> expected = Arrays.asList(8, 3);
+        assertEquals(expected, res);
+    }
+
+    @Test
+    void testIterable() {
         deque = new OurArrayDeque<>(2);
         deque.addLast(3);
         deque.addFirst(8);
 
-        Iterator<Integer> it = new ReversedOurArrayDequeIterator<>(deque);
+        List<Integer> res = new ArrayList<>();
 
-        List<Integer> result = new ArrayList<>();
-        while (it.hasNext()) {
-            int current = it.next();
-            result.add(current);
+        for (int num : deque) {
+            res.add(num);
         }
 
-        List<Integer> expected = Arrays.asList(3, 8);
-        assertEquals(expected, result);
+        List<Integer> expected = Arrays.asList(8, 3);
+        assertEquals(expected, res);
     }
+
 }
