@@ -28,4 +28,11 @@ public class Point2D implements Comparable<Point2D> {
         return thisRSquared - otherRSquared;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        Point2D otherPoint = (Point2D) other;
+
+        return this.x == otherPoint.x && this.y == otherPoint.y;
+    }
+
 }

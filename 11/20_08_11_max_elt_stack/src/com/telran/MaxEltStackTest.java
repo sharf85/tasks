@@ -1,5 +1,6 @@
 package com.telran;
 
+import com.telran.model.Point2D;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,12 +11,72 @@ import static org.junit.jupiter.api.Assertions.*;
 class MaxEltStackTest {
 
     MaxEltStack<Integer> stack;
+    MaxEltStack<Point2D> pointStack;
+
+    @Test
+    public void testJavaEquals() {
+        Point2D point1 = new Point2D(1, 1);
+        Point2D point2 = point1;
+
+        assertTrue(point1 == point2);//The == operator compares two reference variables by
+        // pointing to the same object
+
+        Point2D point3 = new Point2D(1, 1);
+        assertFalse(point1 == point3);
+
+        point3 = point2;
+        assertTrue(point1 == point3);
+    }
+
+    @Test
+    public void testObjectEquals() {
+        Point2D point1 = new Point2D(1, 1);
+        Point2D point2 = point1;
+
+        assertTrue(point1.equals(point2));
+
+        Point2D point3 = new Point2D(1, 1);
+        assertTrue(point1.equals(point3));
+    }
+
+    @Test
+    void testGetMaxUsingPoint2D_SeveralPoints_Point45point14and3point14() {
+        Point2D expected = new Point2D(45, 3);
+        pointStack.addLast(new Point2D(0, 4));
+        pointStack.addLast(new Point2D(45, 3));//some object
+        pointStack.addLast(new Point2D(5, 31));
+        pointStack.addLast(new Point2D(0, 3));
+        assertEquals(expected, pointStack.getMax());
+    }
+
+    @Test
+    void testGetMaxUsingPoint2D_EqualPoints_pointZeroZero() {
+        Point2D expected = new Point2D(0, 0);
+        pointStack.addLast(new Point2D(0, 0));
+        pointStack.addLast(new Point2D(0, 0));
+        pointStack.addLast(new Point2D(0, 0));
+        pointStack.addLast(new Point2D(0, 0));
+        pointStack.addLast(new Point2D(0, 0));
+        assertEquals(expected, pointStack.getMax());
+    }
+
+    @Test
+    void testGetMaxUsingPoint2D_notEqualPoints_pointZeroAndZeroZeroOne() {
+        Point2D expected = new Point2D(0, 1);
+        pointStack.addLast(new Point2D(0, 0));
+        pointStack.addLast(new Point2D(0, 0));
+        pointStack.addLast(new Point2D(0, 0));
+        pointStack.addLast(new Point2D(0, 1));
+        pointStack.addLast(new Point2D(0, 0));
+        assertEquals(expected, pointStack.getMax());
+    }
 
     @BeforeEach
     public void init() {
         Comparator<Integer> defaultComparator = new DefaultIntegerComparator();
 //        stack = new MaxEltStack<>(defaultComparator);
         stack = new MaxEltStack<>();
+        pointStack = new MaxEltStack<>();
     }
 
     @Test
