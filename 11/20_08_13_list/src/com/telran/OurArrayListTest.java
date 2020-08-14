@@ -16,9 +16,19 @@ class OurArrayListTest {
     @Test
     void testAdd_oneE_size1_equalTo() {
         list.add(5);
-        assertEquals(5,list.get(0));
-        assertEquals(1,list.size());
+        assertEquals(5, list.get(0));
+        assertEquals(1, list.size());
         assertTrue(list.contains(5));
+    }
+
+    @Test
+    void testAdd_onePoint_containsExistingPoint() {
+        OurList<Point2D> pointList = new OurArrayList<>();
+        pointList.add(new Point2D(1, 1));
+
+
+        Point2D expected = new Point2D(1, 1);
+        assertTrue(pointList.contains(expected));
     }
 
     @Test
@@ -26,10 +36,10 @@ class OurArrayListTest {
         list.add(16);
         list.add(5);
         list.add(0);
-        assertEquals(16,list.get(0));
-        assertEquals(5,list.get(1));
-        assertEquals(0,list.get(2));
-        assertEquals(3,list.size());
+        assertEquals(16, list.get(0));
+        assertEquals(5, list.get(1));
+        assertEquals(0, list.get(2));
+        assertEquals(3, list.size());
         assertTrue(list.contains(16));
         assertTrue(list.contains(5));
         assertTrue(list.contains(0));
@@ -41,9 +51,9 @@ class OurArrayListTest {
         for (int i = 0; i < 100; i++) {
             list.add(i);
         }
-        assertEquals(100,list.size());
+        assertEquals(100, list.size());
         for (int i = 0; i < list.size(); i++) {
-            assertEquals(i,list.get(i));
+            assertEquals(i, list.get(i));
         }
         for (int i = 0; i < 100; i++) {
             assertTrue(list.contains(i));
@@ -53,8 +63,8 @@ class OurArrayListTest {
     @Test
     void testRemoveIndex_oneE_size0() {
         list.add(1);
-        assertEquals(1,list.remove(0));
-        assertEquals(0,list.size());
+        assertEquals(1, list.remove(0));
+        assertEquals(0, list.size());
     }
 
     @Test
@@ -62,8 +72,8 @@ class OurArrayListTest {
         list.add(16);
         list.add(5);
         list.add(671);
-        assertEquals(671,list.remove(2));
-        assertEquals(2,list.size());
+        assertEquals(671, list.remove(2));
+        assertEquals(2, list.size());
         assertFalse(list.contains(671));
     }
 
@@ -73,18 +83,18 @@ class OurArrayListTest {
             list.add(i);
         }
         for (int i = 0, j = 99; i < 99; i++, j--) {
-            assertEquals(i,list.remove(0));
-            assertEquals(j,list.size());
+            assertEquals(i, list.remove(0));
+            assertEquals(j, list.size());
         }
     }
 
     @Test
-    void testRemove16E_RemoveIndex15() {
+    void testRemove_16consistentNumbers_RemoveIndex15() {
         for (int i = 0; i < 16; i++) {
             list.add(i);
         }
-        assertEquals(15,list.remove(15));
-
+        int res = list.remove(15);
+        assertEquals(15, res);
     }
 
     @Test
@@ -96,7 +106,7 @@ class OurArrayListTest {
     @Test
     void testGet_oneE_equalTo() {
         list.add(88);
-        assertEquals(88,list.get(0));
+        assertEquals(88, list.get(0));
     }
 
     @Test
@@ -104,12 +114,12 @@ class OurArrayListTest {
         list.add(88);
         list.add(17);
         list.add(910);
-        assertEquals(910,list.get(2));
+        assertEquals(910, list.get(2));
     }
 
     @Test
     void testGet_IndexOutOfBoundsException() {
         list.add(1);
-        assertThrows(IndexOutOfBoundsException.class,() -> list.get(1));
+        assertThrows(IndexOutOfBoundsException.class, () -> list.get(1));
     }
 }

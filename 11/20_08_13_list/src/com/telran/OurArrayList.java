@@ -1,5 +1,6 @@
 package com.telran;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -46,7 +47,9 @@ public class OurArrayList<T> implements OurList<T> {
 
     @Override
     public void set(int index, T elt) {
-
+        if (index >= size || index < 0)
+            throw new IndexOutOfBoundsException();
+        source[index] = elt;
     }
 
     @Override
@@ -58,17 +61,45 @@ public class OurArrayList<T> implements OurList<T> {
 
     @Override
     public boolean contains(T elt) {
-        return false;
+        int index = getIndexOf(elt);
+        return index != -1;
+    }
+
+    /**
+     * searches for the index of the elt in this list
+     *
+     * @param elt to find
+     * @return actual index or -1 if not found
+     */
+    private int getIndexOf(T elt) {
+        for (int i = 0; i < size; i++) {
+            if (elt.equals(source[i]))
+                return i;
+        }
+        return -1;
     }
 
     @Override
     public T remove(int index) {
-        return null;
+        if (index >= size || index < 0)
+            throw new IndexOutOfBoundsException();
+
+        T elt = (T) source[index];
+
+        System.arraycopy(source, index + 1, source, index, size - index - 1);
+        size--;
+        return elt;
     }
 
     @Override
     public boolean remove(T elt) {
-        return false;
+        int index = getIndexOf(elt);
+
+        if (index == -1)
+            return false;
+
+        remove(index);
+        return true;
     }
 
     @Override
@@ -83,6 +114,17 @@ public class OurArrayList<T> implements OurList<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new Iterator<>() {
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public T next() {
+                return null;
+            }
+        };
     }
+
 }
