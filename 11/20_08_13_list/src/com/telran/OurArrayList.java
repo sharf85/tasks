@@ -1,6 +1,5 @@
 package com.telran;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -104,27 +103,46 @@ public class OurArrayList<T> implements OurList<T> {
 
     @Override
     public void sort() {
-
+        Arrays.sort(source, 0, size);
     }
 
     @Override
     public void sort(Comparator<T> comparator) {
-
+        Arrays.sort((T[]) source, 0, size, comparator);
     }
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<>() {
-            @Override
-            public boolean hasNext() {
-                return false;
-            }
+//        return new Iterator<>() {
+//
+//            int currentIndex = 0;
+//
+//            @Override
+//            public boolean hasNext() {
+//                return currentIndex < size;
+//            }
+//
+//            @Override
+//            public T next() {
+//                return (T) source[currentIndex++];
+//            }
+//        };
+        return new DefaultIterator();
+    }
 
-            @Override
-            public T next() {
-                return null;
-            }
-        };
+    class DefaultIterator implements Iterator<T> {
+
+        int currentIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < size;
+        }
+
+        @Override
+        public T next() {
+            return (T) source[currentIndex++];
+        }
     }
 
 }

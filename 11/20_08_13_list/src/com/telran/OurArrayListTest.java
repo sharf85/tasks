@@ -3,6 +3,8 @@ package com.telran;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class OurArrayListTest {
@@ -121,5 +123,71 @@ class OurArrayListTest {
     void testGet_IndexOutOfBoundsException() {
         list.add(1);
         assertThrows(IndexOutOfBoundsException.class, () -> list.get(1));
+    }
+
+    @Test
+    public void testArrayIterator() {
+
+        list.add(2);
+        list.add(-1);
+        list.add(23);
+        list.add(4);
+        list.add(89);
+
+        int[] expected = {2, -1, 23, 4, 89};
+
+        Iterator<Integer> it = list.iterator();
+        int i = 0;
+        while (it.hasNext()) {
+            int num = it.next();
+            assertEquals(expected[i++], num);
+        }
+
+    }
+
+    @Test
+    public void testSort_add16elt_9() {
+
+        list.add(15);
+        list.add(16);
+        list.add(11);
+        list.add(3);
+        list.add(12);
+        list.add(14);
+        list.add(1);
+        list.add(9);
+        list.add(8);
+        list.add(7);
+        list.add(4);
+        list.add(5);
+        list.add(6);
+        list.add(13);
+        list.add(10);
+        list.add(2);
+
+        list.sort();
+        assertEquals(9, list.get(8));
+    }
+
+    @Test
+    void testSortWithComparator_Point2DList_sortedList() {
+        OurList<Point2D> expected = new OurArrayList<>();
+        expected.add(new Point2D(0, 1));
+        expected.add(new Point2D(1, 1));
+        expected.add(new Point2D(4, 4));
+        expected.add(new Point2D(3, 7));
+        expected.add(new Point2D(16, 3));
+
+        OurList<Point2D> pointList = new OurArrayList<>();
+        pointList.add(new Point2D(4, 4));
+        pointList.add(new Point2D(1, 1));
+        pointList.add(new Point2D(0, 1));
+        pointList.add(new Point2D(16, 3));
+        pointList.add(new Point2D(3, 7));
+
+        pointList.sort(new Point2DComparator());
+        for (int i = 0; i < pointList.size(); i++) {
+            assertEquals(expected.get(i), pointList.get(i));
+        }
     }
 }
