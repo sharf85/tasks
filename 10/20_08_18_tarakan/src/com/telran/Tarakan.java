@@ -5,12 +5,12 @@ import java.util.Random;
 
 public class Tarakan extends Thread {
 
-    private static final int FASTEST_STEP_TIME = 50;
+    private static final int FASTEST_STEP_TIME = 99;
     private static final int SLOWEST_STEP_TIME = 100;
 
     int stepsNum;
     String name;
-    List<Score> scores;
+    final List<Score> scores;
 
     Random random = new Random();
 
@@ -32,7 +32,12 @@ public class Tarakan extends Thread {
                 e.printStackTrace();
             }
         }
+
         int runDuration = (int) (System.currentTimeMillis() - startTime);
-        scores.add(new Score(name, runDuration));
+
+        synchronized (scores) {
+            scores.add(new Score(name, runDuration));
+        }
+
     }
 }
