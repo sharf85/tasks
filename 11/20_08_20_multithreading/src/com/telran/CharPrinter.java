@@ -14,6 +14,11 @@ public class CharPrinter extends Thread {
     public void run() {
         for (int i = 0; i < times; i++) {
             System.out.println(ch);
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
