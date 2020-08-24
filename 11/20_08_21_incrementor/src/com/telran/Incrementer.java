@@ -1,12 +1,13 @@
 package com.telran;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Incrementer {
 
     final Object mu1 = new Object();
-    final Object mu2 = new Object();
 
     private int counter;
-    private int counter2;
+    private final AtomicInteger counter2 = new AtomicInteger();
 
     public void increment() {
         synchronized (mu1) {
@@ -15,9 +16,7 @@ public class Incrementer {
     }
 
     public void increment2() {
-        synchronized (mu2) {
-            counter2++;
-        }
+        counter2.incrementAndGet();
     }
 
     public int getCounter() {
@@ -25,6 +24,6 @@ public class Incrementer {
     }
 
     public int getCounter2() {
-        return counter2;
+        return counter2.get();
     }
 }
