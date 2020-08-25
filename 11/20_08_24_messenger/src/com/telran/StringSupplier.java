@@ -1,5 +1,9 @@
 package com.telran;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class StringSupplier extends Thread {
     private final OneElementBlockingQueue queue;
 
@@ -9,6 +13,13 @@ public class StringSupplier extends Thread {
 
     @Override
     public void run() {
-        //Must accept lines from System.in and put them into the queue. See Echo Messenger project
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+            String line;
+            while ((line = br.readLine()) != null && !line.equals("exit")) {
+                queue.addFirst(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
