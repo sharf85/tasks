@@ -1,0 +1,1 @@
+operations=com.telran.consumer.operation.LowerCaseOperation,com.telran.consumer.operation.UpperCaseOperation,com.telran.consumer.operation.ReverseOperation
