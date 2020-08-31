@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Main {
 
@@ -16,7 +17,7 @@ public class Main {
     private static final String DEFAULT_INPUT_FILE = "input.txt";
     private static final String DEFAULT_OUTPUT_FILE = "output.txt";
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, InterruptedException {
         OperationProperties operationProperties = new OperationProperties(OPERATION_PROPS_PATH);
         operationProperties.load();
 
@@ -29,6 +30,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new FileReader(DEFAULT_INPUT_FILE));
 
         BlockingQueue<String> lineQueue = new LinkedBlockingQueue<>();
+//        AtomicBoolean isAlive = new AtomicBoolean(true);
 
         LineConsumer[] consumers = new LineConsumer[3];
         for (int i = 0; i < consumers.length; i++) {
@@ -40,6 +42,27 @@ public class Main {
         for (int i = 0; i < suppliers.length; i++) {
             suppliers[i] = new FileReadingThread(lineQueue, br);
             suppliers[i].start();
+        }
+
+        join(suppliers);
+        endAllConsumers(consumers, lineQueue);
+//        isAlive.set(false);
+
+        join(consumers);
+        br.close();
+        pw.close();
+    }
+
+    private static void endAllConsumers(LineConsumer[] consumers,
+                                        BlockingQueue<String> lineQueue) {
+        for (int i = 0; i < consumers.length; i++) {
+            lineQueue.add(LineConsumer.STOP_COMMAND);
+        }
+    }
+
+    private static void join(Thread[] threads) throws InterruptedException {
+        for (Thread th : threads) {
+            th.join();
         }
     }
 }
