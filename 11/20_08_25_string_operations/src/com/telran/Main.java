@@ -9,7 +9,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Main {
 
@@ -30,7 +29,6 @@ public class Main {
         BufferedReader br = new BufferedReader(new FileReader(DEFAULT_INPUT_FILE));
 
         BlockingQueue<String> lineQueue = new LinkedBlockingQueue<>();
-//        AtomicBoolean isAlive = new AtomicBoolean(true);
 
         LineConsumer[] consumers = new LineConsumer[3];
         for (int i = 0; i < consumers.length; i++) {
@@ -46,7 +44,6 @@ public class Main {
 
         join(suppliers);
         endAllConsumers(consumers, lineQueue);
-//        isAlive.set(false);
 
         join(consumers);
         br.close();
