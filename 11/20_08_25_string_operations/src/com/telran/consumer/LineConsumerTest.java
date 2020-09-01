@@ -34,6 +34,18 @@ class LineConsumerTest {
     }
 
     @Test
+    public void testProcessLine_threePartsInText_wrongLine() {
+        String toProcess = "hello#some_operation#addition";
+
+        IStringOperation someOperation = mock(IStringOperation.class);
+        when(someOperation.operate("hello")).thenReturn("HellO");
+        when(storage.getByName("some_operation")).thenReturn(someOperation);
+
+        String expected = toProcess + LineConsumer.DELIMITER + LineConsumer.WRONG_LINE;
+        assertEquals(expected, lineConsumer.processLine(toProcess));
+    }
+
+    @Test
     public void testProcessLine_textWithWrongOperation_wrongOperation() {
         String toProcess = "hello#some_operation";
 

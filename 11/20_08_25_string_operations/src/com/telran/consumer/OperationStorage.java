@@ -18,11 +18,16 @@ public class OperationStorage {
      *
      * @param paths of the operation to initialize
      */
-    public void init(List<String> paths) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public void init(List<String> paths) throws ClassNotFoundException, OperationStorageInstantiationException {
         operationByName = new HashMap<>();
 
-        for (String path : paths) {
-            IStringOperation operation = (IStringOperation) Class.forName(path).getConstructor().newInstance();
+        try {
+            for (String path : paths) {
+                IStringOperation operation = (IStringOperation) Class.forName(path).getConstructor().newInstance();
+                operationByName.put(operation.getName(), operation);
+            }
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            throw new OperationStorageInstantiationException(e.getMessage(), e);
         }
     }
 
