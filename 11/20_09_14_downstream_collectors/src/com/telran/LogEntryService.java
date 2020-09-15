@@ -10,7 +10,7 @@ public class LogEntryService {
 
     public Map<String, Long> getAttendanceByUrl(List<LogEntry> logs) {
         return logs.stream()
-                .collect(groupingBy(log -> log.getUrl(), counting()));
+                .collect(groupingBy(LogEntry::getUrl, counting()));
     }
 
     public Map<String, Integer> getUniqueUsersNumberByUrl(List<LogEntry> logs) {
@@ -19,5 +19,10 @@ public class LogEntryService {
                         mapping(LogEntry::getUsername,
                                 collectingAndThen(toSet(), Set::size)))
                 );
+    }
+
+    public Map<String, Integer> getUniqueUsersNumberByUrlCustom(List<LogEntry> logs) {
+        return logs.stream()
+                .collect(groupingBy(LogEntry::getUrl, new UniqueUsersCollector()));
     }
 }
