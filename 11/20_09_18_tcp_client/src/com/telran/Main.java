@@ -4,6 +4,8 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Main {
 
@@ -29,6 +31,7 @@ public class Main {
 
             // waiting for the response from the server
             String response = socketIn.readLine();
+            System.out.println(response);
         }
 
         socket.close();
