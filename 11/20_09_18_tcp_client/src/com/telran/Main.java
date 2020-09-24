@@ -1,16 +1,12 @@
 package com.telran;
 
 import java.io.*;
-import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Main {
 
     static final String SERVER_HOST = "localhost";
-    static final int SERVER_PORT = 3000;
+    static final int SERVER_PORT = 5000;
 
     public static void main(String[] args) throws IOException {
         Socket socket = new Socket(SERVER_HOST, SERVER_PORT);
