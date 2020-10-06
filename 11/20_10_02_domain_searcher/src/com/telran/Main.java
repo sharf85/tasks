@@ -11,5 +11,10 @@ public class Main {
         FileOperations fo = new FileOperations();
 
         List<String> zones = fo.readFileToList(ZONES_FILENAME);
+
+        DomainChecker domainChecker = new DomainChecker(zones);
+
+        ConsoleListener consoleListener = new ConsoleListener(domainChecker);
+        new Thread(consoleListener).start();
     }
 }
