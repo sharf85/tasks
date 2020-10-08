@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Picture implements Shape {
 
-    private List<Shape> shapes;
+    private final List<Shape> shapes;
 
     public Picture(List<Shape> shapes) {
         this.shapes = Collections.unmodifiableList(shapes);
@@ -16,7 +16,7 @@ public class Picture implements Shape {
      */
     @Override
     public void draw() {
-
+        shapes.forEach(Shape::draw);
     }
 
     public List<Shape> getShapes() {

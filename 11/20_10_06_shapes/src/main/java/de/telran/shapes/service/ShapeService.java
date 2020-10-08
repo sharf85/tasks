@@ -9,5 +9,8 @@ import java.util.List;
 public class ShapeService {
 
     public void drawShapes(List<Shape> shapes) {
+        System.out.println("--------------------");
+        shapes.forEach(Shape::draw);
+        System.out.println("--------------------");
     }
 }
