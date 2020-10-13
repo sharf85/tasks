@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class ContactController {
 
@@ -25,8 +27,15 @@ public class ContactController {
 
     //TODO save the received contact
     @PostMapping("/contact/add")
-    public String addContact(@ModelAttribute Contact contact, Model model) {
-        model.addAttribute("contact", contact);
-        return "contact-form";
+    public String addContact(@ModelAttribute Contact contact) {
+        contactService.add(contact);
+        return "redirect:/contacts";
+    }
+
+    @GetMapping("/contacts")
+    public String contacts(Model model) {
+        List<Contact> contacts = contactService.getAll();
+        model.addAttribute("contacts", contacts);
+        return "contacts";
     }
 }

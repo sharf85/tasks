@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-//TODO implement and write tests
 @Repository
 public class MemoryContactRepo implements IContactRepo {
 
@@ -30,14 +29,14 @@ public class MemoryContactRepo implements IContactRepo {
     }
 
     @Override
-    public void edit(Contact contact) {
-        Contact oldContact = getById(contact.id);
+    public void edit(Contact newContact) {
+        Contact oldContact = getById(newContact.id);
 
         if (oldContact == null)
             return;
 
-        oldContact.name = contact.name;
-        oldContact.number = contact.number;
+        oldContact.name = newContact.name;
+        oldContact.number = newContact.number;
     }
 
     @Override

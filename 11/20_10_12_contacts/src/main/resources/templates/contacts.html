@@ -1,0 +1,20 @@
+<!--TODO add functionality to the template
+1. Go to the materialize site and pick something suitable for
+our goal
+2. Go to the thymeleaf site and figure out how to print several
+objects out.
+-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacts</title>
+</head>
+<body>
+<h3 th:text="${contacts.size()}"></h3>
+<ul>
+    <li th:each="contact : ${contacts}" th:text="${contact.name}">En las Orillas del Sar</li>
+</ul>
+</body>
+</html>
