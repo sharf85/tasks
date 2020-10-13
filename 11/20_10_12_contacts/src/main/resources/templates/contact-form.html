@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="row">
+    <h3 class="col offset-s3 s9">Contact</h3>
+</div>
+
+<div class="row">
+    <form class="col s6 offset-s3" th:action="@{/contact/add}" th:object="${contact}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+        <div class="row">
+            <div class="input-field col s6">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="icon_prefix" type="text" class="validate" th:field="*{name}">
+                <label for="icon_prefix">Name</label>
+            </div>
+            <div class="input-field col s6">
+                <i class="material-icons prefix">phone</i>
+                <input id="icon_telephone" type="tel" class="validate" th:field="*{number}">
+                <label for="icon_telephone">Telephone</label>
+            </div>
+        </div>
+        <div class="row">
+            <button class="btn-large waves-effect waves-light blue" type="submit" name="action">Submit</button>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
