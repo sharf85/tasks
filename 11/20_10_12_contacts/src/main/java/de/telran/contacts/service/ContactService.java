@@ -26,4 +26,12 @@ public class ContactService {
     public void remove(int id) {
         contactRepo.remove(id);
     }
+
+    public Contact get(int id) {
+        return contactRepo.getById(id);
+    }
+
+    public void edit(Contact contact) {
+        contactRepo.edit(contact);
+    }
 }

@@ -27,7 +27,8 @@ objects out.
                     <span th:text="${contact.name}"></span>
                     <a th:href="'/contact/'+${contact.id}+'/delete'" class="secondary-content red-text"><i
                             class="material-icons">delete</i></a>
-                    <a href="" class="secondary-content"><i class="material-icons">edit</i></a>
+                    <a th:href="'/contact/'+${contact.id}+'/edit'" class="secondary-content blue-text"><i
+                            class="material-icons">edit</i></a>
                 </div>
             </li>
         </ul>

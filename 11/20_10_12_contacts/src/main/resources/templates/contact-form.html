@@ -13,7 +13,7 @@
 </div>
 
 <div class="row">
-    <form class="col s6 offset-s3" th:action="@{/contact/add}" th:object="${contact}" method="post">
+    <form class="col s6 offset-s3" th:action="@{/contact/save}" th:object="${contact}" method="post">
         <input type="hidden" th:field="*{id}"/>
         <div class="row">
             <div class="input-field col s6">

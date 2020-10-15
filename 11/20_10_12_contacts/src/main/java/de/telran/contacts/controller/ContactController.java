@@ -26,10 +26,12 @@ public class ContactController {
         return "contact-form";
     }
 
-    //TODO save the received contact
-    @PostMapping("/contact/add")
+    @PostMapping("/contact/save")
     public String addContact(@ModelAttribute Contact contact) {
-        contactService.add(contact);
+        if (contact.id > 0)
+            contactService.edit(contact);
+        else
+            contactService.add(contact);
         return "redirect:/contacts";
     }
 
@@ -37,12 +39,20 @@ public class ContactController {
     public String contacts(Model model) {
         List<Contact> contacts = contactService.getAll();
         model.addAttribute("contacts", contacts);
-        return "contacts";
+        // the name of the template
+        return "contacts-template";
     }
 
     @GetMapping("/contact/{id}/delete")
     public String removeContact(@PathVariable int id) {
         contactService.remove(id);
         return "redirect:/contacts";
+    }
+
+    @GetMapping("/contact/{id}/edit")
+    public String editContactPage(@PathVariable int id, Model model) {
+        Contact contact = contactService.get(id);
+        model.addAttribute("contact", contact);
+        return "contact-form";
     }
 }
