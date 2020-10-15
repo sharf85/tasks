@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -37,5 +38,11 @@ public class ContactController {
         List<Contact> contacts = contactService.getAll();
         model.addAttribute("contacts", contacts);
         return "contacts";
+    }
+
+    @GetMapping("/contact/{id}/delete")
+    public String removeContact(@PathVariable int id) {
+        contactService.remove(id);
+        return "redirect:/contacts";
     }
 }

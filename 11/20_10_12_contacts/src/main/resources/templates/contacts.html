@@ -8,13 +8,31 @@ objects out.
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <meta charset="UTF-8">
     <title>Contacts</title>
 </head>
 <body>
-<h3 th:text="${contacts.size()}"></h3>
-<ul>
-    <li th:each="contact : ${contacts}" th:text="${contact.name}">En las Orillas del Sar</li>
-</ul>
+<div class="row">
+    <div class="col s6 offset-s3">
+        <h3>Contacts</h3>
+        <ul class="collection with-header">
+            <li class="collection-header">
+                <a class="btn-floating btn-large waves-effect waves-light blue" href="/contact/add"><i
+                        class="material-icons">add</i></a>
+            </li>
+            <li class="collection-item" th:each="contact : ${contacts}">
+                <div>
+                    <span th:text="${contact.name}"></span>
+                    <a th:href="'/contact/'+${contact.id}+'/delete'" class="secondary-content red-text"><i
+                            class="material-icons">delete</i></a>
+                    <a href="" class="secondary-content"><i class="material-icons">edit</i></a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>

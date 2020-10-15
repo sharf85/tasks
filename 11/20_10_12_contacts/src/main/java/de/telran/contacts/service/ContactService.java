@@ -22,4 +22,8 @@ public class ContactService {
     public List<Contact> getAll() {
         return contactRepo.getAll();
     }
+
+    public void remove(int id) {
+        contactRepo.remove(id);
+    }
 }
