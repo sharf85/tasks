@@ -28,7 +28,10 @@
             </div>
         </div>
         <div class="row">
-            <button class="btn-large waves-effect waves-light blue" type="submit" name="action">Submit</button>
+            <div class="col s12">
+                <button class="btn-large waves-effect waves-light blue" type="submit" name="action">Save</button>
+                <a class="waves-effect waves-light btn-large blue" th:href="@{'/contacts'}">Cancel</a>
+            </div>
         </div>
     </form>
 </div>

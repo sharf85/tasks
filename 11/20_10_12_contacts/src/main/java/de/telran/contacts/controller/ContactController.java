@@ -27,7 +27,7 @@ public class ContactController {
     }
 
     @PostMapping("/contact/save")
-    public String addContact(@ModelAttribute Contact contact) {
+    public String saveContact(@ModelAttribute Contact contact) {
         if (contact.id > 0)
             contactService.edit(contact);
         else
@@ -40,7 +40,7 @@ public class ContactController {
         List<Contact> contacts = contactService.getAll();
         model.addAttribute("contacts", contacts);
         // the name of the template
-        return "contacts-template";
+        return "contacts";
     }
 
     @GetMapping("/contact/{id}/delete")
@@ -54,5 +54,17 @@ public class ContactController {
         Contact contact = contactService.get(id);
         model.addAttribute("contact", contact);
         return "contact-form";
+    }
+
+    @GetMapping("/contact/{id}")
+    public String getContact(@PathVariable int id, Model model) {
+        Contact contact = contactService.get(id);
+        model.addAttribute("contact", contact);
+        return "contact";
+    }
+
+    @GetMapping("/")
+    public String home() {
+        return "redirect:/contacts";
     }
 }

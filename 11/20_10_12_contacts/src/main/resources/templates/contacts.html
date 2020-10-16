@@ -24,7 +24,9 @@ objects out.
             </li>
             <li class="collection-item" th:each="contact : ${contacts}">
                 <div>
-                    <span th:text="${contact.name}"></span>
+                    <a th:href="'/contact/'+${contact.id}">
+                        <span th:text="${contact.name}"></span>
+                    </a>
                     <a th:href="'/contact/'+${contact.id}+'/delete'" class="secondary-content red-text"><i
                             class="material-icons">delete</i></a>
                     <a th:href="'/contact/'+${contact.id}+'/edit'" class="secondary-content blue-text"><i
