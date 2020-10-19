@@ -11,7 +11,6 @@ import java.util.List;
 @RequestMapping("/api")
 public class PersonController {
 
-
     final private PersonService personService;
 
     public PersonController(PersonService personService) {
@@ -20,7 +19,7 @@ public class PersonController {
 
     @GetMapping("/persons/{id}")
     public PersonDto get(@PathVariable int id) {
-        return null;
+        return new PersonDto();
     }
 
     @GetMapping("/persons")
