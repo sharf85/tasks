@@ -16,7 +16,6 @@ public interface OurList<T> extends Iterable<T> {
     public void set(int index, T elt);
 
     /**
-     *
      * @param index of the element to return
      * @return element by index
      * @throws IndexOutOfBoundsException if the index is not between 0 and (size - 1)

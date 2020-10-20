@@ -22,7 +22,7 @@ public class ConsoleListener implements Runnable {
                 System.out.println("Please wait!");
                 List<String> freeDomains = domainChecker.getFreeDomains(line);
                 freeDomains.forEach(System.out::println);
-                if(freeDomains.size() == 0)
+                if (freeDomains.size() == 0)
                     System.out.println("No domains found!");
                 else
                     System.out.println("Completed!");

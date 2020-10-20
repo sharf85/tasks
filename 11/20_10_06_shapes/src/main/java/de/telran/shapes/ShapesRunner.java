@@ -18,7 +18,7 @@ public class ShapesRunner implements ApplicationRunner {
 
     public ShapesRunner(
             @Qualifier("simpleShapes")
-            List<Shape> shapes,
+                    List<Shape> shapes,
             ShapeService service) {
         this.shapes = shapes;
         this.service = service;

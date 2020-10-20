@@ -93,6 +93,7 @@ class AlgebraTest {
     public void testSumOdds_5And7_12() {
         assertEquals(12, algebra.sumOds(5, 7));
     }
+
     @Test
     public void testSumOdds_6And8_7() {
         assertEquals(7, algebra.sumOds(6, 8));
