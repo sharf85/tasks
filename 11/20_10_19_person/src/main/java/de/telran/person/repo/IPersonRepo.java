@@ -1,20 +1,13 @@
 package de.telran.person.repo;
 
 import de.telran.person.model.Person;
+import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * An instance of the class stores Person objects
  */
-public interface IPersonRepo {
-
-    public void save(Person person);
-
-    public Person find(int id);
-
-    public Person remove(int id);
-
-    public List<Person> findAll();
-
+public interface IPersonRepo extends CrudRepository<Person, Integer> {
+    Collection<Person> findAll();
 }

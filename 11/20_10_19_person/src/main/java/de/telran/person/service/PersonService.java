@@ -6,6 +6,9 @@ import de.telran.person.repo.IPersonRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -39,24 +42,17 @@ public class PersonService {
     }
 
     public Person remove(int id) {
-        Person person = personRepo.remove(id);
-
-        if (person == null)
-            throw new PersonNotFoundException(PERSON_NOT_FOUND);
+        Person person = get(id);
+        personRepo.delete(person);
 
         return person;
     }
 
     public Person get(int id) {
-        Person person = personRepo.find(id);
-
-        if (person == null)
-            throw new PersonNotFoundException(PERSON_NOT_FOUND);
-
-        return person;
+        return personRepo.findById(id).orElseThrow(() -> new EntityNotFoundException(PERSON_NOT_FOUND));
     }
 
     public List<Person> getAll() {
-        return personRepo.findAll();
+        return new ArrayList<>(personRepo.findAll());
     }
 }
