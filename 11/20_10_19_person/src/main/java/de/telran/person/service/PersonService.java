@@ -1,6 +1,5 @@
 package de.telran.person.service;
 
-import de.telran.person.exception.PersonNotFoundException;
 import de.telran.person.model.Person;
 import de.telran.person.repo.IPersonRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service

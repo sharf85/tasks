@@ -9,7 +9,6 @@ import javax.persistence.Id;
 public class Person {
 
     protected Person() {
-
     }
 
     @Id
