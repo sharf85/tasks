@@ -5,24 +5,33 @@ import de.telran.person.model.Person;
 import de.telran.person.repo.IPersonRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Arrays;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class PersonServiceTest {
 
+    @Mock
     IPersonRepo personRepo;
 
+    @InjectMocks
     PersonService personService;
 
     // The same as above
-    @BeforeEach
-    public void init() {
-        personRepo = mock(IPersonRepo.class);
-        personService = new PersonService(personRepo);
-    }
+//    @BeforeEach
+//    public void init() {
+//        personRepo = mock(IPersonRepo.class);
+//        personService = new PersonService(personRepo);
+//    }
 
     @Test
     public void testCreate_realData_newPerson() {
@@ -40,8 +49,6 @@ class PersonServiceTest {
         assertEquals(name, createdPerson.getName());
         assertEquals(secondName, createdPerson.getSecondName());
         assertEquals(age, createdPerson.getAge());
-        //not necessary
-        assertNotEquals(0, createdPerson.getId());
 
         verify(personRepo, times(1)).save(argThat(argument -> argument == createdPerson));
     }
@@ -52,13 +59,13 @@ class PersonServiceTest {
         person.setAge(20);
         person.setSecondName("Second");
 
-        when(personRepo.find(15)).thenReturn(person);
+        when(personRepo.findById(15)).thenReturn(Optional.of(person));
         assertEquals(person, personService.get(15));
     }
 
     @Test
     void testGetPerson_notExist_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> personService.get(17));
+        assertThrows(EntityNotFoundException.class, () -> personService.get(17));
     }
 
     @Test
@@ -85,19 +92,19 @@ class PersonServiceTest {
         person1.setSecondName("First");
         person1.setAge(30);
 
-        when(personRepo.remove(17)).thenReturn(person1);
+        when(personRepo.findById(17)).thenReturn(Optional.of(person1));
         assertEquals(person1, personService.remove(17));
-        verify(personRepo, times(1)).remove(17);
+        verify(personRepo, times(1)).delete(person1);
     }
 
     @Test
     void testRemovePerson_notExist_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> personService.remove(17));
+        assertThrows(EntityNotFoundException.class, () -> personService.remove(17));
     }
 
     @Test
     public void testEdit_notExist_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> personService.edit(0, "some", "second", 25));
+        assertThrows(EntityNotFoundException.class, () -> personService.edit(0, "some", "second", 25));
     }
 
     @Test
