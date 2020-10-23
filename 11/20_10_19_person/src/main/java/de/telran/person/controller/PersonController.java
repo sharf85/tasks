@@ -6,6 +6,7 @@ import de.telran.person.service.PersonService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -19,12 +20,16 @@ public class PersonController {
 
     @GetMapping("/persons/{id}")
     public PersonDto get(@PathVariable int id) {
-        return new PersonDto();
+        Person person = personService.get(id);
+        return new PersonDto(person.getId(), person.getName(), person.getSecondName(), person.getAge());
     }
 
     @GetMapping("/persons")
     public List<PersonDto> getAll() {
-        return null;
+        List<Person> persons = personService.getAll();
+        return persons.stream()
+                .map(person -> new PersonDto(person.getId(), person.getName(), person.getSecondName(), person.getAge()))
+                .collect(Collectors.toList());
     }
 
     @PostMapping("/persons")
@@ -36,11 +41,12 @@ public class PersonController {
 
     @PutMapping("/persons/{id}")
     public void edit(@RequestBody PersonDto personDto, @PathVariable int id) {
-
+        personService.edit(id, personDto.name, personDto.secondName, personDto.age);
     }
 
     @DeleteMapping("/persons/{id}")
     public PersonDto delete(@PathVariable int id) {
-        return null;
+        Person person = personService.remove(id);
+        return new PersonDto(person.getId(), person.getName(), person.getSecondName(), person.getAge());
     }
 }
