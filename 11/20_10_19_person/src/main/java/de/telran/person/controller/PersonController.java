@@ -61,10 +61,11 @@ public class PersonController {
 
     // /persons/age?after=10&before=20
     @GetMapping("/persons/age")
-    public List<PersonDto> getAllByAgeOlder(@RequestParam int after, @RequestParam int before) {
-        List<Person> persons = personService.getAllByAgeOlder(after);
-        return persons.stream()
-                .map(person -> new PersonDto(person.getId(), person.getName(), person.getSecondName(), person.getAge()))
-                .collect(Collectors.toList());
+    public List<PersonDto> getAllByAgeOlder(@RequestParam(required = false, defaultValue = "0") int after,
+                                            @RequestParam(required = false, defaultValue = "" + Integer.MAX_VALUE) int before) {
+//        List<Person> persons = personService.getAllByAgeOlder(after);
+//        return persons.stream()
+//                .map(person -> new PersonDto(person.getId(), person.getName(), person.getSecondName(), person.getAge()))
+//                .collect(Collectors.toList());
     }
 }
