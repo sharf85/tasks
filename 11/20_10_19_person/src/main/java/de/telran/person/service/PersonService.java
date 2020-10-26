@@ -53,4 +53,12 @@ public class PersonService {
     public List<Person> getAll() {
         return new ArrayList<>(personRepo.findAll());
     }
+
+    public List<Person> getAllByName(String name) {
+        return new ArrayList<>(personRepo.findAllByName(name));
+    }
+
+    public List<Person> getAllByAgeOlder(int from) {
+        return new ArrayList<>(personRepo.findAllByAgeGreaterThanEqual(from));
+    }
 }

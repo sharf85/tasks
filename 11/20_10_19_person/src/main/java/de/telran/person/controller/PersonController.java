@@ -49,4 +49,22 @@ public class PersonController {
         Person person = personService.remove(id);
         return new PersonDto(person.getId(), person.getName(), person.getSecondName(), person.getAge());
     }
+
+    // /persons/name/Vasily
+    @GetMapping("/persons/name/{name}")
+    public List<PersonDto> getAllByName(@PathVariable String name) {
+        List<Person> persons = personService.getAllByName(name);
+        return persons.stream()
+                .map(person -> new PersonDto(person.getId(), person.getName(), person.getSecondName(), person.getAge()))
+                .collect(Collectors.toList());
+    }
+
+    // /persons/age?after=10&before=20
+    @GetMapping("/persons/age")
+    public List<PersonDto> getAllByAgeOlder(@RequestParam int after, @RequestParam int before) {
+        List<Person> persons = personService.getAllByAgeOlder(after);
+        return persons.stream()
+                .map(person -> new PersonDto(person.getId(), person.getName(), person.getSecondName(), person.getAge()))
+                .collect(Collectors.toList());
+    }
 }

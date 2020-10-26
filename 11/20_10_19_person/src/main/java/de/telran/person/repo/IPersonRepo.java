@@ -10,4 +10,12 @@ import java.util.Collection;
  */
 public interface IPersonRepo extends CrudRepository<Person, Integer> {
     Collection<Person> findAll();
+
+    // select * from person p where p.name like `Vasya`
+
+    Collection<Person> findAllByName(String name);
+
+    // make a method which fetches all the persons with the age grater than something
+
+    Collection<Person> findAllByAgeGreaterThanEqual(int from);
 }
