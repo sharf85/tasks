@@ -59,7 +59,7 @@ public class PersonService {
     }
 
     public List<Person> getAllByAgeBetween(int after, int before) {
-        return new ArrayList<>(personRepo.findAllByAgeBeforeTwoValues(after, before));
+        return new ArrayList<>(personRepo.findAllByAgeBetweenTwoValues(after, before));
     }
 
     public List<Person> getAllBySecondNameContainingPattern(String pattern) {
