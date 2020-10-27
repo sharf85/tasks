@@ -59,13 +59,23 @@ public class PersonController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping("/persons/second-name")
+    public List<PersonDto> getAllBySecondNameContaining(@RequestParam String pattern) {
+        List<Person> persons = personService.getAllBySecondNameContainingPattern(pattern);
+        return persons.stream()
+                .map(person -> new PersonDto(person.getId(), person.getName(), person.getSecondName(), person.getAge()))
+                .collect(Collectors.toList());
+    }
+
     // /persons/age?after=10&before=20
     @GetMapping("/persons/age")
-    public List<PersonDto> getAllByAgeOlder(@RequestParam(required = false, defaultValue = "0") int after,
-                                            @RequestParam(required = false, defaultValue = "" + Integer.MAX_VALUE) int before) {
-//        List<Person> persons = personService.getAllByAgeOlder(after);
-//        return persons.stream()
-//                .map(person -> new PersonDto(person.getId(), person.getName(), person.getSecondName(), person.getAge()))
-//                .collect(Collectors.toList());
+    public List<PersonDto> getAllByAgeBetween(@RequestParam(required = false, defaultValue = "0") int from,
+                                              @RequestParam(required = false, defaultValue = "" + Integer.MAX_VALUE) int to) {
+        List<Person> persons = personService.getAllByAgeBetween(from, to);
+        return persons.stream()
+                .map(person -> new PersonDto(person.getId(), person.getName(), person.getSecondName(), person.getAge()))
+                .collect(Collectors.toList());
     }
+
+
 }

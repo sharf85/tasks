@@ -58,7 +58,11 @@ public class PersonService {
         return new ArrayList<>(personRepo.findAllByName(name));
     }
 
-    public List<Person> getAllByAgeOlder(int from) {
-        return new ArrayList<>(personRepo.findAllByAgeGreaterThanEqual(from));
+    public List<Person> getAllByAgeBetween(int after, int before) {
+        return new ArrayList<>(personRepo.findAllByAgeBeforeTwoValues(after, before));
+    }
+
+    public List<Person> getAllBySecondNameContainingPattern(String pattern) {
+        return new ArrayList<>(personRepo.findAllBySecondNameIgnoreCaseContaining(pattern));
     }
 }

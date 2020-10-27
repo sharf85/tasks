@@ -29,6 +29,5 @@ public interface IPersonRepo extends CrudRepository<Person, Integer> {
     @Query("select p from Person p where p.age>=:after and p.age<=:before")
     Collection<Person> findAllByAgeBeforeTwoValues(@Param("after") int after, @Param("before") int before);
 
-    // TODO write a method which fetches all the persons with the second name including something
-
+    Collection<Person> findAllBySecondNameIgnoreCaseContaining(String pattern);
 }
