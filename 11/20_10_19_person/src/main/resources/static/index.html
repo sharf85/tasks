@@ -3,23 +3,30 @@
 <head>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <meta charset="UTF-8">
-    <title>Contacts</title>
+    <title>Persons</title>
 </head>
 <body>
 <div class="row">
     <div class="col s6 offset-s3">
         <h3>Persons</h3>
-        <ul class="collection with-header">
+        <ul class="collection with-header" id="persons-wrapper">
             <li class="collection-header">
                 <!--                <a class="btn-floating btn-large waves-effect waves-light blue" id="add-button">-->
                 <!--                    <i class="material-icons">add</i></a>-->
                 <form class="row" id="person-form">
+                    <input type="hidden" name="id">
                     <div class="input-field col s2">
                         <a style="float: left; margin-top: 15px;"
-                           class="btn-floating btn-large waves-effect waves-light blue"
-                           id="add-button">
+                           class="btn-floating btn-large waves-effect waves-light blue" id="add-button">
                             <i class="material-icons" data-action="add">add</i></a>
+                        <a style="float: left; margin-top: 15px; margin-right: 5px;"
+                           class="hide btn-floating btn-large waves-effect waves-light blue" id="edit-button">
+                            <i class="material-icons" data-action="edit">edit</i></a>
+                        <a style="float: left; margin-top: 15px;"
+                           class="hide btn-floating btn-large waves-effect waves-light red" id="cancel-button">
+                            <i class="material-icons" data-action="cancel">cancel</i></a>
                     </div>
                     <div class="input-field col s5">
                         <input id="person-name" type="text" class="validate" name="name">
@@ -32,6 +39,21 @@
                     </div>
                 </form>
             </li>
+            <!--the template for persons-->
+            <li class="collection-item hide" id="person-template">
+                <div>
+                    <a class="person-details-link">
+
+                    </a>
+                    <a class="secondary-content red-text"><i
+                            class="material-icons" data-action="remove">delete</i>
+                    </a>
+                    <a class="secondary-content blue-text"><i
+                            class="material-icons" data-action="edit">edit</i>
+                    </a>
+                </div>
+            </li>
+
         </ul>
     </div>
 </div>
