@@ -43,12 +43,17 @@ class PersonRenderer {
     }
 
     renderPerson(person) {
-        let res = this.instantPerson.cloneNode(true);
+        const res = this.instantPerson.cloneNode(true);
         res.person = person;
         res.classList.remove("hide");
         res.classList.add(REAL_PERSON_CLASS);
-        let personDetailsLink = res.querySelector(".person-details-link");
+        const personDetailsLink = res.querySelector(".person-details-link");
         personDetailsLink.innerHTML = `${person.name} ${person.secondName}`;
+
+        res.querySelector(".name-value").innerHTML = person.name;
+        res.querySelector(".second-name-value").innerHTML = person.secondName;
+        res.querySelector(".age-value").innerHTML = person.age;
+
         return res;
     }
 
@@ -75,6 +80,11 @@ class PersonRenderer {
         this.editButton.classList.add("hide");
         this.cancelButton.classList.add("hide");
     }
+
+    togglePersonDetails(personDom) {
+        const personDetailsDom = personDom.querySelector(".person-details");
+        personDetailsDom.classList.toggle("hide");
+    }
 }
 
 class PersonWrapperController {
@@ -88,6 +98,11 @@ class PersonWrapperController {
         const actionName = event.target.dataset.action;
         if (actionName !== undefined)
             this[actionName](event);
+    }
+
+    toggleDetails(event) {
+        let personDom = event.target.closest(`.${REAL_PERSON_CLASS}`);
+        this.personRenderer.togglePersonDetails(personDom);
     }
 
     async remove(event) {
