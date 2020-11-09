@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function main() {
 
     const personClient = new PersonClient();
     const personRenderer = new PersonRenderer(instantPerson, personWrapper, personFormDom);
-    const personWrapperController = new PersonWrapperController(personRenderer);
+    const personWrapperController = new PersonWrapperController(personRenderer, personClient);
     const personFormController = new PersonFormController(personClient, personRenderer);
 
     personFormDom.addEventListener("click", personFormController);
@@ -79,8 +79,9 @@ class PersonRenderer {
 
 class PersonWrapperController {
 
-    constructor(personRenderer) {
+    constructor(personRenderer, personClient) {
         this.personRenderer = personRenderer;
+        this.personClient = personClient;
     }
 
     handleEvent(event) {
@@ -89,8 +90,16 @@ class PersonWrapperController {
             this[actionName](event);
     }
 
-    remove(event) {
-//TODO complete. To perform this one needs personClient.remove()
+    async remove(event) {
+        let personDom = event.target.closest(`.${REAL_PERSON_CLASS}`);
+        let removeResponse = await this.personClient.remove(personDom.person);
+        if (removeResponse.ok) {
+            const allPersonsResponse = await this.personClient.getAll();
+            if (allPersonsResponse.ok) {
+                const persons = await allPersonsResponse.json();
+                this.personRenderer.renderAll(persons);
+            }
+        }
     }
 
     edit(event) {
@@ -154,7 +163,7 @@ class PersonFormController {
     }
 
     cancel(event) {
-//TODO complete
+        this.personRenderer.toAddForm();
     }
 }
 
@@ -182,8 +191,10 @@ class PersonClient {
 
     }
 
-    remove() {
-        //TODO complete
+    remove(person) {
+        return fetch(`${PersonClient.PERSONS_PATH}/${person.id}`, {
+            method: 'DELETE'
+        });
     }
 
     getAll() {
