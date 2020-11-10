@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="row">
-    <div class="col s6 offset-s3">
+    <div class="col l8 offset-l2">
         <h3>Persons</h3>
         <ul class="collection with-header" id="persons-wrapper">
             <li class="collection-header">
@@ -26,7 +26,7 @@
                             <i class="material-icons" data-action="edit">edit</i></a>
                         <a style="float: left; margin-top: 15px;"
                            class="hide btn-floating btn-large waves-effect waves-light red" id="cancel-button">
-                            <i class="material-icons" data-action="cancel">cancel</i></a>
+                            <i class="material-icons" data-action="cancel">close</i></a>
                     </div>
                     <div class="input-field col s4">
                         <input id="person-name" type="text" class="validate" name="name">
@@ -36,6 +36,11 @@
                         <!--                        <i class="material-icons prefix">name</i>-->
                         <input id="person-second-name" type="text" class="validate" name="secondName">
                         <label for="person-second-name">Second Name</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <!--                        <i class="material-icons prefix">name</i>-->
+                        <input id="person-age" type="text" class="validate" name="age">
+                        <label for="person-age">Age</label>
                     </div>
                 </form>
             </li>

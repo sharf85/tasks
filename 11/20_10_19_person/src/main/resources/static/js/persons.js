@@ -61,12 +61,14 @@ class PersonRenderer {
         this.personForm.elements.id.value = "";
         this.personForm.elements.name.value = "";
         this.personForm.elements.secondName.value = "";
+        this.personForm.elements.age.value = "";
     }
 
     toEditForm(person) {
         this.personForm.elements.id.value = person.id;
         this.personForm.elements.name.value = person.name;
         this.personForm.elements.secondName.value = person.secondName;
+        this.personForm.elements.age.value = person.age;
 
         this.addButton.classList.add("hide");
         this.editButton.classList.remove("hide");
@@ -151,7 +153,8 @@ class PersonFormController {
 
         const person = {
             name: personFormDom.elements.name.value,
-            secondName: personFormDom.elements.secondName.value
+            secondName: personFormDom.elements.secondName.value,
+            age: personFormDom.elements.age.value,
         }
 
         const response = await this.personClient.add(person);
@@ -167,7 +170,8 @@ class PersonFormController {
         const person = {
             id: personFormDom.elements.id.value,
             name: personFormDom.elements.name.value,
-            secondName: personFormDom.elements.secondName.value
+            secondName: personFormDom.elements.secondName.value,
+            age: personFormDom.elements.age.value,
         }
 
         const response = await this.personClient.edit(person);
