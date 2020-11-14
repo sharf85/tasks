@@ -1,0 +1,7 @@
+<div *ngIf="messageStorage.size()">
+  <h2>Messages!</h2>
+  <button class="clear" (click)="messageStorage.clear()">Clear</button>
+  <div *ngFor="let message of messageStorage.messages">
+    {{message}}
+  </div>
+</div>
