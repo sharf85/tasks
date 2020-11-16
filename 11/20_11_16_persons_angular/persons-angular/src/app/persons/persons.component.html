@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col l8 offset-l2">
+    <h3>Persons</h3>
+    <ul class="collection with-header" id="persons-wrapper">
+      <li class="collection-header">
+        <!--                <a class="btn-floating btn-large waves-effect waves-light blue" id="add-button">-->
+        <!--                    <i class="material-icons">add</i></a>-->
+        <form class="row" id="person-form">
+          <input type="hidden" name="id">
+          <div class="input-field col s2">
+            <a style="float: left; margin-top: 15px;"
+               class="btn-floating btn-large waves-effect waves-light blue" id="add-button">
+              <i class="material-icons" data-action="add">add</i></a>
+          </div>
+          <div class="input-field col s4">
+            <input id="person-name" type="text" class="validate" name="name">
+            <label for="person-name">Name</label>
+          </div>
+          <div class="input-field col s4">
+            <!--                        <i class="material-icons prefix">name</i>-->
+            <input id="person-second-name" type="text" class="validate" name="secondName">
+            <label for="person-second-name">Second Name</label>
+          </div>
+          <div class="input-field col s2">
+            <!--                        <i class="material-icons prefix">name</i>-->
+            <input id="person-age" type="text" class="validate" name="age">
+            <label for="person-age">Age</label>
+          </div>
+        </form>
+      </li>
+      <!--the template for persons TODO draw persons out-->
+      <li class="collection-item hide" id="person-template">
+        <div>
+          <a class="person-details-link" data-action="toggleDetails">
+
+          </a>
+          <a class="secondary-content red-text"><i
+            class="material-icons" data-action="remove">delete</i>
+          </a>
+          <a class="secondary-content blue-text"><i
+            class="material-icons" data-action="edit">edit</i>
+          </a>
+        </div>
+        <!--person data-->
+        <ul class="collection hide person-details">
+          <li class="collection-item ">
+            <div><strong>Name:</strong><span class="secondary-content black-text name-value">svfd</span>
+            </div>
+          </li>
+          <li class="collection-item ">
+            <div><strong>Second Name:</strong><span class="secondary-content black-text second-name-value">svfd</span>
+            </div>
+          </li>
+          <li class="collection-item ">
+            <div><strong>Age:</strong><span class="secondary-content black-text age-value">13123123</span>
+            </div>
+          </li>
+        </ul>
+      </li>
+
+    </ul>
+  </div>
+</div>
