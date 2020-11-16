@@ -15,4 +15,9 @@ export class HeroService {
     this.messageStorage.add('HeroService: fetched heroes');
     return of(HEROES).pipe(delay(1000));
   }
+
+  getHero(id: number): Observable<Hero> {
+    this.messageStorage.add(`HeroService: fetched hero id=${id}`);
+    return of(HEROES.find(value => value.id === id));
+  }
 }
