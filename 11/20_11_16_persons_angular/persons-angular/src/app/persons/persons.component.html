@@ -3,30 +3,7 @@
     <h3>Persons</h3>
     <ul class="collection with-header" id="persons-wrapper">
       <li class="collection-header">
-        <!--                <a class="btn-floating btn-large waves-effect waves-light blue" id="add-button">-->
-        <!--                    <i class="material-icons">add</i></a>-->
-        <form class="row" id="person-form">
-          <input type="hidden" name="id">
-          <div class="input-field col s2">
-            <a style="float: left; margin-top: 15px;"
-               class="btn-floating btn-large waves-effect waves-light blue" id="add-button">
-              <i class="material-icons" data-action="add">add</i></a>
-          </div>
-          <div class="input-field col s4">
-            <input id="person-name" type="text" class="validate" name="name">
-            <label for="person-name">Name</label>
-          </div>
-          <div class="input-field col s4">
-            <!--                        <i class="material-icons prefix">name</i>-->
-            <input id="person-second-name" type="text" class="validate" name="secondName">
-            <label for="person-second-name">Second Name</label>
-          </div>
-          <div class="input-field col s2">
-            <!--                        <i class="material-icons prefix">name</i>-->
-            <input id="person-age" type="text" class="validate" name="age">
-            <label for="person-age">Age</label>
-          </div>
-        </form>
+        <app-person-form (personCreated)="onPersonCreated($event)"></app-person-form>
       </li>
 
       <li *ngFor="let person of persons" class="collection-item" id="person-template">

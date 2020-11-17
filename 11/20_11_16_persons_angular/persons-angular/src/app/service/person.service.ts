@@ -17,9 +17,10 @@ export class PersonService {
     return this.httpClient.get<Person[]>(this.PERSONS_URI);
   }
 
-  // add(person: Person): Observable<Person> {
-  //
-  // }
+  add(person: Person): Observable<Person> {
+    return this.httpClient.post<Person>(this.PERSONS_URI, person);
+  }
+
   //
   // edit(person: Person): Observable<void> {
   //

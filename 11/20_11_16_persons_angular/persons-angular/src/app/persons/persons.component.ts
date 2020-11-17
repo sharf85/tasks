@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Person} from '../model/person';
 import {PersonService} from '../service/person.service';
-import {Observable} from 'rxjs';
-import {addWarning} from '@angular-devkit/build-angular/src/utils/webpack-diagnostics';
 
 @Component({
   selector: 'app-persons',
@@ -24,4 +22,7 @@ export class PersonsComponent implements OnInit {
     return await this.personService.getAll().toPromise();
   }
 
+  onPersonCreated(newPerson: Person): void {
+    this.persons.push(newPerson);
+  }
 }

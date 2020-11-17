@@ -1,0 +1,27 @@
+<form class="row" id="person-form">
+  <input type="hidden" name="id" [(ngModel)]="person.id">
+  <div class="input-field col s2">
+    <a *ngIf="isEdit" style="float: left; margin-top: 15px; margin-right: 5px;"
+       class="btn-floating btn-large waves-effect waves-light blue" id="edit-button">
+      <i class="material-icons" data-action="edit">edit</i></a>
+    <a *ngIf="isEdit" style="float: left; margin-top: 15px;"
+       class="btn-floating btn-large waves-effect waves-light red" id="cancel-button">
+      <i class="material-icons" data-action="cancel">close</i></a>
+    <a *ngIf="!isEdit" style="float: left; margin-top: 15px;"
+       (click)="onAdd()"
+       class="btn-floating btn-large waves-effect waves-light blue" id="add-button">
+      <i class="material-icons" data-action="add">add</i></a>
+  </div>
+  <div class="input-field col s4">
+    <input id="person-name" type="text" class="validate" name="name" [(ngModel)]="person.name">
+    <label for="person-name">Name</label>
+  </div>
+  <div class="input-field col s4">
+    <input id="person-second-name" type="text" class="validate" name="secondName" [(ngModel)]="person.secondName">
+    <label for="person-second-name">Second Name</label>
+  </div>
+  <div class="input-field col s2">
+    <input id="person-age" type="text" class="validate" name="age" [(ngModel)]="person.age">
+    <label for="person-age">Age</label>
+  </div>
+</form>
