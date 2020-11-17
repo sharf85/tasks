@@ -1,0 +1,9 @@
+<div>
+  <a class="person-details-link" data-action="toggleDetails">{{person.name}} {{person.secondName}}</a>
+  <a class="secondary-content red-text" (click)="onDeletePerson(person)">
+    <i class="material-icons">delete</i>
+  </a>
+  <a class="secondary-content blue-text" (click)="onEditPerson(person)">
+    <i class="material-icons">edit</i>
+  </a>
+</div>

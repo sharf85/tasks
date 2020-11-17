@@ -1,32 +1,35 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {Person} from '../model/person';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonService {
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
   }
 
-  getAll(): Observable<Person> {
+  private readonly PERSONS_URI = '/api/persons';
 
+  getAll(): Observable<Person[]> {
+    return this.httpClient.get<Person[]>(this.PERSONS_URI);
   }
 
-  add(person: Person): Observable<Person> {
-
-  }
-
-  edit(person: Person): Observable<void> {
-
-  }
-
-  remove(person: Person): Observable<void> {
-
-  }
-
-  get(id: number): Observable<Person> {
-
-  }
+  // add(person: Person): Observable<Person> {
+  //
+  // }
+  //
+  // edit(person: Person): Observable<void> {
+  //
+  // }
+  //
+  // remove(person: Person): Observable<void> {
+  //
+  // }
+  //
+  // get(id: number): Observable<Person> {
+  //
+  // }
 }
