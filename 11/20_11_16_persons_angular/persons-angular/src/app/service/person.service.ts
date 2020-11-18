@@ -26,9 +26,10 @@ export class PersonService {
   //
   // }
   //
-  // remove(person: Person): Observable<void> {
-  //
-  // }
+  remove(person: Person): Observable<Person> {
+    return this.httpClient.delete<Person>(`${this.PERSONS_URI}/${person.id}`);
+  }
+
   //
   // get(id: number): Observable<Person> {
   //

@@ -25,4 +25,8 @@ export class PersonsComponent implements OnInit {
   onPersonCreated(newPerson: Person): void {
     this.persons.push(newPerson);
   }
+
+  onDeletedPerson(person: Person): void {
+    this.persons = this.persons.filter(value => value.id !== person.id);
+  }
 }

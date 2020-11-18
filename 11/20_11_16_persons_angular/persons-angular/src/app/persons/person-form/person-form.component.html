@@ -2,9 +2,11 @@
   <input type="hidden" name="id" [(ngModel)]="person.id">
   <div class="input-field col s2">
     <a *ngIf="isEdit" style="float: left; margin-top: 15px; margin-right: 5px;"
+       (click)="onEdit()"
        class="btn-floating btn-large waves-effect waves-light blue" id="edit-button">
       <i class="material-icons" data-action="edit">edit</i></a>
     <a *ngIf="isEdit" style="float: left; margin-top: 15px;"
+       (click)="onCancel()"
        class="btn-floating btn-large waves-effect waves-light red" id="cancel-button">
       <i class="material-icons" data-action="cancel">close</i></a>
     <a *ngIf="!isEdit" style="float: left; margin-top: 15px;"

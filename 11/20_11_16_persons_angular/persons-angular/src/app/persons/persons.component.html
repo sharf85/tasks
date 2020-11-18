@@ -7,7 +7,7 @@
       </li>
 
       <li *ngFor="let person of persons" class="collection-item" id="person-template">
-        <app-person-item [person]="person"></app-person-item>
+        <app-person-item (personDeleted)="onDeletedPerson($event)" [person]="person"></app-person-item>
       </li>
 
     </ul>
