@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {PersonsComponent} from './persons/persons.component';
-import {AppRoutingModule} from '../app-routing.module';
+import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import { PersonItemComponent } from './persons/person-item/person-item.component';
 import { PersonFormComponent } from './persons/person-form/person-form.component';
