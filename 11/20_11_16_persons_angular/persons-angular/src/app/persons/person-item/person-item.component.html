@@ -1,5 +1,7 @@
 <div>
-  <a class="person-details-link" data-action="toggleDetails">{{person.name}} {{person.secondName}}</a>
+  <a routerLink="/persons/{{person.id}}"
+     class="person-details-link"
+     data-action="toggleDetails">{{person.name}} {{person.secondName}}</a>
   <a class="secondary-content red-text" (click)="onDeletePerson()">
     <i class="material-icons">delete</i>
   </a>

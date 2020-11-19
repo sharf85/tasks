@@ -14,6 +14,9 @@ export class PersonFormComponent implements OnInit {
   @Output()
   personCreated = new EventEmitter<Person>();
 
+  @Output()
+  personEdited = new EventEmitter<Person>();
+
   person: Person = {};
 
   isEdit = false;
@@ -40,7 +43,12 @@ export class PersonFormComponent implements OnInit {
   }
 
   onEdit(): void {
-
+    this.personService.edit(this.person)
+      .subscribe(() => {
+        this.personEdited.emit(this.person);
+        this.isEdit = false;
+        this.person = {};
+      });
   }
 
   onCancel(): void {

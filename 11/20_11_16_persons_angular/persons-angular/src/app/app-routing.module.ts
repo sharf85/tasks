@@ -1,11 +1,10 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {PersonsComponent} from './persons/persons.component';
+import {PersonDetailsComponent} from './person-details/person-details.component';
 
 const routes: Routes = [
-  // TODO
-  // 1. add a new component showing PersonDetails
-  // 2. add a new route corresponding to this component
+  {path: 'persons/:id', component: PersonDetailsComponent},
   {path: 'persons', component: PersonsComponent},
   {path: '', redirectTo: '/persons', pathMatch: 'full'}
 ];

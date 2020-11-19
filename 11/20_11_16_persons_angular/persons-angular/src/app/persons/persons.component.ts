@@ -29,4 +29,9 @@ export class PersonsComponent implements OnInit {
   onDeletedPerson(person: Person): void {
     this.persons = this.persons.filter(value => value.id !== person.id);
   }
+
+  onPersonEdited(person: Person): void {
+    const oldPerson = this.persons.find(value => value.id === person.id);
+    Object.assign(oldPerson, person);
+  }
 }

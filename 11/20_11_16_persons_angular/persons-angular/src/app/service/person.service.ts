@@ -21,17 +21,15 @@ export class PersonService {
     return this.httpClient.post<Person>(this.PERSONS_URI, person);
   }
 
-  //
-  // edit(person: Person): Observable<void> {
-  //
-  // }
-  //
+  edit(person: Person): Observable<void> {
+    return this.httpClient.put<void>(`${this.PERSONS_URI}/${person.id}`, person);
+  }
+
   remove(person: Person): Observable<Person> {
     return this.httpClient.delete<Person>(`${this.PERSONS_URI}/${person.id}`);
   }
 
-  //
-  // get(id: number): Observable<Person> {
-  //
-  // }
+  get(id: number): Observable<Person> {
+    return this.httpClient.get<Person>(`${this.PERSONS_URI}/${id}`);
+  }
 }

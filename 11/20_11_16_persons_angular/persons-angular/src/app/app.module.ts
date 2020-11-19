@@ -8,13 +8,15 @@ import {HttpClientModule} from '@angular/common/http';
 import { PersonItemComponent } from './persons/person-item/person-item.component';
 import { PersonFormComponent } from './persons/person-form/person-form.component';
 import {FormsModule} from '@angular/forms';
+import { PersonDetailsComponent } from './person-details/person-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PersonsComponent,
     PersonItemComponent,
-    PersonFormComponent
+    PersonFormComponent,
+    PersonDetailsComponent
   ],
   imports: [
     BrowserModule,

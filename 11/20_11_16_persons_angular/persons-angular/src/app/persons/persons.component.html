@@ -3,11 +3,15 @@
     <h3>Persons</h3>
     <ul class="collection with-header" id="persons-wrapper">
       <li class="collection-header">
-        <app-person-form (personCreated)="onPersonCreated($event)"></app-person-form>
+        <app-person-form
+          (personEdited)="onPersonEdited($event)"
+          (personCreated)="onPersonCreated($event)"></app-person-form>
       </li>
 
       <li *ngFor="let person of persons" class="collection-item" id="person-template">
-        <app-person-item (personDeleted)="onDeletedPerson($event)" [person]="person"></app-person-item>
+        <app-person-item
+          (personDeleted)="onDeletedPerson($event)"
+          [person]="person"></app-person-item>
       </li>
 
     </ul>
