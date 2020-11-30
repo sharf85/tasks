@@ -85,6 +85,50 @@ class ArrayIntegerListTest {
 
     }
 
+    @Test
+    public void testRemoveById_addCapacityNumberElementsAndRemoveFirst_correct() {
+
+        for (int i = 0; i < 16; i++) {
+            list.addLast(i);
+        }
+
+        assertEquals(0, list.removeById(0));
+        assertEquals(15, list.size());
+
+        for (int i = 0; i < list.size(); i++) {
+            assertEquals(1 + i, list.get(i));
+        }
+
+        assertThrows(IndexOutOfBoundsException.class, () -> list.get(15));
+        assertThrows(IndexOutOfBoundsException.class, () -> list.set(15, 111));
+        assertThrows(IndexOutOfBoundsException.class, () -> list.removeById(15));
+    }
+
+    @Test
+    public void testRemoveById_addCapacityNumberElementsAndRemoveIntermediate_correct() {
+
+        for (int i = 0; i < 18; i++) {
+            list.addLast(i);
+        }
+
+        assertEquals(5, list.removeById(5));
+//        {0,1,2,3,4,  6,7,8,9,10,11,12,13,14,15,16,17}
+
+        assertEquals(17, list.size());
+
+        for (int i = 0; i < 5; i++) {
+            assertEquals(i, list.get(i));
+        }
+
+        for (int i = 5; i < list.size(); i++) {
+            assertEquals(i + 1, list.get(i));
+        }
+
+        assertThrows(IndexOutOfBoundsException.class, () -> list.get(17));
+        assertThrows(IndexOutOfBoundsException.class, () -> list.set(17, 111));
+        assertThrows(IndexOutOfBoundsException.class, () -> list.removeById(17));
+    }
+
     // TODO test remove zero-indexed element, remove a middle element, test 'set' in different places, 'clear'.
     // TODO test the behavior of the list while adding-removing-adding etc operation.
 
@@ -97,5 +141,80 @@ class ArrayIntegerListTest {
         assertEquals(17, list.size());
         assertEquals(32, list.source.length);
     }
+
+    @Test
+    public void testSet_toFirstIndex() {
+
+        addElementsToList(5);
+        list.set(0, 100098);
+
+        assertEquals(100098, list.get(0));
+    }
+
+    @Test
+    public void testSet_toLastIndex() {
+
+        addElementsToList(5);
+        list.set(list.size() - 1, 404);
+
+        assertEquals(404, list.get(list.size() - 1));
+    }
+
+    @Test
+    public void set_To_Index_Between_First_And_Last() {
+
+        int numberOfElements = 20;
+        addElementsToList(numberOfElements);
+
+        list.set(17, 30998);
+
+        assertEquals(30998, list.get(17));
+    }
+
+    @Test
+    public void testClear_emptyList() {
+        list.clear();
+        assertEquals(0, list.size());
+    }
+
+    @Test
+    public void testClear_nonEmptyList() {
+        addElementsToList(20);
+
+        list.clear();
+        assertEquals(0, list.size());
+    }
+
+    @Test
+    public void testUniversal_addSeveralElementsThenSetThenRemove_etc() {
+        addElementsToList(4);//{0,1,2,3}
+
+        list.removeById(2);//{0,1,3}
+        list.set(1, 5);//{0,5,3}
+
+        list.addLast(-10);//{0,5,3,-10}
+        list.addLast(-15);//{0,5,3,-10,-15}
+
+        list.removeById(2);//{0,5,-10,-15}
+        list.removeById(0);//{5,-10,-15}
+
+        assertEquals(3, list.size());
+
+        assertEquals(5, list.get(0));
+        assertEquals(-10, list.get(1));
+        assertEquals(-15, list.get(2));
+    }
+
+    /**
+     * The function fills the list with the numbers from 0 to (number - 1)
+     *
+     * @param number the amount of numbers to be inserted into the list
+     */
+    private void addElementsToList(int number) {
+        for (int j = 0; j < number; j++) {
+            list.addLast(j);
+        }
+    }
+
 
 }
