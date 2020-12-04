@@ -51,6 +51,7 @@ public class OurArrayList<Type> implements OurList<Type> {
 
         Type res = (Type) source[index];
         System.arraycopy(source, index + 1, source, index, size - index - 1);
+        source[size - 1] = null;
         size--;
         return res;
     }
@@ -65,4 +66,19 @@ public class OurArrayList<Type> implements OurList<Type> {
         source = new Object[INITIAL_CAPACITY];
         size = 0;
     }
+
+    @Override
+    public boolean remove(Type obj) {
+        return false;
+    }
+
+    @Override
+    public boolean contains(Type obj) {
+        for (int i = 0; i < size; i++) {
+            if (source[i] == obj)
+                return true;
+        }
+        return false;
+    }
+
 }

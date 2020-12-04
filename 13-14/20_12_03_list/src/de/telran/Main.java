@@ -11,7 +11,7 @@ public class Main {
 
 
         strings.addLast("Vasya");
-        strings.addLast(Integer.valueOf(4));
+        strings.addLast("");
 
         String str1 = (String) strings.get(0);
         String str2 = (String) strings.get(1);
