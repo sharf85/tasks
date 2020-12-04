@@ -11,7 +11,13 @@ public class Line extends Shape {
 
     @Override
     public void draw() {
+        StringBuilder builder = new StringBuilder();
 
+        for (int i = 0; i < length; i++) {
+            builder.append(symbol).append(" ");
+        }
+
+        System.out.println(builder);
     }
 
     public int getLength() {

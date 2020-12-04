@@ -13,7 +13,16 @@ public class Rectangle extends Shape {
 
     @Override
     public void draw() {
+        StringBuilder builder = new StringBuilder();
 
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                builder.append(symbol).append(" ");
+            }
+            builder.append(System.lineSeparator());
+        }
+
+        System.out.print(builder);
     }
 
     public int getWidth() {
