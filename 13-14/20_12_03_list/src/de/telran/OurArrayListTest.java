@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class OurArrayListTest {
 
     OurArrayList<Integer> list = new OurArrayList<>();
+    OurArrayList<String> stringList = new OurArrayList<>();
 
     @Test
     public void testSize_emptyList_zero() {
@@ -139,7 +140,6 @@ class OurArrayListTest {
         }
 
         assertEquals(17, list.size());
-        assertEquals(32, list.source.length);
     }
 
     @Test
@@ -205,6 +205,63 @@ class OurArrayListTest {
         assertEquals(-15, list.get(2));
     }
 
+    @Test
+    public void testRemove_RemoveIntermediate_correct() {
+
+        for (int i = 0; i < 16; i++) {
+            stringList.addLast("symbol " + i);
+        }
+
+        String removeElement = "symbol 5";
+        assertTrue(stringList.remove(removeElement));
+        assertEquals(15, stringList.size());
+
+        for (int i = 0; i < 5; i++) {
+            assertEquals("symbol " + i, stringList.get(i));
+        }
+
+        for (int i = 5; i < stringList.size(); i++) {
+            assertEquals("symbol " + (i + 1), stringList.get(i));
+        }
+    }
+
+    @Test
+    public void testRemove_RemoveFirst_correct() {
+
+        for (int i = 0; i < 16; i++) {
+            stringList.addLast("symbol " + i);
+        }
+
+        assertTrue(stringList.remove("symbol 0"));
+        assertEquals(15, stringList.size());
+        assertEquals("symbol 15", stringList.get(14));
+
+        for (int i = 1; i < stringList.size(); i++) {
+            assertEquals("symbol " + (i + 1), stringList.get(i));
+        }
+    }
+
+    @Test
+    public void testRemove_RemoveLast_correct() {
+
+        createStringList(16);
+
+        assertTrue(stringList.remove("symbol P"));
+        assertEquals(15, stringList.size());
+
+    }
+
+    @Test
+    public void testContains_First_Intermediate_Last_correct() {
+
+        createStringList(16);
+
+        assertTrue(stringList.contains("symbol A"));
+        assertTrue(stringList.contains("symbol C"));
+        assertTrue(stringList.contains("symbol P"));
+
+    }
+
     /**
      * The function fills the list with the numbers from 0 to (number - 1)
      *
@@ -213,6 +270,14 @@ class OurArrayListTest {
     private void addElementsToList(int number) {
         for (int j = 0; j < number; j++) {
             list.addLast(j);
+        }
+    }
+
+    private void createStringList(int index) {
+
+        String symbol = "symbol ";
+        for (char i = 65; i < (65 + index); i++) {
+            stringList.addLast(symbol + i);
         }
     }
 

@@ -1,11 +1,13 @@
 package de.telran;
 
+import java.util.Iterator;
+
 public class OurArrayList<Type> implements OurList<Type> {
 
     private static final int INITIAL_CAPACITY = 16;
 
     private int size;
-    Object[] source;
+    private Object[] source;
 
     public OurArrayList() {
         source = new Object[INITIAL_CAPACITY];
@@ -69,16 +71,71 @@ public class OurArrayList<Type> implements OurList<Type> {
 
     @Override
     public boolean remove(Type obj) {
+        if (obj == null) {
+            for (int i = 0; i < size; i++) {
+                if (source[i] == null) {
+                    removeById(i);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        for (int i = 0; i < size; i++) {
+            if (obj.equals(source[i])) {
+                removeById(i);
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean contains(Type obj) {
+        if (obj == null) {
+            for (int i = 0; i < size; i++) {
+                if (source[i] == null)
+                    return true;
+            }
+            return false;
+        }
+
         for (int i = 0; i < size; i++) {
-            if (source[i] == obj)
+            if (obj.equals(source[i]))
                 return true;
         }
         return false;
     }
 
+    @Override
+    public Iterator<Type> forwardIterator() {
+        Iterator<Type> iterator = new ForwardIterator();
+        return iterator;
+    }
+
+    @Override
+    public Iterator<Type> backwardIterator() {
+        return null;
+    }
+
+    private class ForwardIterator implements Iterator<Type> {
+
+        int currentIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < size;
+        }
+
+        @Override
+        public Type next() {
+            if (currentIndex >= size)
+                throw new IndexOutOfBoundsException();
+
+            Type res = (Type) source[currentIndex];
+            currentIndex++;
+            return res;
+        }
+    }
 }
+

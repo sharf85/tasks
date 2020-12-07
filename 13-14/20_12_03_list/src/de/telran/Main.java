@@ -1,5 +1,8 @@
 package de.telran;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -12,6 +15,11 @@ public class Main {
 
         strings.addLast("Vasya");
         strings.addLast("");
+
+        Iterator<String> iterator = strings.forwardIterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
 
         String str1 = (String) strings.get(0);
         String str2 = (String) strings.get(1);
