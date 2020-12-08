@@ -115,7 +115,8 @@ public class OurArrayList<Type> implements OurList<Type> {
 
     @Override
     public Iterator<Type> backwardIterator() {
-        return null;
+        Iterator<Type> iterator = new BackwardIterator<>((Type[]) source, size);
+        return iterator;
     }
 
     private class ForwardIterator implements Iterator<Type> {
@@ -134,6 +135,31 @@ public class OurArrayList<Type> implements OurList<Type> {
 
             Type res = (Type) source[currentIndex];
             currentIndex++;
+            return res;
+        }
+    }
+
+    private static class BackwardIterator<O> implements Iterator<O> {
+        int currentIndex;
+        O[] source;
+
+        public BackwardIterator(O[] source, int size) {
+            this.source = source;
+            currentIndex = size - 1;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex >= 0;
+        }
+
+        @Override
+        public O next() {
+            if (currentIndex < 0)
+                throw new IndexOutOfBoundsException();
+
+            O res = source[currentIndex];
+            currentIndex--;
             return res;
         }
     }

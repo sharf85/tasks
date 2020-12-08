@@ -14,15 +14,23 @@ public class Main {
 
 
         strings.addLast("Vasya");
-        strings.addLast("");
+        strings.addLast("Petya");
+        strings.addLast("Alisa");
 
+        // non static nested class
+        // every instance of ForwardIterator is dependant on an instance of OurArrayList,
+        // which is 'strings' in our case
         Iterator<String> iterator = strings.forwardIterator();
         while (iterator.hasNext()) {
-            System.out.println(iterator.next());
+            System.out.print(iterator.next() + " ");
         }
+        System.out.println();
 
-        String str1 = (String) strings.get(0);
-        String str2 = (String) strings.get(1);
+        // static nested class
+        iterator = strings.backwardIterator();
+        while (iterator.hasNext()) {
+            System.out.print(iterator.next() + " ");
+        }
 
         String res = "";
 
