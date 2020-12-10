@@ -265,6 +265,21 @@ class OurArrayListTest {
     }
 
     @Test
+    void test_clear_EmptyList() {
+        list.clear();
+        assertEquals(0, list.size());
+    }
+
+    @Test
+    void test_clear_NonEmptyList() {
+        list.addLast(1);
+        list.addLast(2);
+        list.addLast(3);
+        list.clear();
+        assertEquals(0, list.size());
+    }
+
+    @Test
     public void testForwardIterator_emptyList() {
         OurList<String> strings = new OurArrayList<>();
         Iterator<String> iterator = strings.forwardIterator();

@@ -37,5 +37,17 @@ public class Main {
         for (int i = 0; i < strings.size(); i++) {
             res += strings.get(i);
         }
+
+        // Iterable - перебираемое (что-то, что можно перебрать)
+        for (String str : strings) {
+            System.out.println(str);
+        }
+        // equivalent to:
+        Iterator<String> stringIterator = strings.iterator();
+        while (stringIterator.hasNext()) {
+            String str = stringIterator.next();
+            System.out.println(str);
+        }
+
     }
 }
