@@ -20,14 +20,12 @@ public class OurLinkedList<T> implements OurList<T> {
         }
     }
 
-
     @Override
     public void addLast(T element) {
+        Node<T> node = new Node<>(null, last, element);
         if (size == 0) {
-            Node<T> node = new Node<>(null, null, element);
             first = last = node;
         } else {
-            Node<T> node = new Node<>(null, last, element);
             last.next = node;
             last = node;
         }
@@ -36,7 +34,8 @@ public class OurLinkedList<T> implements OurList<T> {
 
     @Override
     public T get(int index) {
-        return null;
+        Node<T> needle = getNodeByIndex(index);
+        return needle.element;
     }
 
     @Override
@@ -58,6 +57,66 @@ public class OurLinkedList<T> implements OurList<T> {
 
     @Override
     public T removeById(int index) {
+        Node<T> needle = getNodeByIndex(index);
+
+        return removeNode(needle);
+    }
+
+    private T removeNode(Node<T> needle) {
+        Node<T> before = needle.prev;
+        Node<T> after = needle.next;
+
+        if (before != null) {
+            before.next = after;
+        } else {
+            first = after;
+        }
+
+        if (after != null) {
+            after.prev = before;
+        } else {
+            last = before;
+        }
+
+        //clear the removing element
+        needle.prev = needle.next = null;
+        T res = needle.element;
+        needle.element = null;
+
+        size--;
+        return res;
+    }
+
+    @Override
+    public boolean remove(T obj) {
+        Node<T> needle = findByElement(obj);
+
+        if (needle == null)
+            return false;
+
+        removeNode(needle);
+        return true;
+    }
+
+    private Node<T> findByElement(T obj) {
+        Node<T> res = first;
+        if (obj == null) {
+//            for (int i = 0; i < size; i++)
+            while (res != null) {
+                if (res.element == null)
+                    return res;
+
+                res = res.next;
+            }
+        } else {
+            while (res != null) {
+                if (obj.equals(res.element))
+                    return res;
+
+                res = res.next;
+            }
+        }
+
         return null;
     }
 
@@ -68,24 +127,22 @@ public class OurLinkedList<T> implements OurList<T> {
 
     @Override
     public void clear() {
-
-    }
-
-    @Override
-    public boolean remove(T obj) {
-        return false;
+        first = last = null;
+        size = 0;
     }
 
     @Override
     public boolean contains(T obj) {
-        return false;
+        return findByElement(obj) != null;
     }
 
+    // TODO complete
     @Override
     public Iterator<T> forwardIterator() {
         return null;
     }
 
+    // TODO complete
     @Override
     public Iterator<T> backwardIterator() {
         return null;
@@ -96,4 +153,19 @@ public class OurLinkedList<T> implements OurList<T> {
         return null;
     }
 
+    // DO NOT USE 'get(id)' method
+    private class ForwardIterator implements Iterator<T> {
+
+        Node<T> currentNode;
+
+        @Override
+        public boolean hasNext() {
+            return false;
+        }
+
+        @Override
+        public T next() {
+            return null;
+        }
+    }
 }
