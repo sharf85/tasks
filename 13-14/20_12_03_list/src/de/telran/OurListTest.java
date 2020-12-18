@@ -266,6 +266,7 @@ public abstract class OurListTest {
         while (iterator.hasNext()) {
             assertEquals(expected[i++], iterator.next());
         }
+        assertEquals(1, i);
 
         assertThrows(IndexOutOfBoundsException.class, () -> {
             iterator.next();
@@ -282,6 +283,59 @@ public abstract class OurListTest {
         stringList.addLast("Evgenievna");
 
         Iterator<String> iterator = stringList.forwardIterator();
+
+        int i = 0;
+        while (iterator.hasNext()) {
+            assertEquals(expected[i++], iterator.next());
+        }
+
+        assertEquals(4, i);
+
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            iterator.next();
+        });
+    }
+
+    @Test
+    public void testIterator_emptyList() {
+        Iterator<String> iterator = stringList.iterator();
+
+        assertFalse(iterator.hasNext());
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            iterator.next();
+        });
+    }
+
+    @Test
+    public void testIterator_oneElement() {
+        String[] expected = {"Evgeny Borisovich"};
+
+        stringList.addLast("Evgeny Borisovich");
+
+        Iterator<String> iterator = stringList.iterator();
+
+        int i = 0;
+        while (iterator.hasNext()) {
+            assertEquals(expected[i++], iterator.next());
+        }
+
+        assertEquals(1, i);
+
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            iterator.next();
+        });
+    }
+
+    @Test
+    public void testIterator_severalElements() {
+        String[] expected = {"Evgeny", "Borisovich", "Vladislava", "Evgenievna"};
+
+        stringList.addLast("Evgeny");
+        stringList.addLast("Borisovich");
+        stringList.addLast("Vladislava");
+        stringList.addLast("Evgenievna");
+
+        Iterator<String> iterator = stringList.iterator();
 
         int i = 0;
         while (iterator.hasNext()) {

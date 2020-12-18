@@ -136,36 +136,58 @@ public class OurLinkedList<T> implements OurList<T> {
         return findByElement(obj) != null;
     }
 
-    // TODO complete
     @Override
     public Iterator<T> forwardIterator() {
-        return null;
+        return new ForwardIterator();
     }
 
-    // TODO complete
     @Override
     public Iterator<T> backwardIterator() {
-        return null;
+        return new BackwardIterator();
     }
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return forwardIterator();
     }
 
-    // DO NOT USE 'get(id)' method
     private class ForwardIterator implements Iterator<T> {
 
-        Node<T> currentNode;
+        Node<T> currentNode = first;
 
         @Override
         public boolean hasNext() {
-            return false;
+            return currentNode != null;
         }
 
         @Override
         public T next() {
-            return null;
+            if (currentNode == null)
+                throw new IndexOutOfBoundsException();
+
+            T res = currentNode.element;
+            currentNode = currentNode.next;
+            return res;
+        }
+    }
+
+    private class BackwardIterator implements Iterator<T> {
+
+        Node<T> currentNode = last;
+
+        @Override
+        public boolean hasNext() {
+            return currentNode != null;
+        }
+
+        @Override
+        public T next() {
+            if (currentNode == null)
+                throw new IndexOutOfBoundsException();
+
+            T res = currentNode.element;
+            currentNode = currentNode.prev;
+            return res;
         }
     }
 }

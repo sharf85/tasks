@@ -1,12 +1,10 @@
 package de.telran;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Main {
 
     public static void main(String[] args) {
-
         OurArrayList<String> strings = new OurArrayList<>();
 
         // down casting
