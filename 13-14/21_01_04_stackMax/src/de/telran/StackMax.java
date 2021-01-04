@@ -4,7 +4,13 @@ import java.util.ArrayDeque;
 
 public class StackMax {
 
-    private ArrayDeque<Integer> source;
+    private final ArrayDeque<Integer> source;
+    private final ArrayDeque<Integer> currentMax;
+
+    public StackMax() {
+        source = new ArrayDeque<>();
+        currentMax = new ArrayDeque<>();
+    }
 
     public void addLast(int elt) {
         source.addLast(elt);
