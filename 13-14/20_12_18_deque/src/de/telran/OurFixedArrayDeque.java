@@ -4,8 +4,8 @@ public class OurFixedArrayDeque<T> implements OurDeque<T> {
 
     private int firstEltId;
     private int size;
-    private Object[] source;
-    private int capacity;
+    private final Object[] source;
+    private final int capacity;
 
     public OurFixedArrayDeque(int initialCapacity) {
         this.source = new Object[initialCapacity];
@@ -14,12 +14,26 @@ public class OurFixedArrayDeque<T> implements OurDeque<T> {
 
     @Override
     public void addFirst(T elt) {
+        if (size == capacity)
+            throw new DequeOverflowException();
 
+        if (firstEltId > 0)
+            firstEltId--;
+        else
+            firstEltId = capacity - 1;
+
+//        firstEltId = (firstEltId + capacity - 1) % capacity;
+
+        source[firstEltId] = elt;
+        size++;
     }
 
     @Override
     public T getFirst() {
-        return null;
+        if (size == 0)
+            throw new EmptyDequeException();
+
+        return (T) source[firstEltId];
     }
 
     @Override
@@ -30,12 +44,13 @@ public class OurFixedArrayDeque<T> implements OurDeque<T> {
         T res = (T) source[firstEltId];
         source[firstEltId] = null;
         firstEltId = (firstEltId + 1) % capacity;
+        size--;
         return res;
     }
 
     @Override
     public void addLast(T elt) {
-        if (size == source.length)
+        if (size == capacity)
             throw new DequeOverflowException();
 
         int index = (firstEltId + size) % capacity;
@@ -45,17 +60,26 @@ public class OurFixedArrayDeque<T> implements OurDeque<T> {
 
     @Override
     public T getLast() {
+        if (size == 0)
+            throw new EmptyDequeException();
         int lastIndex = (firstEltId + size - 1) % capacity;
         return (T) source[lastIndex];
     }
 
     @Override
     public T removeLast() {
-        return null;
+        if (size == 0)
+            throw new EmptyDequeException();
+
+        int lastIndex = (firstEltId + size - 1) % capacity;
+        T res = (T) source[lastIndex];
+        source[lastIndex] = null;
+        size--;
+        return res;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 }
