@@ -1,5 +1,6 @@
 package de.telran;
 
+import java.util.Comparator;
 import java.util.Iterator;
 
 public class OurArrayList<Type> implements OurList<Type> {
@@ -127,6 +128,11 @@ public class OurArrayList<Type> implements OurList<Type> {
     public Iterator<Type> backwardIterator() {
         Iterator<Type> iterator = new BackwardIterator<>((Type[]) source, size);
         return iterator;
+    }
+
+    @Override
+    public void sort(Comparator<Type> comparator) {
+
     }
 
     @Override

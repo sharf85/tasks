@@ -1,34 +1,45 @@
 package de.telran;
 
 import java.util.ArrayDeque;
+import java.util.Comparator;
 
-public class StackMax {
+public class StackMax<T> {
 
-    private final ArrayDeque<Integer> source;
-    private final ArrayDeque<Integer> currentMax;
+    private final ArrayDeque<T> source;
+    private final ArrayDeque<T> currentMax;
+    private final Comparator<T> comparator;
 
-    public StackMax() {
+    public StackMax(Comparator<T> comparator) {
+        this.comparator = comparator;
         source = new ArrayDeque<>();
         currentMax = new ArrayDeque<>();
     }
 
-    public void addLast(int elt) {
+    public void addLast(T elt) {
+        if (source.size() == 0 ||
+//                elt > currentMax.getLast()
+                comparator.compare(elt, currentMax.getLast()) > 0)
+            currentMax.addLast(elt);
+        else
+            currentMax.addLast(currentMax.getLast());
+
         source.addLast(elt);
     }
 
-    public int getLast() {
+    public T getLast() {
         return source.getLast();
     }
 
-    public int removeLast() {
-
+    public T removeLast() {
+        currentMax.removeLast();
+        return source.removeLast();
     }
 
     public int size() {
-
+        return source.size();
     }
 
-    public int getMax() {
-        // foreach here over all the elements of the 'source'
+    public T getMax() {
+        return currentMax.getLast();
     }
 }

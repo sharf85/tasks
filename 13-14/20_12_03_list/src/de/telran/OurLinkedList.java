@@ -1,5 +1,6 @@
 package de.telran;
 
+import java.util.Comparator;
 import java.util.Iterator;
 
 public class OurLinkedList<T> implements OurList<T> {
@@ -144,6 +145,22 @@ public class OurLinkedList<T> implements OurList<T> {
     @Override
     public Iterator<T> backwardIterator() {
         return new BackwardIterator();
+    }
+
+    @Override
+    public void sort(Comparator<T> comparator) {
+        Object[] copy = new Object[size];
+
+        int i = 0;
+        for (T elt : this) {
+            copy[i++] = elt;
+        }
+        // this is going to be a sort of the copy
+
+        this.clear();
+        for (Object elt : copy) {
+            this.addLast((T) elt);
+        }
     }
 
     @Override
