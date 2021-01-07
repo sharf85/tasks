@@ -2,6 +2,7 @@ package de.telran;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
 import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -230,19 +231,53 @@ public abstract class OurListTest {
     }
 
     @Test
-    void test_clear_EmptyList() {
+    public void test_clear_EmptyList() {
         list.clear();
         assertEquals(0, list.size());
     }
 
     @Test
-    void test_clear_NonEmptyList() {
+    public void test_clear_NonEmptyList() {
         list.addLast(1);
         list.addLast(2);
         list.addLast(3);
         list.clear();
         assertEquals(0, list.size());
     }
+
+    @Test
+    public void testSort_severalUnsortedNumbers_sorted() {
+        list.addLast(15);
+        list.addLast(-8);
+        list.addLast(3);
+        list.addLast(-8);
+
+        // anonymous class
+        Comparator<Integer> comparator = new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1 - o2;
+            }
+        };
+
+        list.sort(comparator);
+
+        int[] expected = {-8, -8, 3, 15};
+        int i = 0;
+        for (int num : list) {
+            assertEquals(expected[i++], num);
+        }
+
+//        list.sort(new IntegerComparator());
+    }
+
+//    class IntegerComparator implements Comparator<Integer> {
+//
+//        @Override
+//        public int compare(Integer o1, Integer o2) {
+//            return o1 - o2;
+//        }
+//    }
 
     @Test
     public void testForwardIterator_emptyList() {

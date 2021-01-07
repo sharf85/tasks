@@ -1,5 +1,6 @@
 package de.telran;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 
@@ -132,7 +133,20 @@ public class OurArrayList<Type> implements OurList<Type> {
 
     @Override
     public void sort(Comparator<Type> comparator) {
+        Type[] copy = (Type[]) new Object[size];
 
+        int i = 0;
+        for (Type elt : this) {
+            copy[i++] = elt;
+        }//copy: {15, -8, 3}
+
+        Arrays.sort(copy, comparator);
+
+        // copy:{-8, 3, 15}
+        this.clear();
+        for (Type elt : copy) {
+            this.addLast(elt);
+        }
     }
 
     @Override
