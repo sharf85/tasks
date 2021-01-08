@@ -116,6 +116,27 @@ public interface OurList<Type> extends Iterable<Type> {
         return max;
     }
 
+    /**
+     * The method uses the natural ordering of the elements inside the list.
+     * Meaning the elements must be Comparable
+     *
+     * @return max according to the natural ordering
+     */
+    default Type max() {
+        if (size() == 0)
+            throw new NoSuchElementException();
+
+        Type max = this.get(0);
+
+        for (Type currentElt : this) {
+            Comparable<Type> compCurrentElement = (Comparable<Type>) currentElt;
+            if (compCurrentElement.compareTo(max) > 0)
+                max = currentElt;
+        }
+
+        return max;
+    }
+
     default Type min(Comparator<Type> comparator) {
         return max(comparator.reversed());
     }
