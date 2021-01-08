@@ -1,7 +1,9 @@
 package de.telran;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public interface OurList<Type> extends Iterable<Type> {
 
@@ -74,10 +76,48 @@ public interface OurList<Type> extends Iterable<Type> {
      *
      * @param comparator the rule to sort the list
      */
-    void sort(Comparator<Type> comparator);
+    default void sort(Comparator<Type> comparator) {
+        Type[] copy = (Type[]) new Object[size()];
 
-    // TODO
-    Type max(Comparator<Type> comparator);
+        int i = 0;
+        for (Type elt : this) {
+            copy[i++] = elt;
+        }//copy: {15, -8, 3}
 
-    Type min(Comparator<Type> comparator);
+        Arrays.sort(copy, comparator);
+
+        // copy:{-8, 3, 15}
+        this.clear();
+        for (Type elt : copy) {
+            this.addLast(elt);
+        }
+    }
+
+    default Type max(Comparator<Type> comparator) {
+        if (size() == 0)
+            throw new NoSuchElementException();
+
+//        Iterator<Type> iterator = iterator();
+//        Type max = iterator.next();
+//
+//        while (iterator.hasNext()) {
+//            Type currentElt = iterator.next();
+//            if (comparator.compare(currentElt, max) > 0)
+//                max = currentElt;
+//        }
+
+        Type max = this.get(0);
+
+        for (Type currentElt : this) {
+            if (comparator.compare(currentElt, max) > 0)
+                max = currentElt;
+        }
+
+        return max;
+    }
+
+    default Type min(Comparator<Type> comparator) {
+        return max(comparator.reversed());
+    }
+
 }

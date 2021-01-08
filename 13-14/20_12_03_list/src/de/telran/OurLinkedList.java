@@ -156,38 +156,6 @@ public class OurLinkedList<T> implements OurList<T> {
 //        linkedList.removeLast();
 //        deque.removeLast();
 
-    //{15, -8,3}
-    @Override
-    public void sort(Comparator<T> comparator) {
-        T[] copy = (T[]) new Object[size];
-
-        int i = 0;
-        for (T elt : this) {
-            copy[i++] = elt;
-        }//copy: {15, -8, 3}
-
-        Arrays.sort(copy, comparator);
-
-//        for (int j = 0; j < size; j++) {
-//            int minId = j;
-//            for (int k = j + 1; k < size; k++) {
-//                if (comparator.compare((T) copy[minId], (T) copy[k]) > 0) {
-//                    minId = k;
-//                }
-//            }
-//
-//            Object temp = copy[j];
-//            copy[j] = copy[minId];
-//            copy[minId] = temp;
-//        }
-
-        // copy:{-8, 3, 15}
-        this.clear();
-        for (T elt : copy) {
-            this.addLast(elt);
-        }
-    }
-
     @Override
     public Iterator<T> iterator() {
         return forwardIterator();

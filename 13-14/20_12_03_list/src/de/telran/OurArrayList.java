@@ -3,6 +3,7 @@ package de.telran;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class OurArrayList<Type> implements OurList<Type> {
 
@@ -131,23 +132,52 @@ public class OurArrayList<Type> implements OurList<Type> {
         return iterator;
     }
 
-    @Override
-    public void sort(Comparator<Type> comparator) {
-        Type[] copy = (Type[]) new Object[size];
-
-        int i = 0;
-        for (Type elt : this) {
-            copy[i++] = elt;
-        }//copy: {15, -8, 3}
-
-        Arrays.sort(copy, comparator);
-
-        // copy:{-8, 3, 15}
-        this.clear();
-        for (Type elt : copy) {
-            this.addLast(elt);
-        }
-    }
+//    @Override
+//    public void sort(Comparator<Type> comparator) {
+//        Type[] copy = (Type[]) new Object[size];
+//
+//        int i = 0;
+//        for (Type elt : this) {
+//            copy[i++] = elt;
+//        }//copy: {15, -8, 3}
+//
+//        Arrays.sort(copy, comparator);
+//
+//        // copy:{-8, 3, 15}
+//        this.clear();
+//        for (Type elt : copy) {
+//            this.addLast(elt);
+//        }
+//    }
+//
+//    @Override
+//    public Type max(Comparator<Type> comparator) {
+//        if (size == 0)
+//            throw new NoSuchElementException();
+//
+////        Iterator<Type> iterator = iterator();
+////        Type max = iterator.next();
+////
+////        while (iterator.hasNext()) {
+////            Type currentElt = iterator.next();
+////            if (comparator.compare(currentElt, max) > 0)
+////                max = currentElt;
+////        }
+//
+//        Type max = this.get(0);
+//
+//        for (Type currentElt : this) {
+//            if (comparator.compare(currentElt, max) > 0)
+//                max = currentElt;
+//        }
+//
+//        return max;
+//    }
+//
+//    @Override
+//    public Type min(Comparator<Type> comparator) {
+//        return max(comparator.reversed());
+//    }
 
     @Override
     public Iterator<Type> iterator() {
