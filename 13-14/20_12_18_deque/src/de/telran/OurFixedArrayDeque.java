@@ -1,6 +1,8 @@
 package de.telran;
 
-public class OurFixedArrayDeque<T> implements OurDeque<T> {
+import java.util.Iterator;
+
+public class OurFixedArrayDeque<T> implements OurDeque<T>, Iterable<T> {
 
     private int firstEltId;
     private int size;
@@ -81,5 +83,31 @@ public class OurFixedArrayDeque<T> implements OurDeque<T> {
     @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ForwardIterator();
+    }
+
+    private class ForwardIterator implements Iterator<T> {
+
+        int currentElementNumber = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentElementNumber < size;
+        }
+
+        @Override
+        public T next() {
+            if (currentElementNumber >= size)
+                throw new IndexOutOfBoundsException();
+
+            int currentIndex = (firstEltId + currentElementNumber) % capacity;
+            currentElementNumber++;
+            return (T) source[currentIndex];
+        }
+
     }
 }

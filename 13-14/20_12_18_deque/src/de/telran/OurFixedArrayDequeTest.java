@@ -116,4 +116,27 @@ class OurFixedArrayDequeTest {
         deque.removeFirst();
         assertThrows(EmptyDequeException.class, () -> deque.removeFirst());
     }
+
+    @Test
+    public void testIterable() {
+        OurFixedArrayDeque<Integer> deque = new OurFixedArrayDeque<Integer>(6);
+        Integer[] expected = {15, 3, 4, 4};
+
+        deque.addLast(1);
+        deque.addLast(2);
+        deque.addLast(3);
+        deque.removeFirst();
+        deque.removeFirst();
+        deque.addFirst(15);
+        deque.addLast(4);
+        deque.addLast(4);
+
+        int i = 0;
+        for (Integer elt : deque) {
+            System.out.println(elt);
+            assertEquals(expected[i], elt);
+            i++;
+        }
+        assertEquals(4, i);
+    }
 }

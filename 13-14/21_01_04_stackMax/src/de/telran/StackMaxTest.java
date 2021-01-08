@@ -6,9 +6,9 @@ import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StackMaxTest {
+abstract class StackMaxTest {
 
-    StackMax<Integer> myStack = new StackMax<>(new IntegerBasicComparator());
+    IStackMax<Integer> myStack;
 
     @Test
     public void testRemoveLast_empty_Stack_throwsIOOBE() {

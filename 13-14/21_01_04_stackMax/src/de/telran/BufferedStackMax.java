@@ -3,13 +3,13 @@ package de.telran;
 import java.util.ArrayDeque;
 import java.util.Comparator;
 
-public class StackMax<T> {
+public class BufferedStackMax<T> implements IStackMax<T>{
 
     private final ArrayDeque<T> source;
     private final ArrayDeque<T> currentMax;
     private final Comparator<T> comparator;
 
-    public StackMax(Comparator<T> comparator) {
+    public BufferedStackMax(Comparator<T> comparator) {
         this.comparator = comparator;
         source = new ArrayDeque<>();
         currentMax = new ArrayDeque<>();
