@@ -247,7 +247,7 @@ public abstract class OurListTest {
     }
 
     @Test
-    public void testSort_severalUnsortedNumbers_sorted() {
+    public void testSortWithComparator_severalUnsortedNumbers_sorted() {
         list.addLast(15);
         list.addLast(-8);
         list.addLast(3);
@@ -269,16 +269,25 @@ public abstract class OurListTest {
             assertEquals(expected[i++], num);
         }
 
-//        list.sort(new IntegerComparator());
     }
 
-//    class IntegerComparator implements Comparator<Integer> {
-//
-//        @Override
-//        public int compare(Integer o1, Integer o2) {
-//            return o1 - o2;
-//        }
-//    }
+    @Test
+    public void testSort_severalUnsortedNumbers_sorted() {
+
+        list.addLast(15);
+        list.addLast(-8);
+        list.addLast(3);
+        list.addLast(-8);
+
+        list.sort();
+
+        int[] expected = {-8, -8, 3, 15};
+        int i = 0;
+        for (int num : list) {
+            assertEquals(expected[i++], num);
+        }
+
+    }
 
     @Test
     public void testForwardIterator_emptyList() {
@@ -465,16 +474,41 @@ public abstract class OurListTest {
         assertThrows(NoSuchElementException.class, () -> list.min(new IntegerComparator()));
     }
 
-//    @Test
-//    public void test_max_severalString() {
-//        String[] expected = {"Evgenievna", "Vladislava", "Borisovich", "Evgeny"};
-//
-//        stringList.addLast("Evgeny");
-//        stringList.addLast("Borisovich");
-//        stringList.addLast("Vladislava");
-//        stringList.addLast("Evgenievna");
-//        assertEquals("Vladislava", stringList.max(new StringComparator()));
-//    }
+    @Test
+    public void test_maxWithComparator_severalString() {
+        stringList.addLast("Evgeny");
+        stringList.addLast("Borisovich");
+        stringList.addLast("Vladislava");
+        stringList.addLast("Evgenievna");
+        assertEquals("Vladislava", stringList.max(new StringComparator()));
+    }
+
+    @Test
+    public void testMinWithComparator_severalString() {
+        stringList.addLast("Evgeny");
+        stringList.addLast("Borisovich");
+        stringList.addLast("Vladislava");
+        stringList.addLast("Evgenievna");
+        assertEquals("Borisovich", stringList.min(new StringComparator()));
+    }
+
+    @Test
+    public void test_max_severalString() {
+        stringList.addLast("Evgeny");
+        stringList.addLast("Borisovich");
+        stringList.addLast("Vladislava");
+        stringList.addLast("Evgenievna");
+        assertEquals("Vladislava", stringList.max());
+    }
+
+    @Test
+    public void testMin_severalString() {
+        stringList.addLast("Evgeny");
+        stringList.addLast("Borisovich");
+        stringList.addLast("Vladislava");
+        stringList.addLast("Evgenievna");
+        assertEquals("Borisovich", stringList.min());
+    }
 
     /**
      * The function fills the list with the numbers from 0 to (number - 1)
@@ -502,5 +536,13 @@ class IntegerComparator implements Comparator<Integer> {
     @Override
     public int compare(Integer o1, Integer o2) {
         return o1 - o2;
+    }
+}
+
+class StringComparator implements Comparator<String> {
+
+    @Override
+    public int compare(String o1, String o2) {
+        return o1.compareTo(o2);
     }
 }

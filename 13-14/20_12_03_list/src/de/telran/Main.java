@@ -1,6 +1,6 @@
 package de.telran;
 
-import java.util.Iterator;
+import java.util.*;
 
 public class Main {
 
@@ -47,5 +47,39 @@ public class Main {
             System.out.println(str);
         }
 
+        List<Product> products = Arrays.asList(
+                new Product(100),
+                new Product(50),
+                new Product(70)
+        );
+
+        //
+        Comparator<Product> priceComparator = new Comparator<Product>() {
+            @Override
+            public int compare(Product o1, Product o2) {
+                return o1.price - o2.price;
+            }
+        };
+
+        products.sort(priceComparator);
+
+    }
+}
+
+class Product {
+    int price;
+    long timestamp;
+
+    public Product(int price) {
+        this.price = price;
+        this.timestamp = System.currentTimeMillis();
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
     }
 }

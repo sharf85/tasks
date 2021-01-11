@@ -137,6 +137,30 @@ public interface OurList<Type> extends Iterable<Type> {
         return max;
     }
 
+    default Type min() {
+        Comparator<Type> comparator = new Comparator<Type>() {
+            @Override
+            public int compare(Type o1, Type o2) {
+                Comparable<Type> comparableO1 = (Comparable<Type>) o1;
+                return comparableO1.compareTo(o2);
+            }
+        };
+
+        return min(comparator);
+    }
+
+    default void sort() {
+        Comparator<Type> comparator = new Comparator<Type>() {
+            @Override
+            public int compare(Type o1, Type o2) {
+                Comparable<Type> comparableO1 = (Comparable<Type>) o1;
+                return comparableO1.compareTo(o2);
+            }
+        };
+
+        sort(comparator);
+    }
+
     default Type min(Comparator<Type> comparator) {
         return max(comparator.reversed());
     }
