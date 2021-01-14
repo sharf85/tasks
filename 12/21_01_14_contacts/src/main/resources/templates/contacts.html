@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacts</title>
+</head>
+<body>
+<h3>Contacts</h3>
+<div>
+    <ul>
+        <li th:each="contact: ${contactList}"
+            th:text="${contact.getName()} + ' ' + ${contact.getLastName()}"></li>
+    </ul>
+</div>
+</body>
+</html>
