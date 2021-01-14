@@ -43,7 +43,6 @@ public class OurHashMap<K, V> implements OurMap<K, V> {
         if (pair != null) {
             V res = pair.value;
             pair.value = value;
-            size++;
             return res;
         }
 
@@ -55,7 +54,22 @@ public class OurHashMap<K, V> implements OurMap<K, V> {
     }
 
     private void resize() {
+        capacity = capacity * 2;
+        Pair<K, V>[] newSource = new Pair[capacity];
 
+        for (Pair<K, V> cell : source) {
+
+            Pair<K, V> currentPair = cell;
+            while (currentPair != null) {
+                int newIndex = hash(currentPair.key) % capacity;
+                currentPair.next = newSource[newIndex];
+                newSource[newIndex] = currentPair;
+
+                currentPair = currentPair.next;
+            }
+        }
+
+        source = newSource;
     }
 
     private Pair<K, V> find(K key) {
