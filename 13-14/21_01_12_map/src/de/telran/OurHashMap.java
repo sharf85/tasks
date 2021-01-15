@@ -62,10 +62,12 @@ public class OurHashMap<K, V> implements OurMap<K, V> {
             Pair<K, V> currentPair = cell;
             while (currentPair != null) {
                 int newIndex = hash(currentPair.key) % capacity;
+                Pair<K, V> next = currentPair.next;
+
                 currentPair.next = newSource[newIndex];
                 newSource[newIndex] = currentPair;
 
-                currentPair = currentPair.next;
+                currentPair = next;
             }
         }
 
@@ -87,27 +89,121 @@ public class OurHashMap<K, V> implements OurMap<K, V> {
 
     @Override
     public V get(K key) {
-        return null;
+        Pair<K, V> pair = find(key);
+        return pair == null ? null : pair.value;
     }
 
     @Override
     public V remove(K key) {
+        int index = hash(key) % capacity;
+        Pair<K, V> current = source[index];
+
+        if (current == null)
+            return null;
+
+        if (current.key.equals(key)) {
+            source[index] = current.next;
+            V res = current.value;
+
+            clearPair(current);
+
+            size--;
+            return res;
+        }
+
+        while (current.next != null) {
+            if (current.next.key.equals(key)) {
+                Pair<K, V> pairToRemove = current.next;
+                V res = pairToRemove.value;
+                current.next = pairToRemove.next;
+
+                clearPair(pairToRemove);
+
+                size--;
+                return res;
+            }
+            current = current.next;
+        }
+
         return null;
+    }
+
+    private void clearPair(Pair<K, V> pair) {
+        pair.next = null;
+        pair.value = null;
+        pair.key = null;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public Iterator<K> keyIterator() {
-        return null;
+        return new KeyIterator();
+    }
+
+    private class KeyIterator implements Iterator<K> {
+
+        int index = 0;
+        int position = 0;
+        Pair<K, V> currentPair;
+
+        KeyIterator() {
+            if (size == 0)
+                return;
+
+            while (source[index] == null) {
+                index++;
+            }
+
+            currentPair = source[index];
+        }
+
+        @Override
+        public boolean hasNext() {
+            return position < size;
+        }
+
+        @Override
+        public K next() {
+            if (position >= size)
+                throw new IndexOutOfBoundsException();
+
+            K res = currentPair.key;
+
+            if (currentPair.next != null) {
+                currentPair = currentPair.next;
+            } else {
+                do {
+                    index++;
+                } while (index < capacity && source[index] == null);
+
+                currentPair = index < capacity ? source[index] : null;
+            }
+
+            position++;
+            return res;
+        }
     }
 
     @Override
     public Iterator<V> valueIterator() {
-        return null;
+        return new Iterator<V>() {
+
+            final KeyIterator keyIterator = new KeyIterator();
+
+            @Override
+            public boolean hasNext() {
+                return keyIterator.hasNext();
+            }
+
+            @Override
+            public V next() {
+                return get(keyIterator.next());
+            }
+        };
     }
 
     static private class Pair<K, V> {
