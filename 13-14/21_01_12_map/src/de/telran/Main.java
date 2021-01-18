@@ -10,6 +10,9 @@ public class Main {
         Map<Auto, String> map = new HashMap<>();
         fillMap(map);
 
+        // Рекомендуется в качестве ключей для HashMap использовать только те объекты,
+        // у которых переопределены hashCode и equals, а также они immutable (не изменяются
+        // с момента создания)
         Auto anotherGreyOpel = new Auto("Grey", "Opel");
         String value = map.get(anotherGreyOpel);
         System.out.println(value);//

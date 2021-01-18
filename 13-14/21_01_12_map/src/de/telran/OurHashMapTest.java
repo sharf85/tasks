@@ -181,7 +181,6 @@ class OurHashMapTest {
         int i = 0;
         while (iterator.hasNext()) {
             String key = iterator.next();
-            System.out.println(key);
             assertEquals("WIN4528", key);
         }
 
@@ -212,11 +211,11 @@ class OurHashMapTest {
 
         int i = 0;
         while (iterator.hasNext()) {
-            System.out.println(iterator.next());
+            iterator.next();
             i++;
         }
 
-        assertEquals(9, map.size());
+        assertEquals(9, i);
 
         assertThrows(IndexOutOfBoundsException.class, () -> {
             iterator.next();
@@ -235,9 +234,89 @@ class OurHashMapTest {
         int[] exp = {0, 1, 2, 3, 4, 6, 8};
         int i = 0;
         while (iterator.hasNext()) {
-              System.out.println(iterator.next());
+            iterator.next();
+            i++;
 //            assertEquals(exp[i++], iterator.next());
         }
+
+        assertEquals(7, i);
     }
 
+    @Test
+    public void testSizePut_emptyObject_newElements() {
+        intMap.put(3, "f");
+        intMap.put(2, "b");
+        intMap.put(1, "c");
+        assertEquals(3, intMap.size());
+    }
+
+    @Test
+    public void testSizePut_emptyObject_noElements() {
+        assertEquals(0, intMap.size());
+    }
+
+    @Test
+    public void testSizePut_NotEmptyObject_notExistKey() {
+        intMap.put(1, "a");
+        intMap.put(2, "b");
+        intMap.put(3, "c");
+        assertEquals(3, intMap.size());
+        intMap.put(4, "d");
+        assertEquals(4, intMap.size());
+    }
+
+    @Test
+    public void testSizePut_NotEmptyObject_existKey() {
+        intMap.put(1, "a");
+        intMap.put(2, "b");
+        intMap.put(3, "c");
+        assertEquals(3, intMap.size());
+        intMap.put(2, "d");
+        assertEquals(3, intMap.size());
+    }
+
+    @Test
+    public void testGetContains_NotEmptyObject_existKey() {
+        intMap.put(1, "a");
+        intMap.put(2, "b");
+        intMap.put(3, "c");
+        assertEquals("b", intMap.get(2));
+        assertEquals("a", intMap.get(1));
+        assertEquals("c", intMap.get(3));
+    }
+
+    @Test
+    public void testGetContains_NotEmptyObject_notExistKey() {
+        intMap.put(1, "a");
+        intMap.put(2, "b");
+        intMap.put(3, "c");
+        assertNull(intMap.get(5));
+    }
+
+    @Test
+    public void testGetContains_emptyObject_notExistKey() {
+        assertNull(intMap.remove(5));
+    }
+
+    @Test
+    public void testRemove_NotEmptyObject_existKey() {
+        intMap.put(1, "a");
+        intMap.put(2, "b");
+        intMap.put(3, "c");
+        assertEquals(3, intMap.size());
+        intMap.remove(2);
+        assertEquals(2, intMap.size());
+        assertNull(intMap.get(2));
+    }
+
+    @Test
+    public void testRemove_NotEmptyObject_notExistKey() {
+        intMap.put(1, "a");
+        intMap.put(2, "b");
+        intMap.put(3, "c");
+        assertEquals(3, intMap.size());
+        assertNull(intMap.remove(5));
+        assertEquals(3, intMap.size());
+        assertNull(intMap.get(5));
+    }
 }
