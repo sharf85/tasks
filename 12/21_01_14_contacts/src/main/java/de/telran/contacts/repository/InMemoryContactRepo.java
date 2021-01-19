@@ -6,33 +6,41 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-// TODO implement the class via what ever you want, eg. HashMap or ArrayList under the hood.
 // AND TESTS!!!
 @Repository
 public class InMemoryContactRepo implements IContactRepo {
 
-//    HashMap<Integer, Contact> source;
-//    ArrayList< Contact> source;
-
+    Map<Integer, Contact> source = new HashMap<>();
+    int lastUsedId;
 
     @Override
     public void save(Contact contact) {
+        int id = contact.getId();
 
+        if (id == 0) {
+            contact.setId(++lastUsedId);
+            source.put(lastUsedId, contact);
+        } else if (source.containsKey(id)) {
+            source.put(id, contact);
+        } else {
+            throw new ContactNotFoundException();
+        }
     }
 
     @Override
     public Contact find(int id) {
-        return null;
+        return source.get(id);
     }
 
     @Override
     public Contact remove(int id) {
-        return null;
+        return source.remove(id);
     }
 
     @Override
     public List<Contact> findAll() {
-        return null;
+        return new ArrayList<>(source.values());
     }
 }
