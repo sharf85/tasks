@@ -18,12 +18,12 @@
             </li>
 
             <li class="collection-item" th:each="contact: ${contactList}">
-                <div><span th:text="${contact.getName()} + ' ' + ${contact.getLastName()}"></span>
+                <div><a th:href="'contacts/' + ${contact.getId()}" th:text="${contact.getName()} + ' ' + ${contact.getLastName()}"></a>
                     <a th:href="'contacts/' + ${contact.getId()} + '/delete'" class="secondary-content"><i
                             class="material-icons red-text">delete_forever</i></a>
 
                     <!--TODO change the link to contacts/{id}/edit-->
-                    <a href="#!" class="secondary-content"><i class="material-icons blue-text">edit</i></a>
+                    <a th:href="'contacts/' + ${contact.getId()} + '/edit'" class="secondary-content"><i class="material-icons blue-text">edit</i></a>
                 </div>
             </li>
         </ul>

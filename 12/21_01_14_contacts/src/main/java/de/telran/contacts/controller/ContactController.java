@@ -35,17 +35,19 @@ public class ContactController {
     }
 
     @GetMapping("contacts/{id}/edit")
-    public String editContactForm(@PathVariable String id, Model model) {
-        //TODO 1. get the contact by the specified id by the service
-        //TODO 2. insert the contact to the model in order to show the contact in the contact-form template
-
-
+    public String editContactForm(@PathVariable int id, Model model) {
+        Contact contact = contactService.get(id);
+        model.addAttribute("contact", contact);
         return "contact-form";
     }
 
     @PostMapping("contact/save")
     public String saveContact(@ModelAttribute Contact contact) {
-        contactService.create(contact);
+        if (contact.getId() > 0)
+            contactService.edit(contact);
+        else
+            contactService.create(contact);
+
         return "redirect:/contacts";
     }
 
@@ -53,10 +55,21 @@ public class ContactController {
      * the endpoint should delete the contact and redirect to the contacts page
      */
     @GetMapping("contacts/{id}/delete")
-    public String deleteContact(@PathVariable String id) {
-        //TODO 1. remove the contact via contactService
-        //TODO 2. redirect to the contacts page after the deletion
-        return "";
+    public String deleteContact(@PathVariable int id) {
+        contactService.remove(id);
+        return "redirect:/contacts";
+    }
+
+    @GetMapping()
+    public String home() {
+        return "redirect:/contacts";
+    }
+
+    @GetMapping("/contacts/{id}")
+    public String getContact(@PathVariable int id, Model model) {
+        Contact contact = contactService.get(id);
+        model.addAttribute("contact", contact);
+        return "contact";
     }
 
 }
