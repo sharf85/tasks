@@ -1,4 +1,4 @@
-package de.telran;
+package de.telran.map;
 
 import java.util.Iterator;
 

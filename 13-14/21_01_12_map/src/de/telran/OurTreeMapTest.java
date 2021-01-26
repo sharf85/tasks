@@ -80,4 +80,44 @@ class OurTreeMapTest extends OurMapTest {
 
     //TODO implement and write tests for value iterator
 
+    @Test
+    public void testValueIterator_severalElements_rootToTheLeft() {
+        intMap.put(-10, "-10");
+        intMap.put(-5, "-5");
+        intMap.put(1, "1");
+        intMap.put(2, "2");
+        intMap.put(3, "3");
+        intMap.put(5, "5");
+
+        List<String> expected = Arrays.asList("-10", "-5", "1", "2", "3", "5");
+
+        List<String> actual = new ArrayList<>();
+
+        Iterator<String> valueIterator = intMap.valueIterator();
+        while (valueIterator.hasNext())
+            actual.add(valueIterator.next());
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testValueIterator_severalElements_increasing() {
+        intMap.put(1, "1");
+        intMap.put(-10, "-10");
+        intMap.put(5, "5");
+        intMap.put(3, "3");
+        intMap.put(-5, "-5");
+        intMap.put(2, "2");
+
+        List<String> expected = Arrays.asList("-10", "-5", "1", "2", "3", "5");
+
+        List<String> actual = new ArrayList<>();
+
+        Iterator<String> valueIterator = intMap.valueIterator();
+        while (valueIterator.hasNext())
+            actual.add(valueIterator.next());
+
+        assertEquals(expected, actual);
+    }
+
 }
