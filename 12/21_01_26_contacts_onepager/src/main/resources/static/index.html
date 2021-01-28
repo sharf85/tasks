@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacts</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+<div class="row">
+    <div class="col s8 offset-s2">
+        <h4>Contacts</h4>
+        <ul class="collection with-header" id="contact-wrapper">
+            <li class="collection-header">
+
+                <form class="row" method="post" id="contact-form">
+                    <div class="col s2">
+                        <a id="add-button" class="btn-floating btn-large waves-effect waves-light blue">
+                            <i data-action="add" class="material-icons">add</i></a>
+
+                    </div>
+
+                    <input type="hidden"/>
+                    <div class="input-field col s4">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input id="name" name="name" type="text" class="validate">
+                        <label for="name">Name</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input id="lastname" name="lastName" type="text" class="validate">
+                        <label for="lastname">Last name</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input id="age" name="age" type="number" class="validate">
+                        <label for="age">Age</label>
+                    </div>
+                </form>
+
+
+            </li>
+
+            <!-- contact template -->
+            <li class="collection-item hide" id="contact-template">
+                <div>
+                    <a class="contact-details-link" data-action="toggleDetails">
+
+                    </a>
+                    <a class="secondary-content red-text"><i
+                            class="material-icons" data-action="remove">delete</i>
+                    </a>
+                    <a class="secondary-content blue-text"><i
+                            class="material-icons" data-action="edit">edit</i>
+                    </a>
+                </div>
+                <!--contact data-->
+                <ul class="collection hide contact-details">
+                    <li class="collection-item ">
+                        <div><strong>Name:</strong><span class="secondary-content black-text name-value"></span>
+                        </div>
+                    </li>
+                    <li class="collection-item ">
+                        <div><strong>Last Name:</strong><span
+                                class="secondary-content black-text second-name-value"></span>
+                        </div>
+                    </li>
+                    <li class="collection-item ">
+                        <div><strong>Age:</strong><span class="secondary-content black-text age-value"></span>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>

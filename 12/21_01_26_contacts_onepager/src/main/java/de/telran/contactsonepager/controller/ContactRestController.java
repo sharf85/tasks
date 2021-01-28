@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/contacts")
@@ -45,8 +46,14 @@ public class ContactRestController {
     public List<ContactDto> getAll() {
         List<Contact> contacts = contactService.getAll();
 
-        //TODO convert 'contacts' to a list of ContactDto and return via Stream API
-        return null;
+        return contacts.stream()
+                .map(contact -> new ContactDto(
+                        contact.getId(),
+                        contact.getName(),
+                        contact.getLastName(),
+                        contact.getAge()
+                ))
+                .collect(Collectors.toList());
     }
 
     @PutMapping
@@ -61,7 +68,13 @@ public class ContactRestController {
     }
 
     @DeleteMapping("{id}")
-    public ContactDto remove(@PathVariable String id){
-        //TODO implement
+    public ContactDto remove(@PathVariable int id) {
+        Contact contact = contactService.remove(id);
+        return new ContactDto(
+                contact.getId(),
+                contact.getName(),
+                contact.getLastName(),
+                contact.getAge()
+        );
     }
 }

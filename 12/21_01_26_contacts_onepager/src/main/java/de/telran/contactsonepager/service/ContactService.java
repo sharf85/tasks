@@ -36,11 +36,17 @@ public class ContactService {
     }
 
     public void edit(int id, String name, String lastName, Integer age) {
-        //TODO implement
+        Contact contact = get(id);
+        contact.setName(name);
+        contact.setLastName(lastName);
+        contact.setAge(age);
+        contactRepository.save(contact);
     }
 
     public Contact remove(int id) {
-        //TODO implement
+        Contact res = get(id);
+        contactRepository.delete(res);
+        return res;
     }
 
 
