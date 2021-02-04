@@ -12,10 +12,8 @@ import static org.mockito.Mockito.mock;
 
 class CapitalLettersFileActionTest {
 
-    //    @Mock
     FileOperations fileOperations;
 
-    //    @InjectMocks
     CapitalLettersFileAction capLet;
 
     @BeforeEach
