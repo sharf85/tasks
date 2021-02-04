@@ -4,21 +4,49 @@ document.addEventListener("DOMContentLoaded", function main() {
     const contactWrapperDom = document.querySelector("#contact-wrapper");
 
     const contactClient = new ContactClient();
-    const contactRenderer = new ContactRenderer(contactTemplateDom, contactWrapperDom);
+    const htmlRenderer = new HtmlRenderer(contactTemplateDom, contactWrapperDom, formDom);
 
-    const formController = new FormController(contactClient, contactRenderer);
+    const formController = new FormController(contactClient, htmlRenderer);
+    const contactController = new ContactController(htmlRenderer);
 
 
     formDom.addEventListener("click", formController);
+    contactWrapperDom.addEventListener("click", contactController);
 });
 
 const REAL_CONTACT_CLASS = "real-contact";
 
+class ContactController {
+    constructor(htmlRenderer, contactClient) {
+        this.htmlRenderer = htmlRenderer;
+        this.contactClient = contactClient;
+    }
+
+    handleEvent(event) {
+        const action = event.target.dataset.action
+        if (action !== undefined)
+            this[action](event);
+    }
+
+    toggleDetails(event) {
+        this.htmlRenderer.toggleContactDetails(event);
+    }
+
+    remove(event) {
+        //TODO complete. Take the contact id from the event.target (see 'toEditForm' from html renderer to get contactDom -> contact)
+        // then rerender all persons
+    }
+
+    edit(event) {
+        this.htmlRenderer.toEditForm(event);
+    }
+}
+
 class FormController {
 
-    constructor(contactClient, contactRenderer) {
+    constructor(contactClient, htmlRenderer) {
         this.contactClient = contactClient;
-        this.contactRenderer = contactRenderer;
+        this.htmlRenderer = htmlRenderer;
         this._init();
     }
 
@@ -26,11 +54,12 @@ class FormController {
         const response = await this.contactClient.getAll();
         if (response.ok) {
             const contacts = await response.json();
-            this.contactRenderer.renderContacts(contacts);
+            this.htmlRenderer.renderContacts(contacts);
         }
     }
 
     handleEvent(event) {
+        event.stopPropagation();
         const action = event.target.dataset.action
         if (action !== undefined)
             this[action](event);
@@ -48,29 +77,36 @@ class FormController {
         const response = await this.contactClient.add(contact);
         if (response.ok) {
             this._init();
+            this.htmlRenderer.clearForm();
         }
 
     }
 
     edit(event) {
-
+        //TODO complete. See method 'add'
     }
 
     cancel(event) {
-
+        this.htmlRenderer.toAddForm();
     }
 }
 
-class ContactRenderer {
+/**
+ * The responsibility of the class is render data and change HTML.
+ */
+class HtmlRenderer {
 
-    constructor(contactTemplateDom, contactWrapperDom) {
+    constructor(contactTemplateDom, contactWrapperDom, formDom) {
         this.contactTemplateDom = contactTemplateDom;
         this.contactWrapperDom = contactWrapperDom;
+        this.formDom = formDom;
+
+        this.addButtonDom = formDom.querySelector("#add-button");
+        this.editButtonDom = formDom.querySelector("#edit-button");
+        this.cancelButtonDom = formDom.querySelector("#cancel-button");
     }
 
     renderContacts(contacts) {
-
-        console.log("render");
         this.removeAll();
         for (let contact of contacts) {
             let contactDom = this.renderContact(contact);
@@ -100,6 +136,39 @@ class ContactRenderer {
         return res;
     }
 
+    clearForm() {
+        this.formDom.elements.name.value = null;
+        this.formDom.elements.lastName.value = null;
+        this.formDom.elements.age.value = null;
+    }
+
+    toggleContactDetails(event) {
+        const contactDetailsDom = event.target.closest(".real-contact").querySelector(".contact-details");
+        contactDetailsDom.classList.toggle("hide");
+    }
+
+    toEditForm(event) {
+        const contactDom = event.target.closest(".real-contact");
+        const contact = contactDom.contact;
+
+        this.formDom.elements.name.value = contact.name;
+        this.formDom.elements.lastName.value = contact.lastName;
+        this.formDom.elements.age.value = contact.age;
+        this.formDom.elements.id.value = contact.id;
+
+        this.addButtonDom.classList.add("hide");
+        this.editButtonDom.classList.remove("hide");
+        this.cancelButtonDom.classList.remove("hide");
+    }
+
+    toAddForm() {
+        this.clearForm()
+
+        this.editButtonDom.classList.add("hide");
+        this.cancelButtonDom.classList.add("hide");
+        this.addButtonDom.classList.remove("hide");
+    }
+
 }
 
 class ContactClient {
@@ -119,6 +188,7 @@ class ContactClient {
         return fetch(ContactClient.CONTACTS_PATH, {
             method: 'GET',
         });
-
     }
+
+    //TODO add methods edit(contact) and remove(contact)
 }

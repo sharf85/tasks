@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Contacts</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
@@ -15,12 +16,18 @@
 
                 <form class="row" method="post" id="contact-form">
                     <div class="col s2">
-                        <a id="add-button" class="btn-floating btn-large waves-effect waves-light blue">
+                        <a id="add-button" style="float: left; margin-top: 15px"
+                           class="btn-floating btn-large waves-effect waves-light blue">
                             <i data-action="add" class="material-icons">add</i></a>
-
+                        <a style="float: left; margin-top: 15px; margin-right: 5px;"
+                           class="hide btn-floating btn-large waves-effect waves-light blue" id="edit-button">
+                            <i class="material-icons" data-action="edit">edit</i></a>
+                        <a style="float: left; margin-top: 15px;"
+                           class="hide btn-floating btn-large waves-effect waves-light red" id="cancel-button">
+                            <i class="material-icons" data-action="cancel">close</i></a>
                     </div>
 
-                    <input type="hidden"/>
+                    <input type="hidden" name="id"/>
                     <div class="input-field col s4">
                         <i class="material-icons prefix">account_circle</i>
                         <input id="name" name="name" type="text" class="validate">
