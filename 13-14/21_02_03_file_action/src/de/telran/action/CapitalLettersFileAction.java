@@ -3,6 +3,7 @@ package de.telran.action;
 import de.telran.FileAction;
 import de.telran.FileOperations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CapitalLettersFileAction extends FileAction {
@@ -12,8 +13,11 @@ public class CapitalLettersFileAction extends FileAction {
 
     @Override
     protected List<String> perform(List<String> text) {
-        // TODO implement
-        return null;
+        List<String> res = new ArrayList<>();
+        for (String line : text) {
+            res.add(line.toUpperCase());
+        }
+        return res;
     }
 }
 
