@@ -50,4 +50,7 @@ public class ContactService {
     }
 
 
+    public List<Contact> getAllByName(String name) {
+        return contactRepository.findByNameIgnoreCase(name);
+    }
 }

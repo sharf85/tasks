@@ -7,8 +7,7 @@ document.addEventListener("DOMContentLoaded", function main() {
     const htmlRenderer = new HtmlRenderer(contactTemplateDom, contactWrapperDom, formDom);
 
     const formController = new FormController(contactClient, htmlRenderer);
-    const contactController = new ContactController(htmlRenderer);
-
+    const contactController = new ContactController(htmlRenderer, contactClient);
 
     formDom.addEventListener("click", formController);
     contactWrapperDom.addEventListener("click", contactController);
@@ -32,9 +31,19 @@ class ContactController {
         this.htmlRenderer.toggleContactDetails(event);
     }
 
-    remove(event) {
-        //TODO complete. Take the contact id from the event.target (see 'toEditForm' from html renderer to get contactDom -> contact)
-        // then rerender all persons
+    async remove(event) {
+        const contactDom = event.target.closest(".real-contact");
+        const contact = contactDom.contact;
+
+        const response = await this.contactClient.remove(contact);
+
+        if (response.ok) {
+            const response = await this.contactClient.getAll();
+            if (response.ok) {
+                const contacts = await response.json();
+                this.htmlRenderer.renderContacts(contacts);
+            }
+        }
     }
 
     edit(event) {
@@ -82,8 +91,22 @@ class FormController {
 
     }
 
-    edit(event) {
-        //TODO complete. See method 'add'
+    async edit(event) {
+        const formDom = event.currentTarget;
+
+        const contact = {
+            id: formDom.elements.id.value,
+            name: formDom.elements.name.value,
+            lastName: formDom.elements.lastName.value,
+            age: formDom.elements.age.value,
+        };
+
+        const response = await this.contactClient.edit(contact);
+        if (response.ok) {
+            this._init();
+            this.htmlRenderer.toAddForm();
+        }
+
     }
 
     cancel(event) {
@@ -190,5 +213,20 @@ class ContactClient {
         });
     }
 
-    //TODO add methods edit(contact) and remove(contact)
+    remove(contact) {
+        return fetch(ContactClient.CONTACTS_PATH + `/${contact.id}`, {
+            method: 'DELETE',
+        });
+    }
+
+    edit(contact) {
+        return fetch(ContactClient.CONTACTS_PATH, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(contact)
+        });
+    }
+
 }

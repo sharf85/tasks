@@ -43,8 +43,12 @@ public class ContactRestController {
     }
 
     @GetMapping
-    public List<ContactDto> getAll() {
-        List<Contact> contacts = contactService.getAll();
+    public List<ContactDto> getAll(@RequestParam(required = false) String name) {
+        List<Contact> contacts;
+        if (name == null)
+            contacts = contactService.getAll();
+        else
+            contacts = contactService.getAllByName(name);
 
         return contacts.stream()
                 .map(contact -> new ContactDto(
