@@ -7,21 +7,23 @@ public class OneItemStringQueue {
     private String source;
 
     public void addFirst(String item) {
-        source = item;
-
-        // wake
-        mutex.notify();
+        synchronized (mutex) {
+            source = item;
+            mutex.notify();
+        }
     }
 
     public String removeLast() throws InterruptedException {
         synchronized (mutex) {
-            while (source == null)
-                //sleep
+            while (source == null) {
+                System.out.println("The thread with id " + Thread.currentThread().getId() + " fell asleep");
                 mutex.wait();
+            }
         }
 
         String res = source;
         source = null;
+        System.out.println("The thread with id " + Thread.currentThread().getId() + " woke up");
         return res;
     }
 }
