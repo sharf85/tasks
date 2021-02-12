@@ -8,12 +8,12 @@ public class OperationContext {
 
     private final Map<String, IStringOperation> operationByName;
 
-//    {
-//        IStringOperation upperCase = new UpperCaseSO();
-//
-//        operationByName = new HashMap<>();
-//        operationByName.put(upperCase.getName(), upperCase);
-//    }
+    {
+        IStringOperation upperCase = new UpperCaseSO();
+
+        operationByName = new HashMap<>();
+        operationByName.put(upperCase.getName(), upperCase);
+    }
 
     public OperationContext() {
     }

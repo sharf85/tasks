@@ -1,0 +1,10 @@
+Hello#lower_case
+world#upper_case
+string#
+string
+Hello#lower_case
+world#upper_case
+string#get#length
+Hello#lower_case
+world#upper_case
+string#get#length
