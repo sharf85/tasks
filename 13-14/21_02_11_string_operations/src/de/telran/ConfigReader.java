@@ -2,6 +2,7 @@ package de.telran;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -17,8 +18,8 @@ public class ConfigReader {
 
     public List<String> getOperationPaths() {
         String pathsStr = properties.getProperty(DEFAULT_PATHS);
-
-        //TODO split the pathsStr to the list of paths
+        String[] pathArray = pathsStr.split(",");
+        return Arrays.asList(pathArray);
     }
 
 }

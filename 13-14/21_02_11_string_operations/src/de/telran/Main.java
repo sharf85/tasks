@@ -3,6 +3,8 @@ package de.telran;
 import de.telran.operation.OperationContext;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -11,11 +13,11 @@ public class Main {
     private static final String INPUT = "input.txt";
     private static final String OUTPUT = "output.txt";
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
 
-        //TODO read the props file and retrieve the operation paths from it. Then create an instance of the PerationContext
-        //TODO using these paths.
-        OperationContext operationContext = new OperationContext();
+        ConfigReader configReader = new ConfigReader("config.props");
+        List<String> operationPaths = configReader.getOperationPaths();
+        OperationContext operationContext = new OperationContext(operationPaths);
 
         BufferedReader br = new BufferedReader(new FileReader(INPUT));
         PrintWriter writer = new PrintWriter(new FileOutputStream(OUTPUT));
@@ -26,19 +28,24 @@ public class Main {
         Thread consumerThread3 = new Thread(new Consumer(queue, writer, operationContext));
         Thread supplierThread = new Thread(new Supplier(br, queue));
 
-//        consumerThread1.setDaemon(true);
-//        consumerThread2.setDaemon(true);
-//        consumerThread3.setDaemon(true);
-
         supplierThread.start();
 
         consumerThread1.start();
         consumerThread2.start();
         consumerThread3.start();
 
+        //wait until supplier completes
         supplierThread.join();
 
-        //TODO come up with ending the consumer threads on time.
+        // signal to the consumers that no new elements will appear in the queue
+        consumerThread1.interrupt();
+        consumerThread2.interrupt();
+        consumerThread3.interrupt();
+
+        // wait for consumers until they are done with the rest elements
+        consumerThread1.join();
+        consumerThread2.join();
+        consumerThread3.join();
 
         writer.close();
         br.close();

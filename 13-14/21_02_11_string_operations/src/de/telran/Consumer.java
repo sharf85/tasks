@@ -4,14 +4,15 @@ import de.telran.operation.IStringOperation;
 import de.telran.operation.OperationContext;
 
 import java.io.PrintWriter;
+import java.util.NoSuchElementException;
 import java.util.concurrent.BlockingQueue;
 
 public class Consumer implements Runnable {
 
 
-    private static final String SEPARATOR = "#";
-    private static final String WRONG_FORMAT = "wrong format";
-    private static final String WRONG_OPERATION = "wrong operation";
+    public static final String SEPARATOR = "#";
+    public static final String WRONG_FORMAT = "wrong format";
+    public static final String WRONG_OPERATION = "wrong operation";
     private final BlockingQueue<String> queue;
     private final PrintWriter writer;
     private final OperationContext context;
@@ -25,19 +26,35 @@ public class Consumer implements Runnable {
     @Override
     public void run() {
 
-        try {
-            while (true) {
+        boolean isAlive = true;
+
+        while (isAlive) {
+            try {
                 System.out.println(queue.size());
                 String line = queue.take();
                 String resLine = handleRawString(line);
                 writer.println(resLine);
+            } catch (InterruptedException e) {
+                isAlive = false;
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        }
+
+        // finish the queue
+        while (true) {
+            String line;
+
+            try {
+                line = queue.remove();
+            } catch (NoSuchElementException e) {
+                e.printStackTrace();
+                break;
+            }
+
+            String resLine = handleRawString(line);
+            writer.println(resLine);
         }
     }
 
-    // TODO test with mocking!
     String handleRawString(String line) {
         String[] result = line.split(SEPARATOR);
 
