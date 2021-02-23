@@ -1,0 +1,32 @@
+<div class="row">
+  <h3 class="col offset-s3 s9">Contact</h3>
+</div>
+
+<div class="row">
+  <form class="col s6 offset-s3" method="post">
+    <input type="hidden" [(ngModel)]="contact.id" name="id"/>
+    <div class="row">
+      <div class="input-field col s4">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="name" type="text" class="validate" [(ngModel)]="contact.name" name="name">
+        <label for="name">Name</label>
+      </div>
+      <div class="input-field col s4">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="lastname" type="text" class="validate" [(ngModel)]="contact.lastName" name="lastName">
+        <label for="lastname">Last name</label>
+      </div>
+      <div class="input-field col s4">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="age" type="number" class="validate" [(ngModel)]="contact.age" name="age">
+        <label for="age">Age</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <a class="btn-large waves-effect waves-light blue" (click)="onSave()">Save</a>
+        <a class="waves-effect waves-light btn-large blue" (click)="onCancel()">Cancel</a>
+      </div>
+    </div>
+  </form>
+</div>
