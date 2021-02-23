@@ -13,15 +13,6 @@ export class HeroesComponent implements OnInit {
 
   heroes: Hero[];
 
-  selectedHero: Hero;
-
-  // private heroService: HeroService;
-  //
-  // constructor(heroService: HeroService) {
-  //   this.heroService = heroService;
-  // }
-
-  // the same
   constructor(private heroService: HeroService, private messageService: MessageService) {
   }
 
@@ -30,12 +21,4 @@ export class HeroesComponent implements OnInit {
     observableHeroes.subscribe(value => this.heroes = value);
   }
 
-  onClickHero(hero: Hero): void {
-    this.selectedHero = hero;
-    this.messageService.add(`HeroesComponent: Selected hero id=${hero.id}`);
-  }
-
-  isSelected(hero: Hero): boolean {
-    return this.selectedHero === hero;
-  }
 }
