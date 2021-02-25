@@ -1,1 +1,23 @@
-<p>contacts works!</p>
+<div class="row">
+  <div class="col s6 offset-s3">
+    <h4>Contacts</h4>
+    <ul class="collection with-header">
+      <li class="collection-header">
+        <a routerLink="/contact/add" class="btn-floating btn-large waves-effect waves-light blue"><i
+          class="material-icons">add</i></a>
+      </li>
+
+      <li class="collection-item" *ngFor="let contact of contacts">
+        <div><a routerLink="/contact/{{contact.id}}">{{contact.name}} {{contact.lastName}}</a>
+          <a (click)="onDelete(contact)" class="secondary-content"><i
+            class="material-icons red-text">delete_forever</i></a>
+
+          <!--TODO change the link to contacts/{id}/edit-->
+          <a routerLink="/contact/{{contact.id}}/edit" class="secondary-content"><i
+            class="material-icons blue-text">edit</i></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+</div>
