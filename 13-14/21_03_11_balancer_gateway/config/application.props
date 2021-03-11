@@ -1,0 +1,2 @@
+tcp.outer.port=3000
+udp.balancer.port=3001
