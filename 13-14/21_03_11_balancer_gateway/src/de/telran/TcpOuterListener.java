@@ -26,7 +26,7 @@ public class TcpOuterListener implements Runnable {
             e.printStackTrace();
             return;
         }
-        ExecutorService executor = Executors.newFixedThreadPool(20);
+        ExecutorService executor = Executors.newFixedThreadPool(50);
 
         while (true) {
             Socket socket = null;

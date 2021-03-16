@@ -24,7 +24,7 @@ public class Main {
         String balancerHost = properties.getProperty(BALANCER_HOST_KEY);
         int udpBalancerPort = Integer.parseInt(properties.getProperty(UDP_BALANCER_PORT_KEY));
         int sendInterval = Integer.parseInt(properties.getProperty(LOAD_TIME_INTERVAL_KEY));
-        UdpLoadSender loadSender = new UdpLoadSender(balancerHost, udpBalancerPort, connectionCounter, sendInterval);
+        UdpLoadSender loadSender = new UdpLoadSender(balancerHost, udpBalancerPort, connectionCounter, sendInterval, selfTcpPort);
         new Thread(loadSender).start();
     }
 }

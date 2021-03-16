@@ -10,12 +10,14 @@ public class UdpLoadSender implements Runnable {
     private final int udpBalancerPort;
     private final AtomicInteger connectionCounter;
     private final int sendInterval;
+    private final int selfTcpPort;
 
-    public UdpLoadSender(String balancerHost, int udpBalancerPort, AtomicInteger connectionCounter, int sendInterval) {
+    public UdpLoadSender(String balancerHost, int udpBalancerPort, AtomicInteger connectionCounter, int sendInterval, int selfTcpPort) {
         this.balancerHost = balancerHost;
         this.udpBalancerPort = udpBalancerPort;
         this.connectionCounter = connectionCounter;
         this.sendInterval = sendInterval;
+        this.selfTcpPort = selfTcpPort;
     }
 
     @Override
@@ -26,7 +28,7 @@ public class UdpLoadSender implements Runnable {
             DatagramSocket udpSocket = new DatagramSocket();
 
             while (true) {
-                String data = connectionCounter.toString();
+                String data = selfTcpPort + ":" + connectionCounter.toString();
                 System.out.println(data);
                 byte[] outputData = data.getBytes();
                 // datagram to send
