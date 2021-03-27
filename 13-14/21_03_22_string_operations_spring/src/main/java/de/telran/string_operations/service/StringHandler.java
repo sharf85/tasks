@@ -2,7 +2,7 @@ package de.telran.string_operations.service;
 
 import de.telran.string_operations.OperationContext;
 import de.telran.string_operations.service.operation.IStringOperation;
-import org.springframework.boot.ApplicationRunner;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +20,11 @@ public class StringHandler {
     // TODO take constants from the application props file. Other configure in the AppConfiguration
     public StringHandler(OperationContext context,
                          PrintWriter writer,
+                         @Value("${de.telran.string_operation.handler.separator}")
                          String separator,
+                         @Value("${de.telran.string_operation.handler.wrong_operation}")
                          String wrongOperation,
+                         @Value("${de.telran.string_operation.handler.wrong_format}")
                          String wrongFormat) {
         this.context = context;
         this.writer = writer;
@@ -30,7 +33,6 @@ public class StringHandler {
         this.wrongFormat = wrongFormat;
     }
 
-    //TODO configure the project so that the @Async annotation opens a new thread to invoke this method
     @Async
     public void handleString(String line) {
         String res = handleRawString(line);

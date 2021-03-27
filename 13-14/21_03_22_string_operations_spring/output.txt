@@ -1,0 +1,10 @@
+hello
+hello
+WORLD
+WORLD
+hello
+WORLD
+string#get#length#Wrong format
+string#Wrong format
+string#get#length#Wrong format
+string##Wrong format
