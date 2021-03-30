@@ -1,5 +1,6 @@
 package de.telran.hello_web.controller;
 
+import de.telran.hello_web.dto.Auto;
 import de.telran.hello_web.dto.Greetings;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,4 +31,11 @@ public class HelloController {
         return response;
     }
 
+    @PostMapping("/auto")
+    @ResponseBody
+    public String acceptAuto(@RequestBody Auto auto) {
+        return "The following auto was received: " + "make: " + auto.make + ", color: " + auto.color;
+    }
+
+    //TODO write endpoints with the types PUT, PATCH and DELETE. And check them with TalendAPI
 }
