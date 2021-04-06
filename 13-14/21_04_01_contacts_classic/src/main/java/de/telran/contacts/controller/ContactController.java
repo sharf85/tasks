@@ -5,15 +5,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Controller
 public class ContactController {
-    List<Contact> contacts = Arrays.asList(
-            new Contact(1, "Vasya", "Vasin", 21),
-            new Contact(2, "Petya", "Peterson", 22)
-    );
+
+    List<Contact> contacts = new ArrayList<>();
+
+    {
+        contacts.add(new Contact(1, "Vasya", "Vasin", 21));
+        contacts.add(new Contact(2, "Petya", "Peterson", 22));
+    }
+
     static int lastUsedId = 2;
 
     /**
@@ -23,13 +28,7 @@ public class ContactController {
      */
     @GetMapping("/contacts")
     public String contacts(Model model) {
-
-        List<Contact> contacts = Arrays.asList(
-                new Contact(1, "Vasya", "Vasin", 21),
-                new Contact(2, "Petya", "Peterson", 22)
-        );
         model.addAttribute("contacts", contacts);
-
         return "contacts";
     }
 
@@ -51,7 +50,12 @@ public class ContactController {
      * @return
      */
     @GetMapping("/edit-contact/{id}")
-    public String editContact(@PathVariable int id) {
+    public String editContact(@PathVariable int id, Model model) {
+        Contact contact = contacts.stream()
+                .filter(cont -> cont.getId() == id)
+                .findFirst()
+                .orElseThrow(NoSuchElementException::new);
+        model.addAttribute("contact", contact);
         return "contact-form";
     }
 
@@ -74,6 +78,19 @@ public class ContactController {
      */
     @PostMapping("/save-contact")
     public String saveContact(@ModelAttribute Contact contact) {
+        if (contact.getId() <= 0) {
+            contact.setId(++lastUsedId);
+            contacts.add(contact);
+        } else {
+            Contact oldContact = contacts.stream()
+                    .filter(contactus -> contactus.getId() == contact.getId())
+                    .findFirst()
+                    .orElseThrow(NoSuchElementException::new);
+
+            oldContact.setName(contact.getName());
+            oldContact.setLastName(contact.getLastName());
+            oldContact.setAge(contact.getAge());
+        }
         return "redirect:/contacts";
     }
 

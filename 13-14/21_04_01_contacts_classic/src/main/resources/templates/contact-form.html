@@ -1,10 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Add/edit contact</title>
 </head>
 <body>
-<h1>Contact form</h1>
+<div class="row">
+    <div class="col m6 offset-m3">
+        <form class="col s12" th:action="@{/save-contact}" th:object="${contact}" method="post">
+            <input id="id" name="id" type="hidden" th:field="*{id}">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input placeholder="Name" id="name" name="name" type="text" th:field="*{name}" class="validate">
+                    <label for="name">First Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input placeholder="last name" id="lastName" name="lastName" type="text" th:field="*{lastName}"
+                           class="validate">
+                    <label for="lastName">Last Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m6">
+                    <label>Age: <input type="number" name="age" th:field="*{age}" min="18" max="120"></label>
+                </div>
+            </div>
+            <div class="row">
+<!--                <input type="submit" class="waves-effect waves-light btn indigo darken-3" value="Save">-->
+                <button class="waves-effect waves-light btn indigo darken-3" value="Save">Save</button>
+                <a class="waves-effect waves-light btn indigo darken-3" href="/contacts">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
