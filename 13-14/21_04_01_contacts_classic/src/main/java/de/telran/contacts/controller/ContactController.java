@@ -1,25 +1,21 @@
 package de.telran.contacts.controller;
 
 import de.telran.contacts.entity.Contact;
+import de.telran.contacts.service.ContactService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Controller
 public class ContactController {
 
-    List<Contact> contacts = new ArrayList<>();
+    private final ContactService contactService;
 
-    {
-        contacts.add(new Contact(1, "Vasya", "Vasin", 21));
-        contacts.add(new Contact(2, "Petya", "Peterson", 22));
+    public ContactController(ContactService contactService) {
+        this.contactService = contactService;
     }
-
-    static int lastUsedId = 2;
 
     /**
      * The endpoint should return the page containing the list of contacts
@@ -28,6 +24,7 @@ public class ContactController {
      */
     @GetMapping("/contacts")
     public String contacts(Model model) {
+        List<Contact> contacts = contactService.getAll();
         model.addAttribute("contacts", contacts);
         return "contacts";
     }
@@ -51,10 +48,7 @@ public class ContactController {
      */
     @GetMapping("/edit-contact/{id}")
     public String editContact(@PathVariable int id, Model model) {
-        Contact contact = contacts.stream()
-                .filter(cont -> cont.getId() == id)
-                .findFirst()
-                .orElseThrow(NoSuchElementException::new);
+        Contact contact = contactService.get(id);
         model.addAttribute("contact", contact);
         return "contact-form";
     }
@@ -67,11 +61,7 @@ public class ContactController {
      */
     @GetMapping("/contacts/{id}")
     public String contact(@PathVariable int id, Model model) {
-        Contact contact = contacts.stream()
-                .filter(con -> con.getId() == id)
-                .findFirst()
-                .orElseThrow(NoSuchElementException::new);
-
+        Contact contact = contactService.get(id);
         model.addAttribute("contact", contact);
         return "user-details";
     }
@@ -84,19 +74,7 @@ public class ContactController {
      */
     @PostMapping("/save-contact")
     public String saveContact(@ModelAttribute Contact contact) {
-        if (contact.getId() <= 0) {
-            contact.setId(++lastUsedId);
-            contacts.add(contact);
-        } else {
-            Contact oldContact = contacts.stream()
-                    .filter(contactus -> contactus.getId() == contact.getId())
-                    .findFirst()
-                    .orElseThrow(NoSuchElementException::new);
-
-            oldContact.setName(contact.getName());
-            oldContact.setLastName(contact.getLastName());
-            oldContact.setAge(contact.getAge());
-        }
+        contactService.save(contact);
         return "redirect:/contacts";
     }
 
@@ -108,7 +86,7 @@ public class ContactController {
      */
     @GetMapping("/delete-contact/{id}")
     public String deleteContact(@PathVariable int id) {
-        contacts.removeIf(con -> con.getId() == id);
+        contactService.remove(id);
         return "redirect:/contacts";
     }
 
