@@ -66,7 +66,13 @@ public class ContactController {
      * @return
      */
     @GetMapping("/contacts/{id}")
-    public String contact(@PathVariable int id) {
+    public String contact(@PathVariable int id, Model model) {
+        Contact contact = contacts.stream()
+                .filter(con -> con.getId() == id)
+                .findFirst()
+                .orElseThrow(NoSuchElementException::new);
+
+        model.addAttribute("contact", contact);
         return "user-details";
     }
 
@@ -102,6 +108,12 @@ public class ContactController {
      */
     @GetMapping("/delete-contact/{id}")
     public String deleteContact(@PathVariable int id) {
+        contacts.removeIf(con -> con.getId() == id);
         return "redirect:/contacts";
+    }
+
+    @GetMapping("/")
+    public String mainPage() {
+        return "forward:/contacts";
     }
 }
