@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// Controller is like a gateway for interaction with the outside (with UI for instance)
 @Controller
 public class ContactController {
 

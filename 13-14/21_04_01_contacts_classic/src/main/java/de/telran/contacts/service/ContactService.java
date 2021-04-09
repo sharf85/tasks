@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+// the domain logic lies here.
 @Service
 public class ContactService {
 

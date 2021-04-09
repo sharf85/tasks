@@ -1,5 +1,6 @@
 package de.telran.contacts.entity;
 
+// Entities are description of the business model
 public class Contact {
 
     private int id;
