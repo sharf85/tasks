@@ -1,5 +1,6 @@
 package de.telran.contacts_db.controller;
 
+import de.telran.contacts_db.dto.SearchFormDto;
 import de.telran.contacts_db.entity.Contact;
 import de.telran.contacts_db.service.ContactService;
 import org.springframework.stereotype.Controller;
@@ -97,5 +98,11 @@ public class ContactController {
     @GetMapping("/")
     public String mainPage() {
         return "forward:/contacts";
+    }
+
+    @PostMapping("/contacts/search")
+    public String searchContacts(@ModelAttribute SearchFormDto searchForm, Model model) {
+        //TODO fetch all objects from the db with name or lastname like searchForm.searchPattern and insert them into the model
+        return "contacts";
     }
 }

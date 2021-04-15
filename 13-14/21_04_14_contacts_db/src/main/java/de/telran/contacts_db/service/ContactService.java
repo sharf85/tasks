@@ -42,4 +42,6 @@ public class ContactService {
         contactRepo.deleteById(id);
         return res;
     }
+
+    // TODO create a method which will be searching contacts by a pattern
 }
