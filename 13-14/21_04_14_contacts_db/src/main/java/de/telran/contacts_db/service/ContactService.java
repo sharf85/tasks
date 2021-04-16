@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 // the domain logic lies here.
@@ -41,6 +42,11 @@ public class ContactService {
         Contact res = get(id);
         contactRepo.deleteById(id);
         return res;
+    }
+
+    public List<Contact> searchByNameOrLastName(String pattern) {
+//        return new ArrayList<>(contactRepo.findAllContainingPattern(pattern));
+        return new ArrayList<>(contactRepo.findAllByNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(pattern, pattern));
     }
 
     // TODO create a method which will be searching contacts by a pattern

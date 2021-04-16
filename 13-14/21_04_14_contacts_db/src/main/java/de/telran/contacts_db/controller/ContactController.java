@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Collection;
 import java.util.List;
 
 // Controller is like a gateway for interaction with the outside (with UI for instance)
@@ -100,9 +101,12 @@ public class ContactController {
         return "forward:/contacts";
     }
 
-    @PostMapping("/contacts/search")
+    @PostMapping("/contacts/search")// data comes as "searchPattern=pattern&id=1&name=15"
     public String searchContacts(@ModelAttribute SearchFormDto searchForm, Model model) {
-        //TODO fetch all objects from the db with name or lastname like searchForm.searchPattern and insert them into the model
+        List<Contact> contacts = contactService.searchByNameOrLastName(searchForm.searchPattern);
+        model.addAttribute("contacts", contacts);
         return "contacts";
     }
+
+
 }
