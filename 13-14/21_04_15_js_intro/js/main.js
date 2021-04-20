@@ -72,5 +72,11 @@ petya.greetings();//Hello petya
 let anotherGreetings = petya.greetings;
 
 anotherGreetings()//Hello undefined
+
+
+vasya = {
+    vorname: "Vasya"
+}
+anotherGreetings.call(vasya)// Hello Vasya
 // petya.saySome = sayName;
 console.log(window.vorname)
