@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequestMapping("/api/contacts")
 @RestController
@@ -18,13 +19,13 @@ public class RestContactController {
         this.contactService = contactService;
     }
 
-//    @GetMapping
-//    public List<ContactDto> getAll() {
-//        // returns data in the following format: [{"name": "Vasya", ...}, {...}, ...]
-//        List<Contact> contacts = contactService.getAll();
-//        //TODO convert Contact to ContactDto
-////        return contacts.stream()...
-//    }
+    @GetMapping
+    public List<ContactDto> getAll() {
+        List<Contact> contacts = contactService.getAll();
+        return contacts.stream()
+                .map(contact -> new ContactDto(contact.getId(), contact.getName(), contact.getLastName(), contact.getAge()))
+                .collect(Collectors.toList());
+    }
 
 //    @GetMapping("/{id}")
 //    public ContactDto get(@PathVariable int id) {
