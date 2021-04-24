@@ -3,6 +3,7 @@ package de.telran.contacts_onepager.controller;
 import de.telran.contacts_onepager.dto.ContactDto;
 import de.telran.contacts_onepager.entity.Contact;
 import de.telran.contacts_onepager.service.ContactService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,7 +59,8 @@ public class RestContactController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
-        //TODO complete
+        this.contactService.remove(id);
     }
 }
