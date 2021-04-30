@@ -2,10 +2,7 @@ package de.telran;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -45,5 +42,71 @@ class NumbersServiceTest {
         List<Integer> argument = Arrays.asList(2, 8, -10, 8, -10, 2, 5, 3, 2);
         int res = numbersService.getNumberOfMaxOccurrence(argument);
         assertEquals(2, res);
+    }
+
+    @Test
+    public void testIsPrime_1() {
+        assertFalse(numbersService.isPrime(1));
+    }
+
+    @Test
+    public void testIsPrime_2() {
+        assertTrue(numbersService.isPrime(2));
+    }
+
+    @Test
+    public void testIsPrime_3() {
+        assertTrue(numbersService.isPrime(3));
+    }
+
+    @Test
+    public void testIsPrime_4() {
+        assertFalse(numbersService.isPrime(4));
+    }
+
+    @Test
+    public void testIsPrime_239() {
+        assertTrue(numbersService.isPrime(239));
+    }
+
+    @Test
+    public void testIsPrime_10() {
+        assertFalse(numbersService.isPrime(10));
+    }
+
+    @Test
+    public void testGetAllPrimesTo_1() {
+        List<Integer> res = numbersService.getAllPrimesTo(1);
+        assertTrue(res.isEmpty());
+    }
+
+    @Test
+    public void testGetAllPrimesTo_2() {
+        List<Integer> res = numbersService.getAllPrimesTo(2);
+        List<Integer> expected = Arrays.asList(2);
+        assertEquals(expected, res);
+    }
+
+    @Test
+    public void testGetAllPrimesTo_3() {
+        List<Integer> res = numbersService.getAllPrimesTo(3);
+        List<Integer> expected = Arrays.asList(2, 3);
+        assertEquals(expected, res);
+    }
+
+    @Test
+    public void testGetAllPrimesTo_4() {
+        List<Integer> res = numbersService.getAllPrimesTo(10);
+        List<Integer> expected = Arrays.asList(2, 3, 5, 7);
+        assertEquals(expected, res);
+
+    }
+
+    @Test
+    public void testGetMaxCoveredNumbers_generalCase() {
+        List<Integer> numbers = Arrays.asList(5, 1, -10, -8, 4, 3);
+        assertEquals(3, numbersService.getMaxCoveredNumbers(numbers, 2));
+        assertEquals(2, numbersService.getMaxCoveredNumbers(numbers, 1));
+        assertEquals(4, numbersService.getMaxCoveredNumbers(numbers, 4));
     }
 }
