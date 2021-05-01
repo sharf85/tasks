@@ -20,7 +20,7 @@
                 <h4 style="color: darkgreen">Contacts</h4>
             </div>
 
-            <form class="col s12" action="/contacts/search" method="post">
+            <form class="col s12" id="search-form">
                 <div class="row">
                     <div class="input-field col s6">
                         <i class="material-icons prefix">blur_on</i>
@@ -28,11 +28,12 @@
                                placeholder="search"/>
                     </div>
                     <div class="input-field col s6">
-                        <button class="waves-effect waves-light btn" role="button" name="action"><i
-                                class="material-icons left">search</i>Search
+                        <button class="waves-effect waves-light btn" role="button" name="action" data-action="search">
+                            <i class="material-icons left">search</i>Search
                         </button>&nbsp;
-                        <a href="/contacts/" class="waves-effect waves-light btn"><i
-                                class="material-icons right">refresh</i>Refresh</a>
+                        <button class="waves-effect waves-light btn" data-action="refresh">
+                            <i class="material-icons right">refresh</i>Refresh
+                        </button>
                     </div>
                 </div>
             </form>
@@ -108,6 +109,21 @@
     <a class="secondary-content" data-action="edit">
         <i class="material-icons teal-text">edit</i>
     </a>
+
+    <ul class="collection hide contact-details">
+        <li class="collection-item ">
+            <div><strong>Name:</strong><span class="secondary-content black-text name-value"></span>
+            </div>
+        </li>
+        <li class="collection-item ">
+            <div><strong>Second Name:</strong><span class="secondary-content black-text second-name-value"></span>
+            </div>
+        </li>
+        <li class="collection-item ">
+            <div><strong>Age:</strong><span class="secondary-content black-text age-value"></span>
+            </div>
+        </li>
+    </ul>
 </li>
 
 </body>

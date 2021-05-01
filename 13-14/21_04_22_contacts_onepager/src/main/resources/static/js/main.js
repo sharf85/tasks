@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const contactTemplateDom = document.querySelector("#contact-template");
     const contactWrapperDom = document.querySelector("#contact-wrapper");
+    const contactSearchDom = document.querySelector("#search-form");
 
 
     const contactFormDom = document.querySelector("#contact-form");
@@ -11,12 +12,53 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const contactWrapperListener = new ContactWrapperListener(contactService);
     const contactFormClickListener = new ContactFormClickListener(contactService);
+    const contactSearchListener = new ContactSearchListener(contactService);
 
     contactFormDom.addEventListener("click", contactFormClickListener);
-    contactWrapperDom.addEventListener("click", contactWrapperListener)
+    contactWrapperDom.addEventListener("click", contactWrapperListener);
+    contactSearchDom.addEventListener("click", contactSearchListener);
 });
 
 const HOST = "http://localhost:8080/api/contacts";
+
+class ContactSearchListener {
+    constructor(contactService) {
+        this.contactService = contactService;
+    }
+
+    handleEvent(event) {
+        event.preventDefault();
+
+        if (event.target.dataset.action) {
+            this[event.target.dataset.action](event);
+        } else {
+            const buttonDom = event.target.closest("button");
+            if (buttonDom) {
+                this[buttonDom.dataset.action](event);
+            }
+        }
+    }
+
+    search(event) {
+        const searchFormDom = event.currentTarget;
+        const pattern = searchFormDom.elements.searchPattern.value;
+
+        if (pattern.length >= 3)
+            this.contactService.search(pattern)
+        else
+            alert("Please, enter min 3 symbols");
+    }
+
+
+    refresh(event) {
+        const searchFormDom = event.currentTarget;
+        searchFormDom.elements.searchPattern.value = "";
+
+        this.contactService.cleanLoad();
+    }
+
+}
+
 
 class ContactWrapperListener {
 
@@ -35,10 +77,8 @@ class ContactWrapperListener {
     }
 
     toggleDetails(event) {
-        // alert("details");
-        //TODO clicking on the contact the user should see the details of the contact. In order to do this one
-        // should perform the following:
-        // add html code with the details into contact template. Hide/open it while clicking on the name of the contact.
+        const contactDom = event.target.closest(".contact-item");
+        this.contactService.toggleContactDetails(contactDom);
     }
 
     delete(event) {
@@ -112,6 +152,40 @@ class ContactService {
         }
     }
 
+    cleanLoad() {
+        this.renderer.clearAll();
+        this.loadAll();
+    }
+
+    async search(pattern) {
+        const response = await this.client.getAll();
+        if (response.ok) {
+            let contacts = await response.json();
+            contacts = this.filterContacts(pattern, contacts);
+            this.renderer.clearAll();
+            this.renderer.renderContacts(contacts);
+        }
+
+    }
+
+    filterContacts(pattern, contacts) {
+        pattern = pattern.toLowerCase();
+        const res = [];
+        for (let contact of contacts) {
+            const name = contact.name.toLowerCase();
+            const lastName = contact.lastName.toLowerCase();
+
+            if (name.includes(pattern) || lastName.includes(pattern)) {
+                res.push(contact)
+            }
+        }
+        return res;
+    }
+
+    toggleContactDetails(contactDom) {
+        this.renderer.toggleContactDetails(contactDom);
+    }
+
     async add(contact) {
         const response = await this.client.add(contact);
         if (response.ok) {
@@ -142,7 +216,7 @@ class ContactService {
         }
     }
 
-    cancelEdit(){
+    cancelEdit() {
         //TODO complete. Just transfer the from into adding state.
     }
 }
@@ -160,6 +234,10 @@ class ContactRenderer {
         this.cancelButtonDom = this.contactFormDom.querySelector("button[data-action='cancel']")
     }
 
+    toggleContactDetails(contactDom) {
+        contactDom.querySelector(".contact-details").classList.toggle("hide");
+    }
+
     renderContact(contact) {
         const contactDom = this.contactTemplateDom.cloneNode(true);
         contactDom.contact = contact;
@@ -168,6 +246,11 @@ class ContactRenderer {
         contactDom.querySelector('span[data-id="name"]').innerHTML = contact.name;
         contactDom.querySelector('span[data-id="lastname"]').innerHTML = contact.lastName;
         contactDom.classList.remove("hide");
+
+        // fill in user details
+        contactDom.querySelector(".name-value").innerHTML = contact.name;
+        contactDom.querySelector(".second-name-value").innerHTML = contact.lastName;
+        contactDom.querySelector(".age-value").innerHTML = contact.age;
 
         this.contactWrapperDom.append(contactDom);
     }
