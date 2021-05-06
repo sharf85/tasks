@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class OurArrayListTest {
 
-    //TODO come up with all possible cases to test
-
     OurArrayList<Integer> integerList = new OurArrayList<>();
 
     @Test

@@ -1,5 +1,6 @@
 package de.telran;
 
+import java.util.Comparator;
 import java.util.Iterator;
 
 public class Main {
@@ -30,5 +31,26 @@ public class Main {
             System.out.println(currentElt);
         }
 
+        // how to use comparators
+        OurList<Integer> numbers = new OurArrayList<>();
+        numbers.add(-16);
+        numbers.add(-25);
+        numbers.add(7);
+        numbers.add(0);
+
+        for (int num : numbers) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+
+        Comparator<Integer> intComparator = new IntegerNaturalComparator();
+        numbers.sort(intComparator);
+
+        // after the previous line we should see the numbers from our list in a sorted order while iterating
+        for (int num : numbers) {
+            System.out.print(num + " ");
+        }
+
     }
 }
+

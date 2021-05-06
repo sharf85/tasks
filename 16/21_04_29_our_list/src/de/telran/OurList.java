@@ -1,5 +1,7 @@
 package de.telran;
 
+import java.util.Comparator;
+
 public interface OurList<E> extends Iterable<E> {
 
     /**
@@ -13,12 +15,14 @@ public interface OurList<E> extends Iterable<E> {
 
     /**
      * adds en element to the list
+     *
      * @param elt
      */
     public void add(E elt);
 
     /**
      * removes the element by the index from the collection
+     *
      * @param index
      * @return element to be removed
      * @throws IndexOutOfBoundsException in the index is incorrect
@@ -27,6 +31,7 @@ public interface OurList<E> extends Iterable<E> {
 
     /**
      * removes the element if found in the collection
+     *
      * @param elt to remove
      * @return true if found and removed, false otherwise
      */
@@ -39,6 +44,7 @@ public interface OurList<E> extends Iterable<E> {
 
     /**
      * puts the element by the index
+     *
      * @param index
      * @param elt
      * @throws IndexOutOfBoundsException in the index is incorrect
@@ -50,4 +56,11 @@ public interface OurList<E> extends Iterable<E> {
      * @return true if the element is found in the collection
      */
     public boolean contains(E elt);
+
+    /**
+     * The method must sort this list according to the comparator rule.
+     *
+     * @param comparator
+     */
+    public void sort(Comparator<E> comparator);
 }

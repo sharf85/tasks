@@ -1,5 +1,6 @@
 package de.telran;
 
+import java.util.Comparator;
 import java.util.Iterator;
 
 public class OurArrayList<E> implements OurList<E> {
@@ -46,7 +47,7 @@ public class OurArrayList<E> implements OurList<E> {
     public E remove(int index) {
         checkIndex(index);
         E res = (E) source[index];
-        System.arraycopy(source, index + 1, source, index, size - index - 1);
+        System.arraycopy(source, index + 1, source, index, size - index - 1);//O(n)
         size--;
         source[size] = null;
         return res;
@@ -54,19 +55,19 @@ public class OurArrayList<E> implements OurList<E> {
 
     @Override
     public boolean remove(E elt) {
-        int index = findIndexOfElement(elt);
+        int index = findIndexOfElement(elt);//O(n) ~ c1*n - operations
         if (index == -1)
             return false;
 
-        remove(index);
+        remove(index);//O(n) ~ c2*n - operations
         return true;
-    }
+    }// operations in total ~ (c1+c2)*n => O(n)
 
     /**
      * @param elt
      * @return the index of elt if found, -1 otherwise
      */
-    private int findIndexOfElement(E elt) {
+    private int findIndexOfElement(E elt) { // O(n)
         // consider the case when the elt is null
         if (elt == null) {
             for (int i = 0; i < size; i++) {
@@ -84,19 +85,27 @@ public class OurArrayList<E> implements OurList<E> {
     }
 
     @Override
-    public int size() {
+    public int size() { // O(1)
         return size;
     }
 
     @Override
-    public void set(int index, E elt) {
-        checkIndex(index);
+    public void set(int index, E elt) { // O(1)
+        checkIndex(index); // O(1)
         source[index] = elt;
     }
 
     @Override
-    public boolean contains(E elt) {
+    public boolean contains(E elt) { // O(n)
         return findIndexOfElement(elt) != -1;
+    }
+
+
+    @Override
+    public void sort(Comparator<E> comparator) {
+//        if(num1<num2) - old style writing for sorting an array with numbers
+//        if(comparator.compare(o1, o2)<0) - new style or sorting out source array of objects
+        //TODO implement any kind of sort using comparator instead of the operators '>' and '<'
     }
 
 
