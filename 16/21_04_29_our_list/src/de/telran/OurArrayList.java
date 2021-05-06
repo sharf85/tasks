@@ -123,3 +123,5 @@ public class OurArrayList<E> implements OurList<E> {
         }
     }
 }
+
+// some changes added
