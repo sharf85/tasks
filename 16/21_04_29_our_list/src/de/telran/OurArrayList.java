@@ -99,29 +99,42 @@ public class OurArrayList<E> implements OurList<E> {
         return findIndexOfElement(elt) != -1;
     }
 
+
+    public Iterator<E> backwardIterator() {
+        // TODO the method should return an instance of Iterator which iterates over our collection
+        // conversely.
+        return null;
+    }
+
     @Override
     public Iterator<E> iterator() {
-        Iterator<E> iterator = new ForwardIterator<>((E[]) source);
+        Iterator<E> iterator = new ForwardIterator<>((E[]) source, size);
         return iterator;
     }
 
-    //TODO complete
     private static class ForwardIterator<T> implements Iterator<T> {
 
-        public ForwardIterator(T[] source) {
+        int size;
+        T[] source;
 
+        //the field is responsible for the current iterated element
+        int currentElementIndex = 0;
+
+        public ForwardIterator(T[] source, int size) {
+            this.source = source;
+            this.size = size;
         }
 
         @Override
         public boolean hasNext() {
-            return false;
+            return currentElementIndex < size;
         }
 
         @Override
         public T next() {
-            return null;
+            T res = source[currentElementIndex];
+            currentElementIndex++;
+            return res;
         }
     }
 }
-
-// some changes added
