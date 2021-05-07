@@ -51,6 +51,10 @@ public class Main {
             System.out.print(num + " ");
         }
 
+        Iterator<Integer> backwardIterator = numbers.backwardIterator();
+        while (backwardIterator.hasNext()) {
+            System.out.println(backwardIterator.next());
+        }
     }
 }
 

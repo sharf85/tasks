@@ -2,7 +2,7 @@ package de.telran;
 
 import java.util.Comparator;
 import java.util.Iterator;
-
+//TODO implement two methods max() and min() and test them with numbers
 public class OurArrayList<E> implements OurList<E> {
 
     private static final int INITIAL_CAPACITY = 16;
@@ -103,16 +103,25 @@ public class OurArrayList<E> implements OurList<E> {
 
     @Override
     public void sort(Comparator<E> comparator) {
-//        if(num1<num2) - old style writing for sorting an array with numbers
-//        if(comparator.compare(o1, o2)<0) - new style or sorting out source array of objects
-        //TODO implement any kind of sort using comparator instead of the operators '>' and '<'
+        for (int i = 0; i < size; i++) {
+
+            int minIndex = i;
+            for (int j = i + 1; j < size; j++) {
+                E currentMin = (E) source[minIndex];
+                if (comparator.compare(currentMin, (E) source[j]) > 0) {
+                    minIndex = j;
+                }
+            }
+
+            Object temp = source[i];
+            source[i] = source[minIndex];
+            source[minIndex] = temp;
+        }
     }
 
-
+    @Override
     public Iterator<E> backwardIterator() {
-        // TODO the method should return an instance of Iterator which iterates over our collection
-        // conversely.
-        return null;
+        return new BackwardIterator<>((E[]) source, size);
     }
 
     @Override
@@ -141,8 +150,38 @@ public class OurArrayList<E> implements OurList<E> {
 
         @Override
         public T next() {
+            if (currentElementIndex >= size)
+                throw new IndexOutOfBoundsException();
+
             T res = source[currentElementIndex];
             currentElementIndex++;
+            return res;
+        }
+    }
+
+    private static class BackwardIterator<T> implements Iterator<T> {
+
+        T[] source;
+        //the field is responsible for the current iterated element
+        int currentElementIndex;
+
+        public BackwardIterator(T[] source, int size) {
+            this.source = source;
+            currentElementIndex = size - 1;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentElementIndex >= 0;
+        }
+
+        @Override
+        public T next() {
+            if (currentElementIndex < 0)
+                throw new IndexOutOfBoundsException();
+
+            T res = source[currentElementIndex];
+            currentElementIndex--;
             return res;
         }
     }

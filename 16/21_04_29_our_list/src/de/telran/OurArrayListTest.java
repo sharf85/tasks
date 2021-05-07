@@ -2,6 +2,8 @@ package de.telran;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class OurArrayListTest {
@@ -47,9 +49,91 @@ class OurArrayListTest {
         assertThrows(IndexOutOfBoundsException.class, () -> {
             integerList.get(3);
         });
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            integerList.get(-1);
-        });
+        assertThrows(IndexOutOfBoundsException.class, () -> integerList.get(-1));
+    }
+
+    @Test
+    public void testIterator_zeroElements() {
+        Iterator<Integer> it = integerList.iterator();
+        assertFalse(it.hasNext());
+        assertThrows(IndexOutOfBoundsException.class, () -> it.next());
+    }
+
+    @Test
+    public void testIterator_severalElements() {
+        integerList.add(-7);
+        integerList.add(-17);
+        integerList.add(5);
+        integerList.add(8);
+        integerList.add(3);
+
+        Iterator<Integer> it = integerList.iterator();
+
+        int[] expected = {-7, -17, 5, 8, 3};
+        int i = 0;
+
+        //here we write the code which is the correct way to use iterator
+        while (it.hasNext()) {
+            int current = it.next();
+            assertEquals(expected[i], current);
+            i++;
+        }
+        assertEquals(5, i);
+        assertThrows(IndexOutOfBoundsException.class, () -> it.next());
+    }
+
+    @Test
+    public void testSort_severalElements() {
+        integerList.add(-7);
+        integerList.add(-17);
+        integerList.add(5);
+        integerList.add(8);
+        integerList.add(3);
+
+        integerList.sort(new IntegerNaturalComparator());
+        Iterator<Integer> it = integerList.iterator();
+
+        int[] expected = {-17, -7, 3, 5, 8};
+        int i = 0;
+
+        //here we write the code which is the correct way to use iterator
+        while (it.hasNext()) {
+            int current = it.next();
+            assertEquals(expected[i], current);
+            i++;
+        }
+        assertEquals(5, i);
+        assertThrows(IndexOutOfBoundsException.class, () -> it.next());
+    }
+
+    @Test
+    public void testBackwardIterator_severalElements() {
+        integerList.add(-7);
+        integerList.add(-17);
+        integerList.add(5);
+        integerList.add(8);
+        integerList.add(3);
+
+        Iterator<Integer> it = integerList.backwardIterator();
+
+        int[] expected = {3, 8, 5, -17, -7};
+        int i = 0;
+
+        //here we write the code which is the correct way to use iterator
+        while (it.hasNext()) {
+            int current = it.next();
+            assertEquals(expected[i], current);
+            i++;
+        }
+        assertEquals(5, i);
+        assertThrows(IndexOutOfBoundsException.class, () -> it.next());
+    }
+
+    @Test
+    public void testBackwardIterator_zeroElements() {
+        Iterator<Integer> it = integerList.backwardIterator();
+        assertFalse(it.hasNext());
+        assertThrows(IndexOutOfBoundsException.class, () -> it.next());
     }
 
 }
