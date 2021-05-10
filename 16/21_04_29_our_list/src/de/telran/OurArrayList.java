@@ -2,7 +2,7 @@ package de.telran;
 
 import java.util.Comparator;
 import java.util.Iterator;
-//TODO implement two methods max() and min() and test them with numbers
+
 public class OurArrayList<E> implements OurList<E> {
 
     private static final int INITIAL_CAPACITY = 16;
@@ -120,8 +120,32 @@ public class OurArrayList<E> implements OurList<E> {
     }
 
     @Override
+    public E max(Comparator<E> comparator) {
+        E currentMax = (E) source[0];
+        for (int i = 1; i < size; i++) {
+            if (comparator.compare(currentMax, (E) source[i]) < 0)
+                currentMax = (E) source[i];
+        }
+        return currentMax;
+    }
+
+    @Override
+    public E min(Comparator<E> comparator) {
+//        Comparator<E> newComparator = new Comparator<E>() {
+//            @Override
+//            public int compare(E o1, E o2) {
+//                return -comparator.compare(o1, o2);
+//            }
+//        };
+//
+//        return max(newComparator); // anonymous classes
+
+        return max(comparator.reversed());//Java 8
+    }
+
+    @Override
     public Iterator<E> backwardIterator() {
-        return new BackwardIterator<>((E[]) source, size);
+        return this.new BackwardIterator(size);
     }
 
     @Override
@@ -159,14 +183,12 @@ public class OurArrayList<E> implements OurList<E> {
         }
     }
 
-    private static class BackwardIterator<T> implements Iterator<T> {
+    private class BackwardIterator implements Iterator<E> {
 
-        T[] source;
         //the field is responsible for the current iterated element
         int currentElementIndex;
 
-        public BackwardIterator(T[] source, int size) {
-            this.source = source;
+        public BackwardIterator(int size) {
             currentElementIndex = size - 1;
         }
 
@@ -176,11 +198,11 @@ public class OurArrayList<E> implements OurList<E> {
         }
 
         @Override
-        public T next() {
+        public E next() {
             if (currentElementIndex < 0)
                 throw new IndexOutOfBoundsException();
 
-            T res = source[currentElementIndex];
+            E res = (E) source[currentElementIndex];
             currentElementIndex--;
             return res;
         }

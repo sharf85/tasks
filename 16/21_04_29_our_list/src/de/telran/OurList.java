@@ -44,7 +44,7 @@ public interface OurList<E> extends Iterable<E> {
     int size();
 
     /**
-     * puts the element by the index
+     * swap the element by the index
      *
      * @param index
      * @param elt

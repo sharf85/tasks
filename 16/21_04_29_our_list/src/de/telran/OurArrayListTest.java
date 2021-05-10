@@ -136,4 +136,25 @@ class OurArrayListTest {
         assertThrows(IndexOutOfBoundsException.class, () -> it.next());
     }
 
+    @Test
+    public void getMinNumber() {
+        integerList.add(-7);
+        integerList.add(-17);
+        integerList.add(5);
+        integerList.add(8);
+        integerList.add(3);
+        int min = integerList.min(new IntegerNaturalComparator());
+        assertEquals(min, -17);
+    }
+    @Test
+    public void getMaxNumber() {
+        integerList.add(-7);
+        integerList.add(-17);
+        integerList.add(5);
+        integerList.add(8);
+        integerList.add(3);
+        int max = integerList.max(new IntegerNaturalComparator());
+        assertEquals(max, 8);
+    }
+
 }

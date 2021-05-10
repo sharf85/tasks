@@ -2,8 +2,6 @@ package de.telran;
 
 import java.util.Objects;
 
-//TODO create a comparator by price.
-//TODO test list for sort, max and min operations with Auto objects using the comparator from above.
 public class Auto {
     private String make;
     private String color;
