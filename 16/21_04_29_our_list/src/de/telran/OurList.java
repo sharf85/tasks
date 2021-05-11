@@ -65,8 +65,22 @@ public interface OurList<E> extends Iterable<E> {
      */
     void sort(Comparator<E> comparator);
 
+    /**
+     * The method returns the max element of the list. The list may not contain null elements.
+     *
+     * @param comparator
+     * @return
+     * @throws java.util.NoSuchElementException if no elements in the list
+     */
     E max(Comparator<E> comparator);
 
+    /**
+     * The method returns the min element of the list. The list may not contain null elements.
+     *
+     * @param comparator
+     * @return
+     * @throws java.util.NoSuchElementException if no elements in the list
+     */
     E min(Comparator<E> comparator);
 
     /**

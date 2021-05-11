@@ -1,7 +1,6 @@
 package de.telran;
 
-import java.util.Comparator;
-import java.util.Iterator;
+import java.util.*;
 
 
 public class OurLinkedList<E> implements OurList<E> {
@@ -139,30 +138,89 @@ public class OurLinkedList<E> implements OurList<E> {
         return size;
     }
 
-
-    // TODO complete the methods below
     @Override
     public void sort(Comparator<E> comparator) {
+        // put all elements to the array
+        E[] elementsArray = (E[]) new Object[size];
+        int i = 0;
+        for (E elt : this) {
+            elementsArray[i++] = elt;
+        }
 
+        // sort the array with Java 'Arrays' util
+        Arrays.sort(elementsArray, comparator);
+
+        // then place all the elements back
+        Node<E> currentNode = first;
+        for (int j = 0; j < size; j++) {
+            currentNode.element = elementsArray[j];
+            currentNode = currentNode.next;
+        }
     }
 
     @Override
     public E max(Comparator<E> comparator) {
-        return null;
+        if (size == 0)
+            throw new NoSuchElementException();
+
+        E max = first.element;
+        for (E elt : this) {
+            if (comparator.compare(max, elt) < 0)
+                max = elt;
+        }
+
+        return max;
     }
 
     @Override
     public E min(Comparator<E> comparator) {
-        return null;
+        return max(comparator.reversed());
     }
 
     @Override
     public Iterator<E> backwardIterator() {
-        return null;
+        return this.new BackwardIterator();
     }
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new ForwardIterator();
+    }
+
+    private class ForwardIterator implements Iterator<E> {
+
+        Node<E> currentNode;
+
+        ForwardIterator() {
+            currentNode = first;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentNode != null;
+        }
+
+        @Override
+        public E next() {
+            if (currentNode == null)
+                throw new IndexOutOfBoundsException();
+
+            E res = currentNode.element;
+            currentNode = currentNode.next;
+            return res;
+        }
+    }
+
+    //TODO implement
+    private class BackwardIterator implements Iterator<E> {
+        @Override
+        public boolean hasNext() {
+            return false;
+        }
+
+        @Override
+        public E next() {
+            return null;
+        }
     }
 }
