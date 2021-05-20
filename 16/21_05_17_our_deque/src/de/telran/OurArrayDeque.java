@@ -42,10 +42,14 @@ public class OurArrayDeque<E> implements OurDeque<E> {
         this.source = newSource;
     }
 
-    //TODO complete
     @Override
     public void addFirst(E elt) {
+        if (size == source.length)
+            increaseSource();
 
+        firstIndex = (firstIndex - 1 + source.length) % source.length;
+        source[firstIndex] = elt;
+        size++;
     }
 
     @Override
@@ -65,10 +69,13 @@ public class OurArrayDeque<E> implements OurDeque<E> {
         return res;
     }
 
-    //TODO complete
     @Override
     public E removeLast() {
-        return null;
+        if (size == 0)
+            throw new NoSuchElementException();
+
+        int lastIndex = (firstIndex + --size) % source.length;
+        return source[lastIndex];
     }
 
     @Override
@@ -93,9 +100,27 @@ public class OurArrayDeque<E> implements OurDeque<E> {
         return size;
     }
 
-    //TODO the assignment of higher complexity
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new ForwardIterator();
+    }
+
+    private class ForwardIterator implements Iterator<E> {
+
+        int currentPosition;
+
+        @Override
+        public boolean hasNext() {
+            return currentPosition < size;
+        }
+
+        @Override
+        public E next() {
+            if (currentPosition >= size)
+                throw new NoSuchElementException();
+
+            int currentIndex = (firstIndex + currentPosition++) % source.length;
+            return source[currentIndex];
+        }
     }
 }
