@@ -13,7 +13,7 @@ public class NaiveMaxElementStack<E> implements IMaxElementStack<E> {
         comparator = new Comparator<E>() {
             @Override
             public int compare(E o1, E o2) {
-                Comparable<E> comparable = (Comparable) o1;
+                Comparable<E> comparable = (Comparable<E>) o1;
                 return comparable.compareTo(o2);
             }
         };
