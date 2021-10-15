@@ -26,5 +26,16 @@ public class Main {
             System.out.print(i + " ");
             i -= 2;//i = i - 2;
         }
+        System.out.println();
+
+        // count the sum of an arithmetical progression from 1 to 87
+
+        int sum = 0;
+        int currentNumber = 1;
+        while (currentNumber <= 87) {
+            sum += currentNumber;
+            currentNumber++;
+        }
+        System.out.println(sum);
     }
 }
