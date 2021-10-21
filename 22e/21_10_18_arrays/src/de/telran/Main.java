@@ -24,6 +24,15 @@ public class Main {
         printArray(anotherArray);
         printArray(new int[]{10, -8});
 
+        fillArray(anotherArray);
+        printArray(anotherArray);
+
+    }
+
+    static void fillArray(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            array[i] = i;
+        }
     }
 
     static void printArray(int[] array) {
@@ -49,5 +58,17 @@ public class Main {
             }
         }
         return false;
+    }
+
+    //    Слоржить нечетные числа до n, используя оператор continue;
+    static int sumOddsLowerThan(int[] array, int max) {
+        int res = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] % 2 == 0 || array[i] > max)
+                continue;//move to the next iteration
+
+            res += array[i];
+        }
+        return res;
     }
 }
