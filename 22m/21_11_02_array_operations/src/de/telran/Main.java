@@ -18,6 +18,8 @@ public class Main {
         array = insert(array, 2, 100);
         System.out.println(Arrays.toString(array));
 
+        array = delete(array, 4);
+        System.out.println(Arrays.toString(array));
     }
 
     /**
@@ -50,6 +52,20 @@ public class Main {
 
         for (int i = index; i < array.length; i++) {
             res[i + 1] = array[i];
+        }
+
+        return res;
+    }
+
+    static int[] delete(int[] array, int index) {
+        int[] res = new int[array.length - 1];
+
+        for (int i = 0; i < index; i++) {
+            res[i] = array[i];
+        }
+
+        for (int i = index + 1; i < array.length; i++) {
+            res[i - 1] = array[i];
         }
 
         return res;
