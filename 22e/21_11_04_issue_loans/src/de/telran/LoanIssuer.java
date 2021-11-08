@@ -18,5 +18,18 @@ public class LoanIssuer {
         //Если работник ленивый, он одобрит кредит в случае, если у клиента зп больше 20000 в год.
         //Если работник неленивый и добрый, он оформит кредит, если зп больше 20000 и клиенту не больше 70
         //Если работник неленивый и злой, он оформит кредит, если зп больше 20000 и клиенту не больше 50.
+        if (user.annualSalary < 20000)
+            return false;
+
+        if (this.isKind && this.isLazy)
+            return true;
+
+        if (!this.isLazy && user.age <= 50)
+            return true;
+
+        if (!this.isLazy && this.isKind && user.age <= 70)
+            return true;
+
+        return false;
     }
 }

@@ -12,5 +12,13 @@ public class Main {
         Human petya = new Human("Petya", "Petin", 22);
         petya.introduce();
         System.out.println(petya.getSurname());
+
+        System.out.println(Human.getHumanNumber());
+
+        petya.die();
+
+        System.out.println(Human.getHumanNumber());
+
+        petya.introduce();
     }
 }
