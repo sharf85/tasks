@@ -9,8 +9,7 @@ public class Human {
     private String surname;
     private int age;
     private String email;
-
-    //TODO introduce here the new variable called isAlive which is true if the person is alive and false otherwise
+    private boolean isAlive = true;
 
     public Human(String specifiedName, String specifiedSurname, int specifiedAge) {
         name = specifiedName;
@@ -18,18 +17,6 @@ public class Human {
         age = specifiedAge;
 
         averageAge = (averageAge * humanNumber + age) / (++humanNumber);
-
-//
-////-------------------
-//        humanNumber++;
-//
-//        int temp = humanNumber;
-//        humanNumber = humanNumber + 1;
-//
-//        ++humanNumber;
-//
-//        humanNumber = humanNumber + 1;
-//        int temp1 = humanNumber;
     }
 
     public Human(String specifiedName, String specifiedSurname, int specifiedAge, String email) {
@@ -57,16 +44,29 @@ public class Human {
         return age;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public void die() {
-        // TODO implement here the functionality of a dying human
-        // 1. The number of humans must decrease
-        // 2. The average age of humans must be recalculated
+        if (isAlive) {
+            isAlive = false;
+            averageAge = (averageAge * humanNumber - age) / (--humanNumber);
+        }
     }
 
     public void introduce() {
-        //TODO depending on whether the person is alive, they can or not introduce themselves. Implement it here.
-        // If the person is not alive, the method should print "R.I.P."
-        if (age < 50)
+        if (!isAlive)
+            System.out.println("R.I.P.");
+        else if (age < 50)
             System.out.println("Hi, my name is " + name + " " + surname + ". I am " + age + " years old.");
         else
             System.out.println("Hello, my name is " + name + " " + surname + ". I am " + age + " years old.");

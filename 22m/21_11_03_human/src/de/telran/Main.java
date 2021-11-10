@@ -10,6 +10,8 @@ public class Main {
 
         Human petya = new Human("Petya", "Petin", 25);
 
+        Human masha = new Human("Maria", "Petrovna", 23, "maria.petrovna@gmail.com");
+
         vasya.introduce();
         petya.introduce();
 
@@ -27,9 +29,11 @@ public class Main {
         System.out.println(Human.getHumanNumber());//1
         System.out.println(Human.getAverageAge());//20
 
+        vasya.setEmail("vasya.vasin@gmail.com");
 
-        int[] array = {234, 3, 23, 343};
+        System.out.println(vasya.getEmail());
+        System.out.println(masha.getEmail());
+        System.out.println(petya.getEmail());
 
-        Arrays.sort(array);
     }
 }
