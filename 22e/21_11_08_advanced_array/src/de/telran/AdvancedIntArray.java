@@ -21,30 +21,51 @@ public class AdvancedIntArray {
     }
 
     public void append(int elt) {
+        insert(source.length, elt);
+    }
+
+    public void insert(int index, int elt) {
         int[] newSource = new int[source.length + 1];
 
-        for (int i = 0; i < source.length; i++) {
+        for (int i = 0; i < index; i++) {
             newSource[i] = source[i];
         }
+        newSource[index] = elt;
 
-        newSource[newSource.length - 1] = elt;
+        for (int i = index + 1; i < newSource.length; i++) {
+            newSource[i] = source[i - 1];
+        }
 
         source = newSource;
     }
 
-    public void insert(int index, int elt) {
-        //TODO
-    }
-
     public void delete(int index) {
-        //TODO
+        int[] newSource = new int[source.length - 1];
+
+        for (int i = 0; i < index; i++) {
+            newSource[i] = source[i];
+        }
+
+        for (int i = index + 1; i < source.length; i++) {
+            newSource[i - 1] = source[i];
+        }
+
+        source = newSource;
     }
 
-    public void contains(int elt) {
-        //TODO
+    public boolean contains(int elt) {
+        for (int i = 0; i < source.length; i++) {
+            if (source[i] == elt)
+                return true;
+        }
+
+        return false;
     }
 
     public void println() {
-        //TODO - print 'this' advanced array out into the console
+        for (int i = 0; i < source.length; i++) {
+            System.out.print(source[i] + " ");
+        }
+        System.out.println();
     }
 }

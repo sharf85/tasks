@@ -2,17 +2,22 @@ package de.telran.human;
 
 public class Human {
 
-    private static long humanNumber = 0;
+    private static long humanNumber;
+    private static double averageAge;
 
     public Human(String specifiedName, String specifiedSurname, int specifiedAge) {
         name = specifiedName;
         surname = specifiedSurname;
         age = specifiedAge;
-        humanNumber++;
+        averageAge = (averageAge * humanNumber + specifiedAge) / (++humanNumber);
     }
 
     public static long getHumanNumber() {
         return humanNumber;
+    }
+
+    public static int getAverageAge() {
+        return (int) averageAge;
     }
 
     private int age;//field
@@ -32,9 +37,12 @@ public class Human {
         return surname;
     }
 
+
     public void die() {
-        humanNumber--;
-        isAlive = false;
+        if (isAlive) {
+            averageAge = (averageAge * humanNumber - age) / (--humanNumber);
+            isAlive = false;
+        }
     }
 
     public void introduce() {
