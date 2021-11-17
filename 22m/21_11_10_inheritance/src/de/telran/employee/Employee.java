@@ -1,6 +1,6 @@
 package de.telran.employee;
 
-public class Employee {
+public abstract class Employee {
     int id;
     String name;
     String companyName;
@@ -29,7 +29,5 @@ public class Employee {
         return basicSalary;
     }
 
-    public int getSalary() {
-        return basicSalary;
-    }
+    public abstract int getSalary();
 }

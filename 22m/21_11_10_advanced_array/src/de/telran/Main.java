@@ -25,6 +25,7 @@ public class Main {
 
         advancedIntArray.delete(1);//{10, 239, 500}
         advancedIntArray.insert(2, 20);//{10, 239, 20, 500}
+        advancedIntArray.println();
 
         System.out.println(advancedIntArray.contains(239));//true
     }
