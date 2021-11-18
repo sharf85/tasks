@@ -8,12 +8,10 @@ import de.telran.employee.OfficeEmployee;
 public class Main {
 
     public static void main(String[] args) {
-        Employee employeeVasya = new Employee(1, "Vasya", "Tel-Ran", 2000);
         Employee officeEmployeePetya = new OfficeEmployee(2, "Petya", "Tel-Ran", 2500, 300);
         Employee managerStepan = new Manager(3, "Stepan Stepanovich", "Tel-Ren", 2000, 2.5);
         Employee hourEmployeeTanya = new HourBasedEmployee(4, "Tatiana", "Tel-Ran", 2500, 150);
 
-        printSalary(employeeVasya);
         printSalary(officeEmployeePetya);
         printSalary(managerStepan);
         printSalary(hourEmployeeTanya);
