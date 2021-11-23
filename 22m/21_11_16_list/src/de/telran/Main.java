@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        CustomList list = new AdvancedArrayList();
+        CustomList list = new CustomArrayList();
 
         list.add(10);
         list.add(15);
@@ -25,9 +25,5 @@ public class Main {
         list.removeById(2);//{15, 7}
         list.println();
 
-        CustomList arrayList = new CustomArrayList();
-        arrayList.add(6);
-        arrayList.add(10);
-        System.out.println(arrayList.size());//2
     }
 }
