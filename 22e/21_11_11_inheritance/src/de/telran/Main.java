@@ -17,7 +17,7 @@ public class Main {
         printSalary(hourEmployeeTanya);
 
         OfficeEmployee officeEmployee = (OfficeEmployee) officeEmployeePetya;
-        OfficeEmployee officeEmployeeStepan = (OfficeEmployee) managerStepan;
+        OfficeEmployee officeEmployeeStepan = (OfficeEmployee) managerStepan;//wrong
         System.out.println(officeEmployee.getMonthlyBonus());
         System.out.println(officeEmployeeStepan.getMonthlyBonus());
     }
