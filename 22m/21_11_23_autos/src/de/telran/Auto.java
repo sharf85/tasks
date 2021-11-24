@@ -19,9 +19,9 @@ public class Auto {
 
         Auto auto2 = (Auto) o2;
 
-        return year == auto2.year
-                && make.equals(auto2.make)
-                && color.equals(auto2.color);
+        return this.year == auto2.year
+                && this.make.equals(auto2.make)
+                && this.color.equals(auto2.color);
     }
 
     @Override

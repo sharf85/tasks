@@ -5,14 +5,24 @@ public class Main {
     public static void main(String[] args) {
         Auto[] autos = getAutopark();
 
+        // an example for equals
         Auto bentley = new Auto("Bentley", 2010, "Silver");
-
         System.out.println(containsAuto(autos, bentley));//true
 
-        System.out.println(bentley);
+        // an example with references
+        swapAuto(bentley);
+        System.out.println(bentley);//The make: Mercedes, the year: 2010, the color: Silver
+        System.out.println(containsAuto(autos, bentley));//false
 
+        // an example for toString
         String descr = "The description of bentley: " + bentley;
         System.out.println(descr);
+    }
+
+    static void swapAuto(Auto auto) {
+        auto.make = "Mercedes";
+        Auto newAuto = new Auto("Mercedes", 2021, "Black");
+        auto = newAuto;
     }
 
     static boolean containsAuto(Auto[] autos, Auto auto) {
