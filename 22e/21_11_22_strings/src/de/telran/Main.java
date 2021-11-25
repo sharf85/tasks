@@ -57,6 +57,27 @@ public class Main {
 
         System.out.println(reverse(str));
         System.out.println(reverse2(str));
+
+        String forExample = "Hello world guys";
+        System.out.println(cutToN(forExample, 16));//Hello world guys
+        System.out.println(cutToN(forExample, 17));//Hello world guys
+        System.out.println(cutToN(forExample, 18));//Hello world guys
+        System.out.println(cutToN(forExample, 15));//Hello world
+        System.out.println(cutToN(forExample, 12));//Hello world
+        System.out.println(cutToN(forExample, 13));//Hello world
+        System.out.println(cutToN(forExample, 11));//Hello world
+        System.out.println(cutToN(forExample, 10));//Hello
+        System.out.println(cutToN(forExample, 7));//Hello
+        System.out.println(cutToN(forExample, 6));//Hello
+        System.out.println(cutToN(forExample, 5));//Hello
+        System.out.println(cutToN(forExample, 4));//Hello
+        System.out.println(cutToN(forExample, 0));//Hello
+
+        System.out.println(countOccurrences(forExample, "l"));//3
+        System.out.println(countOccurrences(forExample, "ll"));//1
+        System.out.println(countOccurrences(forExample, " "));//2
+
+
     }
 
     static String reverse(String str) {
@@ -74,9 +95,44 @@ public class Main {
         String res = "";
 
         for (int i = 0; i < str.length(); i++) {
-            res += str.charAt(str.length() - 1 - i);
+            res = res + str.charAt(str.length() - 1 - i);
         }
 
+        return res;
+    }
+
+    static boolean isPalindrome(String str) {
+        String reversedString = reverse(str);
+        return str.equalsIgnoreCase(reversedString);
+    }
+
+    static String cutToN(String str, int N) {
+        int length = str.length();
+
+        if (N >= length)
+            return str;
+
+        String substring = str.substring(0, N + 1);
+        int lastSpaceIndex = substring.lastIndexOf(" ");
+
+        if (lastSpaceIndex >= 0)
+            return substring.substring(0, lastSpaceIndex);
+
+        return "";
+    }
+
+    static int countOccurrences(String str, String pattern) {
+        str = str.toLowerCase();
+        pattern = pattern.toLowerCase();
+
+        int res = 0;
+        int index = str.indexOf(pattern);
+
+        while (index > -1) {
+            res++;
+            index++;
+            index = str.indexOf(pattern, index);
+        }
         return res;
     }
 }
