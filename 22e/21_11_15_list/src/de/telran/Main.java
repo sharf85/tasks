@@ -23,6 +23,12 @@ public class Main {
         arrayList.set(1, 5);
         arrayList.set(2, 20);
 
+        try {
+            arrayList.set(-2, 20);
+        } catch (CustomOutOfBoundsException e) {
+            System.out.println("...");
+        }
+
         arrayList.println();//{10, 5, 20, -5, 50}
 
         arrayList.add(99);

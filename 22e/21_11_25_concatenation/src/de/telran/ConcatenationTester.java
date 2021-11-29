@@ -19,7 +19,13 @@ public class ConcatenationTester {
     }
 
     private String[] composeStrings(String toConcat, int number) {
-        // TODO create an array of length number, each element of which is toConcat
+        String[] res = new String[number];
+
+        for (int i = 0; i < number; i++) {
+            res[i] = toConcat;
+        }
+
+        return res;
     }
 
 

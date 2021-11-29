@@ -3,27 +3,16 @@ package de.telran;
 public class Main {
 
     public static void main(String[] args) {
-        String helloWorld = "Hello world";
+        IConcatenator stringConcatenator = new StringConcatenator();
+        IConcatenator sBufferConcatenator = new StringBufferConcatenator();
+        IConcatenator sBuilderConcatenator = new StringBuilderConcatenator();
+        IConcatenator charsConcatenator = new CharsConcatenator();
 
-        String res = "";
+        ConcatenationTester tester = new ConcatenationTester();
 
-        long currentTime = System.currentTimeMillis();
-        for (int i = 0; i < 100000; i++) {
-            res += helloWorld;
-        }
-        long delta = System.currentTimeMillis() - currentTime;
-
-        System.out.println(delta);
-
-        StringBuilder sb = new StringBuilder();
-
-        currentTime = System.currentTimeMillis();
-        for (int i = 0; i < 100000; i++) {
-            sb.append(helloWorld);
-        }
-        res = sb.toString();
-        delta = System.currentTimeMillis() - currentTime;
-
-        System.out.println(delta);
+        System.out.println(tester.test(stringConcatenator, "Hello world", 10000));
+        System.out.println(tester.test(sBufferConcatenator, "Hello world", 1000000));
+        System.out.println(tester.test(sBuilderConcatenator, "Hello world", 1000000));
+        System.out.println(tester.test(charsConcatenator, "Hello world", 1000000));
     }
 }
