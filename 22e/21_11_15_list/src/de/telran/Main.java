@@ -1,15 +1,15 @@
 package de.telran;
 
-import de.telran.list.AdvancedArrayList;
+//import de.telran.list.AdvancedArrayList;
 import de.telran.list.CustomArrayList;
 import de.telran.list.CustomList;
 
 public class Main {
 
     public static void main(String[] args) {
-        CustomList list = new AdvancedArrayList(5);
+//        CustomList list = new CustomArrayList();
 
-        CustomList arrayList = new CustomArrayList();
+        CustomList<Integer> arrayList = new CustomArrayList<>();
 
         arrayList.add(10);
         arrayList.add(18);

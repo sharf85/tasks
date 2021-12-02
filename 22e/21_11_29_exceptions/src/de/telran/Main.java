@@ -7,17 +7,46 @@ public class Main {
         int a = 6;
         int b = 2;
 
+//        try {
+//            int res = intDiv2Wrapper(a, b);
+//            System.out.println(res);
+//            System.out.println("After division");
+//        } catch (CustomArithmeticException e) {
+//            System.out.println("inside catch Arithmetic exception");
+//        } catch (RuntimeException e) {
+//            System.out.println("inside catch");
+//        } finally {
+//            System.out.println("inside finally");
+//        }
+
         try {
-            int res = intDiv2Wrapper(a, b);
-            System.out.println(res);
-            System.out.println("After division");
-        } catch (CustomArithmeticException e) {
-            System.out.println("inside catch Arithmetic exception");
-        } catch (RuntimeException e) {
-            System.out.println("inside catch");
-        } finally {
-            System.out.println("inside finally");
+            trickyFunction();
+        } catch (ARuntimeException | BRuntimeException e) {
+            System.out.println("catch ARuntimeException or BRuntimeException of tricky function");
         }
+    }
+
+    static void trickyFunction() {
+        try {
+            throwsARuntimeException();
+        } catch (ARuntimeException e) {
+            System.out.println("Catches a runtime");
+            throwsBRuntimeException();
+        } finally {
+            System.out.println("Inside finally");
+            throwsARuntimeException();
+        }
+
+    }
+
+    static void throwsARuntimeException() {
+        System.out.println("inside throwsARuntimeException");
+        throw new ARuntimeException();
+    }
+
+    static void throwsBRuntimeException() {
+        System.out.println("inside throwsBRuntimeException");
+        throw new BRuntimeException();
     }
 
     /**
