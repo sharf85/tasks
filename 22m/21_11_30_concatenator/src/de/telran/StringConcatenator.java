@@ -1,9 +1,16 @@
 package de.telran;
 
-public class StringConcatenator implements IConcatenator{
+public class StringConcatenator implements IConcatenator {
     @Override
     public String concatenate(String[] strings) {
-        //TODO implement via string concatenation
-        return null;
+        String res = "";
+
+        for (int i = 0; i < strings.length; i++) {
+            res = res + strings[i];
+//            res += strings[i];
+//            res = res.concat(strings[i]);
+        }
+
+        return res;
     }
 }

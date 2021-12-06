@@ -13,6 +13,9 @@ public class CustomArrayList implements CustomList {
 
     @Override
     public void set(int index, int value) {
+        if (index < 0 || index >= size)
+            throw new CustomOutOfBoundsException();
+
         source[index] = value;
     }
 

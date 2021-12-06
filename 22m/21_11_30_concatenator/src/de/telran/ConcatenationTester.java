@@ -1,5 +1,7 @@
 package de.telran;
 
+import java.util.Arrays;
+
 public class ConcatenationTester {
 
     /**
@@ -13,11 +15,14 @@ public class ConcatenationTester {
     public long test(IConcatenator concatenator, String string, int number) {
         String[] strings = composeStrings(string, number);
 
-        // TODO measure the time taken for using concatenator.concatenate()
+        long currentTimeMillis = System.currentTimeMillis();
+        concatenator.concatenate(strings);
+        return System.currentTimeMillis() - currentTimeMillis;
     }
 
-    //TODO implement the method. It must compose a String array from the string number times
     private String[] composeStrings(String string, int number) {
-        return new String[0];
+        String[] strings = new String[number];
+        Arrays.fill(strings, string);
+        return strings;
     }
 }
