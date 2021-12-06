@@ -3,6 +3,7 @@ package de.telran.list;
 /**
  * The insterface describes a data structure called List. It is a ordered data structure.
  */
+// TODO override toString for all inherited classes
 public interface CustomList<T> {
 
     /**

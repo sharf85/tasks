@@ -1,13 +1,19 @@
 package de.telran;
 
 //import de.telran.list.AdvancedArrayList;
+
 import de.telran.list.CustomArrayList;
 import de.telran.list.CustomList;
 
 public class Main {
 
     public static void main(String[] args) {
-//        CustomList list = new CustomArrayList();
+
+        CustomList<String> stringList = new CustomArrayList<>();
+        stringList.add("Hello");
+        stringList.add("world");
+        stringList.add("guys");
+        stringList.println();
 
         CustomList<Integer> arrayList = new CustomArrayList<>();
 

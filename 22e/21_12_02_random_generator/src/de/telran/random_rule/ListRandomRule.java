@@ -1,17 +1,21 @@
 package de.telran.random_rule;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-//TODO the class should have a constructor, which receives a list of numbers and the method nextInt must return
-// only the numbers from this list
 public class ListRandomRule implements IRandomRule {
 
-    public ListRandomRule(List<Integer> numbers) {
+    private final List<Integer> numbers;
+    private final Random rnd = new Random();
 
+    public ListRandomRule(List<Integer> numbers) {
+        this.numbers = new ArrayList<>(numbers);
     }
 
     @Override
     public int nextInt() {
-        return 0;
+        int index = rnd.nextInt(numbers.size());
+        return numbers.get(index);
     }
 }

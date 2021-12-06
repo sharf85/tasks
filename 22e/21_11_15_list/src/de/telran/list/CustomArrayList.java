@@ -14,7 +14,7 @@ public class CustomArrayList<T> implements CustomList<T> {
 
     @Override
     public void set(int index, T value) {
-        if (index < 0 && index >= size)
+        if (index < 0 || index >= size)
             throw new CustomOutOfBoundsException();
 
         source[index] = value;
@@ -22,7 +22,7 @@ public class CustomArrayList<T> implements CustomList<T> {
 
     @Override
     public T get(int index) {
-        if (index < 0 && index >= size)
+        if (index < 0 || index >= size)
             throw new CustomOutOfBoundsException();
 
         return source[index];
@@ -45,7 +45,7 @@ public class CustomArrayList<T> implements CustomList<T> {
 
     @Override
     public void removeById(int index) {
-        if (index < 0 && index >= size)
+        if (index < 0 || index >= size)
             throw new CustomOutOfBoundsException();
 
         for (int i = index + 1; i < size; i++) {
@@ -74,7 +74,7 @@ public class CustomArrayList<T> implements CustomList<T> {
 
     @Override
     public void insert(int index, T value) {
-        if (index < 0 && index > size)
+        if (index < 0 || index > size)
             throw new CustomOutOfBoundsException();
 
         if (size == source.length)

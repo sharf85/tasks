@@ -2,11 +2,12 @@ package de.telran.random_rule;
 
 import de.telran.random_rule.IRandomRule;
 
-//TODO the class should have a constructor, which receives a positive number and the method nextInt must return
-// only random numbers between 0 inclusive and max exclusive
+import java.util.Random;
+
 public class MaxRandomRule implements IRandomRule {
 
     private final int max;
+    private final Random rnd = new Random();
 
     public MaxRandomRule(int max) {
         this.max = max;
@@ -14,6 +15,6 @@ public class MaxRandomRule implements IRandomRule {
 
     @Override
     public int nextInt() {
-        return 0;
+        return rnd.nextInt(max);
     }
 }
