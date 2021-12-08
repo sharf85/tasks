@@ -1,6 +1,7 @@
 package de.telran.list;
 
-public class CustomArrayList implements CustomList {
+//TODO generify
+public class CustomArrayList<T> implements CustomList<T> {
 
     private static final int INITIAL_CAPACITY = 8;
 
@@ -21,6 +22,9 @@ public class CustomArrayList implements CustomList {
 
     @Override
     public int get(int index) {
+        if (index < 0 || index >= size)
+            throw new CustomOutOfBoundsException();
+
         return source[index];
     }
 
@@ -40,6 +44,9 @@ public class CustomArrayList implements CustomList {
 
     @Override
     public void removeById(int index) {
+        if (index < 0 || index >= size)
+            throw new CustomOutOfBoundsException();
+
         for (int i = index + 1; i < size; i++) {
             source[i - 1] = source[i];
         }
@@ -64,6 +71,9 @@ public class CustomArrayList implements CustomList {
 
     @Override
     public void insert(int index, int value) {
+        if (index < 0 || index > size)
+            throw new CustomOutOfBoundsException();
+
         if (size == source.length)
             increaseCapacity();
 

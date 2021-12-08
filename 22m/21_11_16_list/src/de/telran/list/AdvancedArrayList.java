@@ -1,24 +1,30 @@
 package de.telran.list;
 
-public class AdvancedArrayList implements CustomList {
+public class AdvancedArrayList<T> implements CustomList<T> {
 
-    private int[] source;
+    private T[] source;
 
     public AdvancedArrayList() {
-        source = new int[0];
+        source = (T[]) new Object[0];
     }
 
     public AdvancedArrayList(int initialSize) {
-        source = new int[initialSize];
+        source = (T[]) new Object[initialSize];
     }
 
     @Override
-    public int get(int index) {
+    public T get(int index) {
+        if (index < 0 || index >= source.length)
+            throw new CustomOutOfBoundsException();
+
         return source[index];
     }
 
     @Override
-    public void set(int index, int value) {
+    public void set(int index, T value) {
+        if (index < 0 || index >= source.length)
+            throw new CustomOutOfBoundsException();
+
         source[index] = value;
     }
 
@@ -28,17 +34,21 @@ public class AdvancedArrayList implements CustomList {
     }
 
     @Override
-    public boolean contains(int value) {
+    public boolean contains(T value) {
         for (int i = 0; i < source.length; i++) {
-            if (value == source[i])
+            if (value.equals(source[i]))
                 return true;
         }
         return false;
     }
 
     @Override
-    public void removeById(int index) {
-        int[] newSource = new int[source.length - 1];
+    public T removeById(int index) {
+        if (index < 0 || index >= source.length)
+            throw new CustomOutOfBoundsException();
+
+        T[] newSource = (T[]) new Object[source.length - 1];
+        T res = source[index];
 
         for (int i = 0; i < index; i++) {
             newSource[i] = source[i];
@@ -48,16 +58,26 @@ public class AdvancedArrayList implements CustomList {
         }
 
         source = newSource;
+        return res;
+    }
+
+    //TODO complete
+    @Override
+    public boolean removeByValue(T value) {
+        return false;
     }
 
     @Override
-    public void add(int value) {
+    public void add(T value) {
         insert(source.length, value);
     }
 
     @Override
-    public void insert(int index, int value) {
-        int[] newSource = new int[source.length + 1];
+    public void insert(int index, T value) {
+        if (index < 0 || index > source.length)
+            throw new CustomOutOfBoundsException();
+
+        T[] newSource = (T[]) new Object[source.length + 1];
 
         for (int i = 0; i < index; i++) {
             newSource[i] = source[i];

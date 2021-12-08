@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        CustomList list = new CustomArrayList();
+        CustomList<Integer> list = new CustomArrayList<>();
 
         list.add(10);
         list.add(15);
