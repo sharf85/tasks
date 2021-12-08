@@ -39,6 +39,34 @@ class PairwiseProblemTest {
     }
 
     @Test
+    public void testSolve_firstTheBigger(){
+        int[] array = {10, 3, 5, 0, 8, 2};
+
+        assertEquals(80, pp.solve (array));
+    }
+
+    @Test
+    public void testSolve_lastTheBigger(){
+        int[] array = {10, 3, 5, 0, 8, 2, 239};
+
+        assertEquals(2390, pp.solve (array));
+    }
+
+    @Test
+    public void testSolve_TwoIdentical() {
+        int[] array = {5, 3, 5, 0, 4, 2};
+
+        assertEquals(25, pp.solve (array));
+    }
+
+    @Test
+    public void testSolve_TwoIdenticalBegin() {
+        int[] array = {8, 8, 0, 4, 2};
+
+        assertEquals(64, pp.solve (array));
+    }
+
+    @Test
     public void testSolve_performanceTest() {
         int[] array = new int[100000];
         Random rnd = new Random();
