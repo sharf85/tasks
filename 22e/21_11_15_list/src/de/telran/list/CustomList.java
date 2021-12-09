@@ -39,9 +39,19 @@ public interface CustomList<T> {
      * removes the value by its position. The elements which are after the index move to the left by 1 position
      *
      * @param index of the value to remove
+     * @return the value being removed
      * @throws de.telran.CustomOutOfBoundsException if index < 0 or index >= size
      */
-    public void removeById(int index);
+    public T removeById(int index);
+
+    /**
+     * removes the element by its value. Only one element will removed if exists.
+     *
+     * @param value of the element to remove
+     * @return true if the element exists and removed, false otherwise
+     * @throws de.telran.CustomOutOfBoundsException if index < 0 or index >= size
+     */
+    public boolean removeByValue(T value);// {10, 15, 10, 7}. list.removeByValue(10) -> {15, 10, 7}
 
     /**
      * Add an element to the end of the list

@@ -1,5 +1,7 @@
 package de.telran.list;
 
+import de.telran.CustomOutOfBoundsException;
+
 public class AdvancedArrayList<T> implements CustomList<T> {
     private T[] source;
 
@@ -9,11 +11,16 @@ public class AdvancedArrayList<T> implements CustomList<T> {
 
     @Override
     public void set(int index, T value) {
+        if (index < 0 || index >= source.length)
+            throw new CustomOutOfBoundsException();
+
         source[index] = value;
     }
 
     @Override
     public T get(int index) {
+        if (index < 0 || index >= source.length)
+            throw new CustomOutOfBoundsException();
         return source[index];
     }
 
@@ -24,6 +31,9 @@ public class AdvancedArrayList<T> implements CustomList<T> {
 
     @Override
     public void insert(int index, T elt) {
+        if (index < 0 || index > source.length)
+            throw new CustomOutOfBoundsException();
+
         T[] newSource = (T[]) new Object[source.length + 1];
 
         for (int i = 0; i < index; i++) {
@@ -49,9 +59,13 @@ public class AdvancedArrayList<T> implements CustomList<T> {
     }
 
     @Override
-    public void removeById(int index) {
+    public T removeById(int index) {
+        if (index < 0 || index >= source.length)
+            throw new CustomOutOfBoundsException();
+
         T[] newSource = (T[]) new Object[source.length - 1];
 
+        T res = source[index];
         for (int i = 0; i < index; i++) {
             newSource[i] = source[i];
         }
@@ -61,6 +75,18 @@ public class AdvancedArrayList<T> implements CustomList<T> {
         }
 
         source = newSource;
+        return res;
+    }
+
+    @Override
+    public boolean removeByValue(T value) {
+        for (int i = 0; i < source.length; i++) {
+            if (source[i].equals(value)){
+                removeById(i);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

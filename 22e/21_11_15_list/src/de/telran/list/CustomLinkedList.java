@@ -23,7 +23,8 @@ public class CustomLinkedList<T> implements CustomList<T> {
 
     @Override
     public void set(int index, T value) {
-        // the same as get
+        Node<T> node = getNodeByIndex(index);
+        node.value = value;
     }
 
     @Override
@@ -50,12 +51,47 @@ public class CustomLinkedList<T> implements CustomList<T> {
 
     @Override
     public boolean contains(T value) {
-        return false;
+        Node<T> node = findNodeByValue(value);
+        return node != null;
     }
 
     @Override
-    public void removeById(int index) {
+    public T removeById(int index) {
+        Node<T> nodeToRemove = getNodeByIndex(index);
+        T res = nodeToRemove.value;
+        removeNode(nodeToRemove);
+        return res;
+    }
 
+    @Override
+    public boolean removeByValue(T value) {
+        Node<T> nodeToRemove = findNodeByValue(value);
+        if (nodeToRemove == null)
+            return false;
+
+        removeNode(nodeToRemove);
+        return true;
+    }
+
+    private void removeNode(Node<T> node) {
+        // TODO implement
+    }
+
+    /**
+     * @param value
+     * @return the first node with value or null if there is no such a node
+     */
+    // {10, 7, 10, 15}
+    private Node<T> findNodeByValue(T value) {
+        Node<T> currentNode = first;
+        for (int i = 0; i < size; i++) {
+            if (currentNode.value.equals(value)) {
+                return currentNode;
+            }
+            currentNode = currentNode.next;
+        }
+
+        return null;
     }
 
     @Override

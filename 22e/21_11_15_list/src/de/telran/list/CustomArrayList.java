@@ -44,7 +44,8 @@ public class CustomArrayList<T> implements CustomList<T> {
     }
 
     @Override
-    public void removeById(int index) {
+    // TODO fix
+    public T removeById(int index) {
         if (index < 0 || index >= size)
             throw new CustomOutOfBoundsException();
 
@@ -52,6 +53,12 @@ public class CustomArrayList<T> implements CustomList<T> {
             source[i - 1] = source[i];
         }
         size--;
+    }
+
+    @Override
+    // TODO implement
+    public boolean removeByValue(T value) {
+        return false;
     }
 
     @Override
