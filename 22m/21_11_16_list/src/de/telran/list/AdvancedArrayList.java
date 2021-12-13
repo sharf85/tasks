@@ -61,9 +61,14 @@ public class AdvancedArrayList<T> implements CustomList<T> {
         return res;
     }
 
-    //TODO complete
     @Override
     public boolean removeByValue(T value) {
+        for (int i = 0; i < source.length; i++) {
+            if (source[i].equals(value)) {
+                removeById(i);
+                return true;
+            }
+        }
         return false;
     }
 

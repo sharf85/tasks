@@ -2,10 +2,10 @@ package de.telran.list;
 
 import org.junit.jupiter.api.BeforeEach;
 
-class CustomArrayListTest extends CustomListTest {
+class AdvancedArrayListTest extends CustomListTest {
     @BeforeEach
     public void init() {
-        intList = new CustomArrayList<>();
+        intList = new AdvancedArrayList<>();
         stringList = new AdvancedArrayList<>();
     }
 }

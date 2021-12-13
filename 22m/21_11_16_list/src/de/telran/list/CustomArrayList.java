@@ -1,19 +1,18 @@
 package de.telran.list;
 
-//TODO generify
 public class CustomArrayList<T> implements CustomList<T> {
 
     private static final int INITIAL_CAPACITY = 8;
 
-    private int[] source;
+    private T[] source;
     private int size;
 
     public CustomArrayList() {
-        source = new int[INITIAL_CAPACITY];
+        source = (T[]) new Object[INITIAL_CAPACITY];
     }
 
     @Override
-    public void set(int index, int value) {
+    public void set(int index, T value) {
         if (index < 0 || index >= size)
             throw new CustomOutOfBoundsException();
 
@@ -21,7 +20,7 @@ public class CustomArrayList<T> implements CustomList<T> {
     }
 
     @Override
-    public int get(int index) {
+    public T get(int index) {
         if (index < 0 || index >= size)
             throw new CustomOutOfBoundsException();
 
@@ -34,27 +33,40 @@ public class CustomArrayList<T> implements CustomList<T> {
     }
 
     @Override
-    public boolean contains(int value) {
+    public boolean contains(T value) {
         for (int i = 0; i < size; i++) {
-            if (source[i] == value)
+            if (source[i].equals(value))
                 return true;
         }
         return false;
     }
 
     @Override
-    public void removeById(int index) {
+    public T removeById(int index) {
         if (index < 0 || index >= size)
             throw new CustomOutOfBoundsException();
 
+        T res = source[index];
         for (int i = index + 1; i < size; i++) {
             source[i - 1] = source[i];
         }
         size--;
+        return res;
     }
 
     @Override
-    public void add(int value) {
+    public boolean removeByValue(T value) {
+        for (int i = 0; i < size; i++) {
+            if (source[i].equals(value)) {
+                removeById(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void add(T value) {
         if (size == source.length)
             increaseCapacity();
 
@@ -62,7 +74,7 @@ public class CustomArrayList<T> implements CustomList<T> {
     }
 
     private void increaseCapacity() {
-        int[] newSource = new int[source.length * 2];
+        T[] newSource = (T[]) new Object[source.length * 2];
         for (int i = 0; i < source.length; i++) {
             newSource[i] = source[i];
         }
@@ -70,7 +82,7 @@ public class CustomArrayList<T> implements CustomList<T> {
     }
 
     @Override
-    public void insert(int index, int value) {
+    public void insert(int index, T value) {
         if (index < 0 || index > size)
             throw new CustomOutOfBoundsException();
 
