@@ -49,10 +49,12 @@ public class CustomArrayList<T> implements CustomList<T> {
         if (index < 0 || index >= size)
             throw new CustomOutOfBoundsException();
 
+        T res = source[index];
         for (int i = index + 1; i < size; i++) {
             source[i - 1] = source[i];
         }
         size--;
+        return res;
     }
 
     @Override

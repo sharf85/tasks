@@ -2,7 +2,6 @@ package de.telran.list;
 
 import de.telran.CustomOutOfBoundsException;
 
-// TODO implement
 public class CustomLinkedList<T> implements CustomList<T> {
 
     private Node<T> first;
@@ -74,7 +73,26 @@ public class CustomLinkedList<T> implements CustomList<T> {
     }
 
     private void removeNode(Node<T> node) {
-        // TODO implement
+        Node<T> left = node.prev;
+        Node<T> right = node.next;
+
+        if (left == null) {
+            first = right;
+        } else {
+            left.next = right;
+        }
+
+        if (right == null) {
+            last = left;
+        } else {
+            right.prev = left;
+        }
+
+        node.prev = null;
+        node.next = null;
+        node.value = null;
+
+        size--;
     }
 
     /**
@@ -109,7 +127,29 @@ public class CustomLinkedList<T> implements CustomList<T> {
 
     @Override
     public void insert(int index, T value) {
+        Node<T> left;
+        Node<T> right;
 
+        if (size == index) {
+            left = last;
+            right = null;
+        } else {
+            right = getNodeByIndex(index);
+            left = right.prev;
+        }
+
+        Node<T> node = new Node<>(value, right, left);
+        if (left != null)
+            left.next = node;
+        else
+            first = node;
+
+        if (right != null)
+            right.prev = node;
+        else
+            last = node;
+
+        size++;
     }
 
     @Override
