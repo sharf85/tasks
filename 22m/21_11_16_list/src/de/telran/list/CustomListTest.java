@@ -196,4 +196,47 @@ abstract class CustomListTest {
         assertFalse(intList.removeByValue(2));
     }
 
+    @Test
+    public void testInsert_emptyListZeroIndex() {
+        intList.insert(0, 10);
+
+        assertEquals(1, intList.size());
+
+        assertListContents(new int[]{10});
+    }
+
+    @Test
+    public void testInsert_nonEmptyListZeroIndex() {
+        intList.add(10);
+        intList.insert(0, 15);
+
+        assertEquals(2, intList.size());
+        assertListContents(new int[]{15, 10});
+    }
+
+    @Test
+    public void testInsert_nonEmptyListSizeIndex() {
+        intList.add(10);
+        intList.insert(1, 15);
+
+        assertEquals(2, intList.size());
+        assertListContents(new int[]{10, 15});
+    }
+
+    @Test
+    public void testInsert_nonEmptyListMiddleIndex() {
+        intList.add(10);
+        intList.add(18);
+        intList.insert(1, 15);
+
+        assertEquals(3, intList.size());
+        assertListContents(new int[]{10, 15, 18});
+    }
+
+    @Test
+    public void testInsert_emptyListNonZeroIndex_throwsCustomOutOfBoundsException() {
+        assertThrows(CustomOutOfBoundsException.class, () -> intList.insert(1, 10));
+        assertThrows(CustomOutOfBoundsException.class, () -> intList.insert(-1, 10));
+    }
+
 }
