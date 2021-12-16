@@ -2,6 +2,8 @@ package de.telran.list;
 
 import de.telran.CustomOutOfBoundsException;
 
+import java.util.Iterator;
+
 public class AdvancedArrayList<T> implements CustomList<T> {
     private T[] source;
 
@@ -81,7 +83,7 @@ public class AdvancedArrayList<T> implements CustomList<T> {
     @Override
     public boolean removeByValue(T value) {
         for (int i = 0; i < source.length; i++) {
-            if (source[i].equals(value)){
+            if (source[i].equals(value)) {
                 removeById(i);
                 return true;
             }
@@ -100,5 +102,27 @@ public class AdvancedArrayList<T> implements CustomList<T> {
             System.out.print(source[i] + " ");
         }
         System.out.println();
+    }
+
+    @Override
+    public Iterator<T> getIterator() {
+        return new ListIterator();
+    }
+// TODO understand the difference between static and non static inner classes
+    private class ListIterator implements Iterator<T> {
+
+        int currentId = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentId < source.length;
+        }
+
+        @Override
+        public T next() {
+            T res = source[currentId];
+            currentId++;
+            return res;
+        }
     }
 }

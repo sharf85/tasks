@@ -7,7 +7,6 @@ import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//TODO write tests for list of strings
 class CustomLinkedListTest {
 
     CustomList<Integer> intList = new CustomLinkedList<>();

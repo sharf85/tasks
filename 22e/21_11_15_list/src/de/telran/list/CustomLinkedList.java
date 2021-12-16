@@ -2,6 +2,8 @@ package de.telran.list;
 
 import de.telran.CustomOutOfBoundsException;
 
+import java.util.Iterator;
+
 public class CustomLinkedList<T> implements CustomList<T> {
 
     private Node<T> first;
@@ -155,5 +157,29 @@ public class CustomLinkedList<T> implements CustomList<T> {
     @Override
     public void println() {
 
+    }
+
+    @Override
+    public Iterator<T> getIterator() {
+        return new ListIterator<>(first);
+    }
+
+    private static class ListIterator<E> implements Iterator<E> {
+
+        Node<E> current;
+
+        public ListIterator(Node<E> first) {
+            this.current = first;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public E next() {
+            return null;
+        }
     }
 }

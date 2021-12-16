@@ -1,5 +1,7 @@
 package de.telran.list;
 
+import java.util.Iterator;
+
 /**
  * The insterface describes a data structure called List. It is a ordered data structure.
  */
@@ -73,4 +75,12 @@ public interface CustomList<T> {
      * prints the element out to the console
      */
     public void println();
+
+    /**
+     * The method must return an iterator, which iterates the list from the most left element (first) to the
+     * most right element
+     *
+     * @return
+     */
+    Iterator<T> getIterator();
 }

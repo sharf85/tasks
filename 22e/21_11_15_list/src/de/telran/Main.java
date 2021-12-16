@@ -2,8 +2,11 @@ package de.telran;
 
 //import de.telran.list.AdvancedArrayList;
 
+import de.telran.list.AdvancedArrayList;
 import de.telran.list.CustomArrayList;
 import de.telran.list.CustomList;
+
+import java.util.Iterator;
 
 public class Main {
 
@@ -42,5 +45,17 @@ public class Main {
 
         arrayList.removeById(2);
         arrayList.println();//{10, 5, -5, 50, 99}
+
+        // old way to iterate over a list
+        for (int i = 0; i < arrayList.size(); i++) {
+            int number = arrayList.get(i);
+        }
+
+        // new way to iterate
+        Iterator<Integer> iterator = arrayList.getIterator();
+        while (iterator.hasNext()) {
+            int number = iterator.next();
+        }
+
     }
 }

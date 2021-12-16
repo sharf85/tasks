@@ -2,6 +2,8 @@ package de.telran.list;
 
 import de.telran.CustomOutOfBoundsException;
 
+import java.util.Iterator;
+
 public class CustomArrayList<T> implements CustomList<T> {
 
     private static final int INITIAL_CAPACITY = 8;
@@ -103,5 +105,11 @@ public class CustomArrayList<T> implements CustomList<T> {
             System.out.print(source[i] + " ");
         }
         System.out.println();
+    }
+
+    @Override
+    public Iterator<T> getIterator() {
+        // TODO
+        return null;
     }
 }
