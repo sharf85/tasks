@@ -19,7 +19,7 @@ public class Main {
         RandomGenerator listGenerator = new RandomGenerator(listRandomRule);
         System.out.println(listGenerator.generate(10));
 // comment
-// test
+// test 2
         numbers.add(20);
         System.out.println(listGenerator.generate(10));
 
