@@ -4,11 +4,19 @@ import de.telran.list.AdvancedArrayList;
 import de.telran.list.CustomArrayList;
 import de.telran.list.CustomList;
 
+import java.util.Iterator;
+
 public class Main {
 
     public static void main(String[] args) {
 
         CustomList<Integer> list = new CustomArrayList<>();
+        Iterator<Integer> iterator = list.getIterator();
+        while (iterator.hasNext()) {
+            int number = iterator.next();
+            System.out.println(number);
+        }
+
 
         list.add(10);
         list.add(15);
@@ -24,6 +32,7 @@ public class Main {
 
         list.removeById(2);//{15, 7}
         list.println();
+
 
     }
 }

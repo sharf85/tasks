@@ -1,5 +1,7 @@
 package de.telran.list;
 
+import java.util.Iterator;
+
 public class CustomLinkedList<T> implements CustomList<T> {
 
     Node<T> first;
@@ -171,5 +173,32 @@ public class CustomLinkedList<T> implements CustomList<T> {
     public void println() {
 
     }
+
+    @Override
+    public Iterator<T> getIterator() {
+        Iterator<T> iterator = new BasicIterator<>(first);
+        return iterator;
+    }
+
+    private static class BasicIterator<E> implements Iterator<E> {
+
+        private Node<E> currentNode;
+
+        public BasicIterator(Node<E> currentNode) {
+            this.currentNode = currentNode;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentNode != null;
+        }
+
+        @Override
+        public E next() {
+            // TODO return the value of the currentNode and move currentNode to the next node
+            return null;
+        }
+    }
+
 }
 

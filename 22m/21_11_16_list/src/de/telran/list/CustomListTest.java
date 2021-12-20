@@ -2,6 +2,7 @@ package de.telran.list;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -239,4 +240,218 @@ abstract class CustomListTest {
         assertThrows(CustomOutOfBoundsException.class, () -> intList.insert(-1, 10));
     }
 
+    @Test
+    public void testAddSize_fourStrings() {
+        stringList.add("If you always try your best");
+        stringList.add("Then you’ll never have to wonder");
+        stringList.add("About what you could have done");
+        stringList.add("If you’d summoned all your thunder.");
+
+        assertEquals(4, stringList.size());
+    }
+
+    @Test
+    public void testAddSize_tenStrings() {
+        stringList.add("If you always try your best");
+        stringList.add("Then you’ll never have to wonder");
+        stringList.add("About what you could have done");
+        stringList.add("If you’d summoned all your thunder.");
+        stringList.add("And if your best");
+        stringList.add("Was not as good");
+        stringList.add("As you hoped it would be,");
+        stringList.add("You still could say,");
+        stringList.add("I gave today");
+        stringList.add("All that I had in me.");
+
+        assertEquals(10, stringList.size());
+    }
+
+    //   public void testAddGet_100RandomNumbers() { // unlikely with strings
+
+    @Test
+    public void testContains_string_true() {
+        stringList.add("stop");
+        stringList.add("stopping");
+        stringList.add("yourself");
+
+        assertTrue(stringList.contains("stop"));
+    }
+
+    @Test
+    public void testContains_string_false() {
+        stringList.add("stop");
+        stringList.add("stopping");
+        stringList.add("yourself");
+
+        assertFalse(stringList.contains("best"));
+    }
+
+    @Test
+    public void testSet_emptyStringList_throwsCustomOutOfBoundsException() {
+        assertThrows(CustomOutOfBoundsException.class, () -> {
+            stringList.set(5, "next");
+        });
+    }
+
+    @Test
+    public void testGet_emptyStringList_throwsCustomOutOfBoundsException() {
+        assertThrows(CustomOutOfBoundsException.class, () -> {
+            stringList.get(0);
+        });
+    }
+
+    @Test
+    public void testRemoveById_emptyStringList_throwsCustomOutOfBoundsException() {
+        assertThrows(CustomOutOfBoundsException.class, () -> {
+            stringList.removeById(0);
+        });
+    }
+
+    private void assertStringListContents(String[] array) {
+        for (int i = 0; i < array.length; i++) {
+            assertEquals(array[i], stringList.get(i));
+        }
+    }
+
+    @Test
+    public void testInsert_emptyStringListIndex0() {
+        stringList.insert(0, "aaa");
+
+        assertEquals(1, stringList.size());
+        assertEquals("aaa", stringList.get(0));
+    }
+
+    @Test
+    public void testInsert_nonEmptyLastStringIndex() {
+        stringList.add("No reason");
+        stringList.add("to stay");
+        stringList.add("is a good reason");
+        stringList.add("to go");
+
+        stringList.insert(4, "sounds like a plan");
+
+        assertEquals(5, stringList.size());
+        assertStringListContents(new String[]{"No reason", "to stay", "is a good reason", "to go", "sounds like a plan"});
+    }
+
+    @Test
+    public void testInsert_nonEmptyZeroStringIndex() {
+        stringList.add("One day");
+        stringList.add("At a Time");
+
+        stringList.insert(0, "It is ok");
+
+        assertEquals(3, stringList.size());
+        assertStringListContents(new String[]{"It is ok", "One day", "At a Time"});
+    }
+
+    @Test
+    public void testInsertString_nonEmptyMiddleIndex() {
+        stringList.add("Life");
+        stringList.add("is");
+        stringList.add("short");
+
+        stringList.insert(2, "too");
+
+        assertEquals(4, stringList.size());
+        assertStringListContents(new String[]{"Life", "is", "too", "short"});
+    }
+
+    @Test
+    public void testRemoveStringById_idTwo() {
+        stringList.add("Life");
+        stringList.add("is");
+        stringList.add("too");
+        stringList.add("short");
+
+        assertEquals("too", stringList.removeById(2));
+
+        assertStringListContents(new String[]{"Life", "is", "short"});
+
+    }
+
+    @Test
+    public void testRemoveStringById_idThree() {
+        stringList.add("food");
+        stringList.add("water");
+        stringList.add("sleep");
+        stringList.add("play");
+
+        assertEquals("play", stringList.removeById(3));
+        assertEquals(3, stringList.size());
+
+        assertStringListContents(new String[]{"food", "water", "sleep"});
+    }
+
+    @Test
+    public void testRemoveStringById_idZero() {
+        stringList.add("play");
+        stringList.add("food");
+        stringList.add("water");
+        stringList.add("sleep");
+
+        assertEquals("play", stringList.removeById(0));
+        assertEquals(3, stringList.size());
+
+        assertStringListContents(new String[]{"food", "water", "sleep"});
+    }
+
+    @Test
+    public void testRemoveStringById_idTwFour() {
+        stringList.add("play");
+        stringList.add("food");
+        stringList.add("water");
+        stringList.add("sleep");
+
+        assertThrows(CustomOutOfBoundsException.class, () -> stringList.removeById(4));
+    }
+
+    @Test
+    public void testRemoveStringByValue_play() {
+        stringList.add("play");
+        stringList.add("food");
+        stringList.add("water");
+        stringList.add("sleep");
+
+        assertTrue(stringList.removeByValue("play"));
+        assertEquals(3, stringList.size());
+
+        assertStringListContents(new String[]{"food", "water", "sleep"});
+    }
+
+    @Test
+    public void testRemoveStringByValue_loveFalse() {
+        stringList.add("play");
+        stringList.add("food");
+        stringList.add("water");
+        stringList.add("sleep");
+
+        assertFalse(stringList.removeByValue("love"));
+        assertEquals(4, stringList.size());
+    }
+
+    @Test
+    public void testIterator_severalElements() {
+        intList.add(5);
+        intList.add(10);
+        intList.add(2);
+        intList.add(25);
+        intList.add(6);
+
+        int[] expected = {5, 10, 2, 25, 6};
+
+        Iterator<Integer> iterator = intList.getIterator();
+
+        int i = 0;
+        while (iterator.hasNext()) {
+            int currentNumber = iterator.next();
+            assertEquals(expected[i], currentNumber);
+            i++;
+        }
+        assertEquals(i, expected.length);
+
+    }
+
+    //TODO implement more tests for iterator (edge cases) - для краевых случаев, например, когда нету елементов
+    // в листе, или один элемент в листе
 }

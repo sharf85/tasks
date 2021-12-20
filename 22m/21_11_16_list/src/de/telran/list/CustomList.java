@@ -1,5 +1,7 @@
 package de.telran.list;
 
+import java.util.Iterator;
+
 /**
  * The interface describes the List data structure
  */
@@ -73,5 +75,7 @@ public interface CustomList<T> {
      * prints the element out to the console
      */
     public void println();
+
+    public Iterator<T> getIterator();
 
 }

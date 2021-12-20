@@ -1,5 +1,7 @@
 package de.telran.list;
 
+import java.util.Iterator;
+
 public class AdvancedArrayList<T> implements CustomList<T> {
 
     private T[] source;
@@ -101,5 +103,11 @@ public class AdvancedArrayList<T> implements CustomList<T> {
             System.out.print(source[i] + " ");
         }
         System.out.println();
+    }
+
+    @Override
+    public Iterator<T> getIterator() {
+        // TODO implement
+        return null;
     }
 }

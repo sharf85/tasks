@@ -1,5 +1,7 @@
 package de.telran.list;
 
+import java.util.Iterator;
+
 public class CustomArrayList<T> implements CustomList<T> {
 
     private static final int INITIAL_CAPACITY = 8;
@@ -102,5 +104,35 @@ public class CustomArrayList<T> implements CustomList<T> {
             System.out.print(source[i] + " ");
         }
         System.out.println();
+    }
+
+    @Override
+    public Iterator<T> getIterator() {
+        Iterator<T> iterator = new BasicIterator<>(source, size);
+        return iterator;
+    }
+
+    private static class BasicIterator<E> implements Iterator<E> {
+
+        private final E[] array;
+        private final int size;
+        private int currentIndex = 0;
+
+        public BasicIterator(E[] source, int size) {
+            array = source;
+            this.size = size;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < size;
+        }
+
+        @Override
+        public E next() {
+            E res = array[currentIndex];
+            currentIndex++;
+            return res;
+        }
     }
 }
