@@ -5,8 +5,7 @@ import java.util.Iterator;
 /**
  * The insterface describes a data structure called List. It is a ordered data structure.
  */
-// TODO override toString for all inherited classes
-public interface CustomList<T> {
+public interface CustomList<T> extends Iterable<T> {
 
     /**
      * The method swaps the value on the index position
@@ -75,12 +74,4 @@ public interface CustomList<T> {
      * prints the element out to the console
      */
     public void println();
-
-    /**
-     * The method must return an iterator, which iterates the list from the most left element (first) to the
-     * most right element
-     *
-     * @return
-     */
-    Iterator<T> getIterator();
 }

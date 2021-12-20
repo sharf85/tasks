@@ -46,7 +46,6 @@ public class CustomArrayList<T> implements CustomList<T> {
     }
 
     @Override
-    // TODO fix
     public T removeById(int index) {
         if (index < 0 || index >= size)
             throw new CustomOutOfBoundsException();
@@ -60,8 +59,13 @@ public class CustomArrayList<T> implements CustomList<T> {
     }
 
     @Override
-    // TODO implement
     public boolean removeByValue(T value) {
+        for (int i = 0; i < size; i++) {
+            if (source[i].equals(value)) {
+                removeById(i);
+                return true;
+            }
+        }
         return false;
     }
 
@@ -108,8 +112,24 @@ public class CustomArrayList<T> implements CustomList<T> {
     }
 
     @Override
-    public Iterator<T> getIterator() {
-        // TODO
-        return null;
+    public Iterator<T> iterator() {
+        return new BasicIterator();
+    }
+
+    private class BasicIterator implements Iterator<T> {
+
+        private int currentIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < size;
+        }
+
+        @Override
+        public T next() {
+            T res = source[currentIndex];
+            currentIndex++;
+            return res;
+        }
     }
 }

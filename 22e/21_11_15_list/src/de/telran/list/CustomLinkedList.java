@@ -160,7 +160,7 @@ public class CustomLinkedList<T> implements CustomList<T> {
     }
 
     @Override
-    public Iterator<T> getIterator() {
+    public Iterator<T> iterator() {
         return new ListIterator<>(first);
     }
 
@@ -179,7 +179,9 @@ public class CustomLinkedList<T> implements CustomList<T> {
 
         @Override
         public E next() {
-            return null;
+            E res = current.value;
+            current = current.next;
+            return res;
         }
     }
 }

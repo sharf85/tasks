@@ -52,10 +52,14 @@ public class Main {
         }
 
         // new way to iterate
-        Iterator<Integer> iterator = arrayList.getIterator();
+        Iterator<Integer> iterator = arrayList.iterator();
         while (iterator.hasNext()) {
             int number = iterator.next();
+            System.out.println(number);
         }
 
+        for (int number : arrayList) {
+            System.out.println(number);
+        }
     }
 }

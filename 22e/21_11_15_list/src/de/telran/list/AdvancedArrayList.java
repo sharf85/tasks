@@ -105,10 +105,10 @@ public class AdvancedArrayList<T> implements CustomList<T> {
     }
 
     @Override
-    public Iterator<T> getIterator() {
+    public Iterator<T> iterator() {
         return new ListIterator();
     }
-// TODO understand the difference between static and non static inner classes
+
     private class ListIterator implements Iterator<T> {
 
         int currentId = 0;
