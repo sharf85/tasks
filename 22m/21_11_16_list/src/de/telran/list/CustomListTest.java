@@ -440,7 +440,7 @@ abstract class CustomListTest {
 
         int[] expected = {5, 10, 2, 25, 6};
 
-        Iterator<Integer> iterator = intList.getIterator();
+        Iterator<Integer> iterator = intList.iterator();
 
         int i = 0;
         while (iterator.hasNext()) {
@@ -452,6 +452,22 @@ abstract class CustomListTest {
 
     }
 
-    //TODO implement more tests for iterator (edge cases) - для краевых случаев, например, когда нету елементов
-    // в листе, или один элемент в листе
+    @Test
+    public void testIterator_oneElement() {
+        intList.add(5);
+        Iterator<Integer> iterator = intList.iterator();
+
+        int first = iterator.next();
+
+        assertEquals(5, first);
+        assertFalse(iterator.hasNext());
+
+    }
+
+    @Test
+    public void testIterator_noElements() {
+        Iterator<Integer> iterator = intList.iterator();
+        assertFalse(iterator.hasNext());
+    }
+
 }

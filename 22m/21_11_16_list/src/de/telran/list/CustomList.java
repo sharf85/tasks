@@ -6,7 +6,7 @@ import java.util.Iterator;
  * The interface describes the List data structure
  */
 
-public interface CustomList<T> {
+public interface CustomList<T> extends Iterable<T> {
 
     /**
      * The method swaps the value at the index position
@@ -76,6 +76,5 @@ public interface CustomList<T> {
      */
     public void println();
 
-    public Iterator<T> getIterator();
 
 }

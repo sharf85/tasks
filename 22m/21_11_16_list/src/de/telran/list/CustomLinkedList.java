@@ -175,7 +175,7 @@ public class CustomLinkedList<T> implements CustomList<T> {
     }
 
     @Override
-    public Iterator<T> getIterator() {
+    public Iterator<T> iterator() {
         Iterator<T> iterator = new BasicIterator<>(first);
         return iterator;
     }
@@ -195,8 +195,9 @@ public class CustomLinkedList<T> implements CustomList<T> {
 
         @Override
         public E next() {
-            // TODO return the value of the currentNode and move currentNode to the next node
-            return null;
+            E res = currentNode.value;
+            currentNode = currentNode.next;
+            return res;
         }
     }
 

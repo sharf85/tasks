@@ -11,9 +11,16 @@ public class Main {
     public static void main(String[] args) {
 
         CustomList<Integer> list = new CustomArrayList<>();
-        Iterator<Integer> iterator = list.getIterator();
+
+
+        Iterator<Integer> iterator = list.iterator();
         while (iterator.hasNext()) {
             int number = iterator.next();
+            System.out.println(number);
+        }
+
+
+        for (int number : list) {
             System.out.println(number);
         }
 

@@ -106,8 +106,24 @@ public class AdvancedArrayList<T> implements CustomList<T> {
     }
 
     @Override
-    public Iterator<T> getIterator() {
-        // TODO implement
-        return null;
+    public Iterator<T> iterator() {
+        return new BasicIterator();
+    }
+
+    private class BasicIterator implements Iterator<T> {
+
+        private int currentIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < source.length;
+        }
+
+        @Override
+        public T next() {
+            T res = source[currentIndex];
+            currentIndex++;
+            return res;
+        }
     }
 }

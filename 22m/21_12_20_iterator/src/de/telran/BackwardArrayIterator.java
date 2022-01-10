@@ -2,7 +2,6 @@ package de.telran;
 
 import java.util.Iterator;
 
-//TODO complete
 public class BackwardArrayIterator implements Iterator<Integer> {
 
     private final int[] array;
@@ -15,11 +14,13 @@ public class BackwardArrayIterator implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        return false;
+        return currentIndex >= 0;
     }
 
     @Override
     public Integer next() {
-        return null;
+        int res = array[currentIndex];
+        currentIndex--;
+        return res;
     }
 }

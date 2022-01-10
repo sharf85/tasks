@@ -107,7 +107,7 @@ public class CustomArrayList<T> implements CustomList<T> {
     }
 
     @Override
-    public Iterator<T> getIterator() {
+    public Iterator<T> iterator() {
         Iterator<T> iterator = new BasicIterator<>(source, size);
         return iterator;
     }
