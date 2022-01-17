@@ -94,6 +94,24 @@ public class CustomArrayDeque<T> implements CustomDeque<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new BasicIterator();
+    }
+
+    private class BasicIterator implements Iterator<T> {
+
+        int currentElementNumber = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentElementNumber < size;
+        }
+
+        @Override
+        public T next() {
+            int currentIndex = (firstIndex + currentElementNumber) % source.length;
+            T res = source[currentIndex];
+            currentElementNumber++;
+            return res;
+        }
     }
 }

@@ -1,6 +1,5 @@
 package de.telran;
 
-import de.telran.list.AdvancedArrayList;
 import de.telran.list.CustomArrayList;
 import de.telran.list.CustomList;
 
@@ -12,7 +11,6 @@ public class Main {
 
         CustomList<Integer> list = new CustomArrayList<>();
 
-
         Iterator<Integer> iterator = list.iterator();
         while (iterator.hasNext()) {
             int number = iterator.next();
@@ -23,7 +21,6 @@ public class Main {
         for (int number : list) {
             System.out.println(number);
         }
-
 
         list.add(10);
         list.add(15);

@@ -1,5 +1,6 @@
 package de.telran.list;
 
+import java.util.Comparator;
 import java.util.Iterator;
 
 public class CustomArrayList<T> implements CustomList<T> {
@@ -104,6 +105,11 @@ public class CustomArrayList<T> implements CustomList<T> {
             System.out.print(source[i] + " ");
         }
         System.out.println();
+    }
+
+    // TODO implement.
+    public void sort(Comparator<T> comparator){
+
     }
 
     @Override

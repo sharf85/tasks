@@ -29,11 +29,12 @@ public class NaiveMaxStack implements MaxStack {
 
     @Override
     public int getMax() {
-        // ?
+        int currentMax = source.getFirst();
 
         for (int elt : source) {
-
+            if (elt > currentMax)
+                currentMax = elt;
         }
-        return 0;
+        return currentMax;
     }
 }
