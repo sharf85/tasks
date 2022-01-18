@@ -25,10 +25,10 @@ public class Solution {
      * @param rightIndex
      */
     private void mergeSortRecursively(int[] numbers, int leftIndex, int rightIndex) {
-        if (rightIndex - leftIndex == 1)
+        if (rightIndex - leftIndex < 2)
             return;
 
-        int middleIndex = (rightIndex - leftIndex) / 2;
+        int middleIndex = (rightIndex + leftIndex) / 2;
 
         mergeSortRecursively(numbers, leftIndex, middleIndex);
         mergeSortRecursively(numbers, middleIndex, rightIndex);
@@ -42,7 +42,27 @@ public class Solution {
         //массив tempArray. Тем самым, получаем, что tempArray - это отсортированный массив длины rightIndex - leftIndex
         //который надо скопировать в массив numbers между leftIndex и rightIndex.
         //TODO implement merge into tempArray
+        int i = leftIndex;
+        int j = middleIndex;
 
+        int k = 0;
+
+        while (i < middleIndex && j < rightIndex) {
+            if (numbers[i] < numbers[j]) {
+                tempArray[k] = numbers[i];
+                i++;
+            } else {
+                tempArray[k] = numbers[j];
+                j++;
+            }
+            k++;
+        }
+
+        if (i == middleIndex) {
+            System.arraycopy(numbers, j, tempArray, k, rightIndex - j);
+        } else if (j == rightIndex) {
+            System.arraycopy(numbers, i, tempArray, k, middleIndex - i);
+        }
 
         System.arraycopy(tempArray, 0, numbers, leftIndex, tempArray.length);
     }
@@ -53,6 +73,38 @@ public class Solution {
     // массиве > length/2 (доминантный). В противном случае вернуть -1.
     // Подсказка. Если такой элемент есть, значит, что в одной из половин массива этот элемент также
     // встречается не меньше, чем размер подмассива пополам. {2, 2, 2, 3, 2, 3}
+
+    public int findDominant(int[] numbers) {
+        return findDominantRecursively(numbers, 0, numbers.length);
+    }
+
+    private int findDominantRecursively(int[] numbers, int leftIndex, int rightIndex) {
+        if (rightIndex - leftIndex == 1)
+            return numbers[leftIndex];
+
+        int middleIndex = (leftIndex + rightIndex) / 2;
+        int leftDominant = findDominantRecursively(numbers, leftIndex, middleIndex);
+        int rightDominant = findDominantRecursively(numbers, middleIndex, rightIndex);
+
+        if (leftDominant >= 0) {
+            if (checkDominant(numbers, leftIndex, rightIndex, leftDominant))
+                return leftDominant;
+        } else if (rightDominant >= 0) {
+            if (checkDominant(numbers, leftIndex, rightIndex, rightDominant))
+                return rightDominant;
+        }
+
+        return -1;
+    }
+
+    private boolean checkDominant(int[] numbers, int leftIndex, int rightIndex, int dominant) {
+        int counter = 0;
+        for (int i = leftIndex; i < rightIndex; i++) {
+            if (numbers[i] == dominant)
+                counter++;
+        }
+        return counter > (rightIndex - leftIndex) / 2;
+    }
 
     /**
      * Логирафмом от n с основанием m называется степень, в которую надо возвести m, чтобы получить n.
