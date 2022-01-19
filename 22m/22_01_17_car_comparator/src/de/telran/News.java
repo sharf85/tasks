@@ -1,6 +1,6 @@
 package de.telran;
 
-public class News implements Comparable<News>{
+public class News implements Comparable<News> {
     String text;
 
     // from 1 to 10
@@ -11,10 +11,10 @@ public class News implements Comparable<News>{
         this.priority = priority;
     }
 
-    //TODO the news which is of a higher priority must go first, if the priorities are equal, the shorter news
-    // must go first.
     @Override
     public int compareTo(News o) {
-        return 0;
+        if (this.priority == o.priority)
+            return this.text.length() - o.text.length();
+        return o.priority - this.priority;
     }
 }

@@ -85,7 +85,7 @@ abstract class CustomListTest {
         assertListContents(randomNumbers);
     }
 
-    private void assertListContents(int[] array) {
+    protected void assertListContents(int[] array) {
         for (int i = 0; i < array.length; i++) {
             assertEquals(array[i], intList.get(i));
         }

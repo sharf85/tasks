@@ -3,7 +3,6 @@ package de.telran;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-//TODO complete
 public class ImprovedMaxStack implements MaxStack {
 
     Deque<Integer> source = new ArrayDeque<>();
@@ -22,21 +21,22 @@ public class ImprovedMaxStack implements MaxStack {
 
     @Override
     public int get() {
-        return 0;
+        return source.getLast();
     }
 
     @Override
     public int remove() {
-        return 0;
+        currentMaxStack.removeLast();
+        return source.removeLast();
     }
 
     @Override
     public int size() {
-        return 0;
+        return source.size();
     }
 
     @Override
     public int getMax() {
-        return 0;
+        return currentMaxStack.getLast();
     }
 }

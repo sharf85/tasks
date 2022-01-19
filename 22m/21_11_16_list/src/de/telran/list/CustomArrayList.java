@@ -107,9 +107,25 @@ public class CustomArrayList<T> implements CustomList<T> {
         System.out.println();
     }
 
-    // TODO implement.
-    public void sort(Comparator<T> comparator){
+    public void sort(Comparator<T> comparator) {
+        int stepNumber = size - 1;
 
+        for (int i = 0; i < stepNumber; i++) {
+
+            int minEltIndex = i;
+
+            //searching for the min from the rest of elements
+            for (int j = i + 1; j < size; j++) {
+                if (comparator.compare(source[j], source[minEltIndex]) < 0) {
+                    minEltIndex = j;
+                }
+            }
+
+            //swap the min element with the i-th element, so that the min element stands on its place
+            T temp = source[i];
+            source[i] = source[minEltIndex];
+            source[minEltIndex] = temp;
+        }
     }
 
     @Override
