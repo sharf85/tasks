@@ -1,18 +1,22 @@
 package de.telran;
 
+import java.util.Iterator;
+
 public interface Map<K, V> {
 
     /**
      * The method puts the value corresponding to the key. If the pair with the key exists, then the value will
      * be replaced
      *
-     * @param key not null
+     * @param key   not null
      * @param value
+     * @return old value corresponding to the key
      */
-    void put(K key, V value);
+    V put(K key, V value);
 
     /**
      * returns the value corresponding to the key. If there is no such a key, then null will be returned
+     *
      * @param key not null
      * @return
      */
@@ -20,6 +24,7 @@ public interface Map<K, V> {
 
     /**
      * removes the pair with the key and returns the value. Or returns null, if there is no such a key.
+     *
      * @param key not null
      * @return
      */
@@ -27,11 +32,16 @@ public interface Map<K, V> {
 
     /**
      * returns true if there is a pair with the key. false otherwise
+     *
      * @param key not null
      * @return
      */
     boolean contains(K key);
 
     int size();
+
+    Iterator<K> keyIterator();
+
+    Iterator<V> valueIterator();
 
 }
