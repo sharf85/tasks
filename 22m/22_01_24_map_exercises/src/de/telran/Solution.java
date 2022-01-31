@@ -1,9 +1,6 @@
 package de.telran;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Solution {
 
@@ -16,7 +13,7 @@ public class Solution {
      * {1, 5, -10, 1} -> 1
      * {1, 5, -10} -> ?
      */
-    public int solve(List<Integer> numbers) {
+    public int findMaxOccuredElement(List<Integer> numbers) {
 
         // переменная будет хранить числа из листа в качестве ключей и количество раз, сколько каждое число встречается
         // в листе, в качестве значений.
@@ -46,5 +43,27 @@ public class Solution {
 
         return res;
 
+    }
+
+    public int findSingleNumber(List<Integer> numbers) {
+        // переменная будет хранить числа из листа в качестве ключей и количество раз, сколько каждое число встречается
+        // в листе, в качестве значений.
+        Map<Integer, Integer> qtyByNumber = new HashMap<>();
+
+        for (int number : numbers) {
+            if (qtyByNumber.containsKey(number)) {
+                int oldValue = qtyByNumber.get(number);
+                qtyByNumber.put(number, oldValue + 1);
+            } else {
+                qtyByNumber.put(number, 1);
+            }
+        }
+
+        for (int number : qtyByNumber.keySet()) {
+            if (qtyByNumber.get(number) % 2 != 0)
+                return number;
+        }
+
+        throw new NoSuchElementException();
     }
 }
