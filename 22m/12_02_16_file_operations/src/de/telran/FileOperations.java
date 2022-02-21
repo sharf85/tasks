@@ -1,8 +1,9 @@
 package de.telran;
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
-// TODO implement
 public class FileOperations {
 
     /**
@@ -11,7 +12,12 @@ public class FileOperations {
      * @param strings
      * @param filename
      */
-    public static void writeToFile(List<String> strings, String filename) {
+    public static void writeToFile(List<String> strings, String filename) throws FileNotFoundException {
+        try (PrintWriter pw = new PrintWriter(filename)) {
+            for (String string : strings) {
+                pw.println(string);
+            }
+        }
     }
 
     /**
@@ -20,8 +26,15 @@ public class FileOperations {
      * @param filename
      * @return
      */
-    public static List<String> readFromFile(String filename) {
-
+    public static List<String> readFromFile(String filename) throws IOException {
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            List<String> res = new ArrayList<>();
+            String line;
+            while ((line = br.readLine()) != null) {
+                res.add(line);
+            }
+            return res;
+        }
     }
 
     /**
@@ -33,8 +46,13 @@ public class FileOperations {
      * @param numbers
      * @param filename
      */
-    public static void writeNumbers(List<Integer> numbers, String filename) {
-
+    public static void writeNumbers(List<Integer> numbers, String filename) throws FileNotFoundException {
+        try (PrintWriter pw = new PrintWriter(filename)) {
+            for (int number : numbers) {
+                pw.print(number);
+                pw.print(" ");
+            }
+        }
     }
 
     /**
@@ -43,7 +61,16 @@ public class FileOperations {
      * @param filename
      * @return
      */
-    public static List<Integer> readNumbers(String filename) {
+    public static List<Integer> readNumbers(String filename) throws IOException {
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line = br.readLine();
+            String[] strNumbers = line.split(" ");
 
+            List<Integer> res = new ArrayList<>();
+            for (String strNumber : strNumbers) {
+                res.add(Integer.valueOf(strNumber));
+            }
+            return res;
+        }
     }
 }
