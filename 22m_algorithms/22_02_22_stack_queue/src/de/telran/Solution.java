@@ -1,5 +1,8 @@
 package de.telran;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 public class Solution {
 
     /**
@@ -19,7 +22,26 @@ public class Solution {
 
     // необходимо использовать стек для хранения открытых в данный момент скобок.
     public boolean areBracketsCorrect(char[] brackets) {
+        Deque<Character> stack = new ArrayDeque<>();
 
+        for (char bracket : brackets) {
+            if (bracket == '{' || bracket == '(' || bracket == '[') {
+                stack.addLast(bracket);
+            } else if (stack.size() > 0) {
+                char lastOpenBracket = stack.getLast();
+
+                if (bracket == '}' && lastOpenBracket == '{' ||
+                        bracket == ')' && lastOpenBracket == '(' ||
+                        bracket == ']' && lastOpenBracket == '[')
+                    stack.removeLast();
+                else
+                    return false;
+            } else {
+                return false;
+            }
+        }
+
+        return stack.size() == 0;
     }
 
     // В ретсторан периодически попадает заказ. У заказа есть время, когда он был сделан (milliseconds from 1970 1 Jan, UTC).
@@ -31,6 +53,20 @@ public class Solution {
      * @return для соответствующиего заказа - количество заказов, сделанных в предыдущие minutes минут
      */
     public int[] countOrdersNumber(long[] orderTimes, int minutes) {
+        int[] res = new int[orderTimes.length];
+        Deque<Long> queue = new ArrayDeque<>();
+        long millis = minutes * 60L * 1000;
+
+        int i = 0;
+        for (long orderTime : orderTimes) {
+            queue.addLast(orderTime);
+            while (orderTime - queue.getFirst() > millis)
+                queue.removeFirst();
+
+            res[i++] = queue.size() - 1;
+        }
+
+        return res;
     }
 
 
