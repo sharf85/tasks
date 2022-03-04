@@ -6,10 +6,10 @@ public class Main {
         IntegerWrapper wrapper = new IntegerWrapper();
         IntegerWrapper wrapper2 = new IntegerWrapper();
 
-        Incrementer incrementer1 = new Incrementer(wrapper, 10000000);
-        Incrementer incrementer2 = new Incrementer(wrapper, 10000000);
-        Incrementer incrementer3 = new Incrementer(wrapper2, 10000000);
-        Incrementer incrementer4 = new Incrementer(wrapper2, 10000000);
+        IncrementerRunnable incrementer1 = new IncrementerRunnable(wrapper, 10000000);
+        IncrementerRunnable incrementer2 = new IncrementerRunnable(wrapper, 10000000);
+        IncrementerRunnable incrementer3 = new IncrementerRunnable(wrapper2, 10000000);
+        IncrementerRunnable incrementer4 = new IncrementerRunnable(wrapper2, 10000000);
 
         Thread thread1 = new Thread(incrementer1);
         Thread thread2 = new Thread(incrementer2);

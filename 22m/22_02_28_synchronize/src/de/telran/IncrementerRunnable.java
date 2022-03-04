@@ -1,11 +1,11 @@
 package de.telran;
 
-public class Incrementer implements Runnable {
+public class IncrementerRunnable implements Runnable {
 
     private final IntegerWrapper wrapper;
     private final int numberToIncrement;
 
-    public Incrementer(IntegerWrapper wrapper, int numberToIncrement) {
+    public IncrementerRunnable(IntegerWrapper wrapper, int numberToIncrement) {
         this.wrapper = wrapper;
         this.numberToIncrement = numberToIncrement;
     }
@@ -14,6 +14,7 @@ public class Incrementer implements Runnable {
     public void run() {
         for (int i = 0; i < numberToIncrement; i++) {
             wrapper.increment();
+            wrapper.decrement();
         }
     }
 }
