@@ -30,7 +30,9 @@ public class Worker implements Runnable {
 
         long totalTime = System.currentTimeMillis() - startTime;
         Score score = new Score(name, totalTime);
-        scores.add(score);
+        synchronized (scores) {
+            scores.add(score);
+        }
     }
 
     protected void issueCredit(int minTime, int maxTime) {

@@ -1,0 +1,5 @@
+to_upper_case#hello world
+to_lower_case#Vasya
+reverse#something
+some text
+to_upper_case#hello world#buy buy

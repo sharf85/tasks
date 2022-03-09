@@ -45,7 +45,9 @@ public class CreativeWorker extends Worker {
 
         long totalTime = System.currentTimeMillis() - startTime;
         Score score = new Score(name, totalTime);
-        scores.add(score);
+        synchronized (scores) {
+            scores.add(score);
+        }
     }
 
     private boolean tryToInspire() {

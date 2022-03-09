@@ -36,6 +36,8 @@ public class Tarakan extends Thread {
 
         long distanceTime = System.currentTimeMillis() - startTime;
         Score score = new Score(name, distanceTime);
-        scores.add(score);
+        synchronized (scores) {
+            scores.add(score);
+        }
     }
 }

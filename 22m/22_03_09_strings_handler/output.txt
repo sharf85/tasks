@@ -1,0 +1,5 @@
+HELLO WORLD
+vasya
+reverse#operation not supported
+some text#wrong format
+to_upper_case#hello world#buy buy#wrong format
