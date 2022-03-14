@@ -1,12 +1,16 @@
 package de.telran;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
 
@@ -19,29 +23,18 @@ public class Main {
             OperationContext operationContext = new OperationContext();
             operationContext.loadOperations(operationPaths);
 
-            // create blocking queue
-            BlockingQueue<String> queue = new LinkedBlockingQueue<>();
-
-            // create and start supplier
-            TextSupplier textSupplier = new TextSupplier("input.txt", queue);
-            new Thread(textSupplier).start();
-
             // create and start several consumers
-            TextConsumer consumer1 = new TextConsumer(queue, operationContext, pw);
-            TextConsumer consumer2 = new TextConsumer(queue, operationContext, pw);
-            TextConsumer consumer3 = new TextConsumer(queue, operationContext, pw);
+            ExecutorService executorService = Executors.newFixedThreadPool(3);
 
-            consumer1.setNextConsumerThread(consumer2);
-            consumer2.setNextConsumerThread(consumer3);
-            consumer3.setNextConsumerThread(consumer1);
+            try (BufferedReader br = new BufferedReader(new FileReader("input.txt"))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    executorService.execute(new TextTask(line, operationContext, pw));
+                }
+            }
 
-            consumer1.start();
-            consumer2.start();
-            consumer3.start();
-
-            consumer1.join();
-            consumer2.join();
-            consumer3.join();
+            executorService.shutdown();
+            executorService.awaitTermination(800, TimeUnit.MILLISECONDS);
         }
     }
 

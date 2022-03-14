@@ -18,8 +18,12 @@ public class TextSupplier implements Runnable {
     @Override
     public void run() {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
-            // TODO read lines from the file one by one and place them into the queue
-        } catch (IOException e) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                queue.put(line);
+            }
+            queue.put("exit");
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }

@@ -1,4 +1,4 @@
-package de.telran.opertion;
+package de.telran.operation;
 
 import de.telran.IStringOperation;
 
