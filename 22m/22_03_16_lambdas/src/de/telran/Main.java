@@ -1,6 +1,7 @@
 package de.telran;
 
 import java.util.function.BiFunction;
+import java.util.function.Function;
 
 public class Main {
 
@@ -15,6 +16,13 @@ public class Main {
         print2((String input) -> {
             return input;
         }, "Vasya");
+
+        Function<Integer, Integer> identity = x -> x;
+        Function<Integer, Integer> identity2 = (x) -> x;
+        Function<Integer, Integer> identity3 = (Integer x) -> x;
+        Function<Integer, Integer> identity4 = (Integer x) -> {
+            return x;
+        };
     }
 
     public static void print1(OurFunctionalInterface ourFunctionalInterface, String line) {
