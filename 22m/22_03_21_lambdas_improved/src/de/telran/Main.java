@@ -1,6 +1,10 @@
 package de.telran;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.*;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -75,5 +79,91 @@ public class Main {
         IntPredicate isOddAndDividedBy3 = isOdd.and(dividedBy3);
         IntPredicate isEvenOrDividedBy3 = isOdd.negate().or(dividedBy3);
 
+        // 1.Используя замыкание, написать Function<Double, Double>, которая считает ax^2 + bx + c
+        int a = 1;
+        int b = 2;
+        int c = 1;
+        Function<Double, Double> f2 = x -> a * x * x + b * x + c;
+
+        System.out.println(f2.apply(2d));
+
+        // 2. Есть класс Account, у него есть поля int id, double balance, bool isLocked. Написать два лямбда выражения
+        // Function<List<Account>, List<Account>>,
+        // a) отфильтровывает аккаунты таким образом, что остаются только аккаунты с положительным баллансом;
+        // b) все незаблокированные аккаунты с балансом более 100000.
+        List<Account> accounts = Arrays.asList(
+                new Account(1, 2000, false),
+                new Account(2, 120000, true),
+                new Account(3, 110000, false),
+                new Account(4, -120, false)
+        );
+        Predicate<Account> isPositiveBalance = (account) -> account.getBalance() > 0;
+        Predicate<Account> isOligarch = (account) -> !account.isLocked() && account.getBalance() > 100000;
+
+        Function<List<Account>, List<Account>> positiveAccountFilter = (accountList) -> {
+            List<Account> res = new ArrayList<>();
+            for (Account account : accountList) {
+                if (isPositiveBalance.test(account))
+                    res.add(account);
+            }
+            return res;
+        };
+
+        Function<List<Account>, List<Account>> oligarchAccountFilter = (accountList) -> {
+            List<Account> res = new ArrayList<>();
+            for (Account account : accountList) {
+                if (isOligarch.test(account))
+                    res.add(account);
+            }
+            return res;
+        };
+
+        System.out.println(positiveAccountFilter.apply(accounts));
+        System.out.println(oligarchAccountFilter.apply(accounts));
+
+        List<Account> positiveBalanceAccounts = accounts.stream()
+                .filter(isPositiveBalance)
+                .collect(Collectors.toList());
+
+        List<Account> oligarchAccounts = accounts.stream()
+                .filter(isOligarch)
+                .collect(Collectors.toList());
+
+        System.out.println(positiveBalanceAccounts);
+        System.out.println(oligarchAccounts);
+
+        // 3. Написать интерфейс TernaryIntPredicate с методом bool test(int a, int b, int c). Написать лямбда выражение,
+        // которое вернет true, если все аргументы различны.
+        TernaryIntPredicate pairwiseDistinct = (num1, num2, num3) -> num1 != num2 && num2 != num3 && num1 != num3;
+
+        System.out.println(pairwiseDistinct.test(1, 2, 3));//true
+        System.out.println(pairwiseDistinct.test(1, 2, 2));//false
+
+        // 4. Написать функцию, которая считает <2x> и функцию, которая считает <x + 3>. Написать функцию,
+        // которая будет композицией первых двух.
+
+        Function<Double, Double> func1 = x -> 2 * x;
+        Function<Double, Double> func2 = x -> x + 3;
+        Function<Double, Double> func3 = func1.compose(func2);
+
+        System.out.println(func3.apply(10d));//26
+
+        // 5. Написать класс PredicateService и методы в нем intersect и union, которые принимают лист предикатов,
+        // а возвращают их пересечение и объединение соответственно. Протестировать.
+
+        PredicateService predicateService = new PredicateService();
+
+        List<Predicate<Integer>> predicates = Arrays.asList(x -> x % 2 == 0, x -> x % 4 == 0);
+
+        Predicate<Integer> result1 = predicateService.intersect(predicates);
+        Predicate<Integer> result2 = predicateService.union(predicates);
+
+        System.out.println("Predicate Service - intersect");
+        System.out.println(result1.test(2)); // false
+        System.out.println(result1.test(4)); // true
+        System.out.println("Predicate service - union");
+        System.out.println(result2.test(2)); // true
+        System.out.println(result2.test(4)); // true
+        System.out.println(result2.test(3)); // false
     }
 }
