@@ -45,4 +45,42 @@ public class Knapsack {
 
     // res[V] = max(res[V - v_i] + p_i)
 
+
+    public int solveWRepetitions(int knapsackV, int[] volumes, int[] prices) {
+        // решение задачи для объемов рюкзака от 0 до knapsackV
+        int[] res = new int[knapsackV + 1];
+
+        for (int i = 1; i <= knapsackV; i++) {
+            for (int j = 0; j < volumes.length; j++) {
+                int lightenedKnapsack = i - volumes[j];
+                if (lightenedKnapsack >= 0) {
+                    int possibleRes = res[lightenedKnapsack] + prices[j];
+                    if (res[i] < possibleRes)
+                        res[i] = possibleRes;
+                }
+            }
+        }
+
+        return res[knapsackV];
+    }
+
+    public int solveWRepetitionsRecursively(int knapsackV, int[] volumes, int[] prices) {
+        // решение задачи для объемов рюкзака от 0 до knapsackV
+
+        if (knapsackV == 0)
+            return 0;
+
+        int res = 0;
+
+        for (int i = 0; i < volumes.length; i++) {
+            if (knapsackV >= volumes[i]) {
+                int possibleRes = solveWRepetitionsRecursively(knapsackV - volumes[i], volumes, prices) + prices[i];
+                if (res <= possibleRes)
+                    res = possibleRes;
+            }
+
+        }
+
+        return res;
+    }
 }

@@ -73,4 +73,26 @@ class KnapsackTest {
 
         assertEquals(expected, knapsack.solveWORepetitions(V, v, p));
     }
+
+    @Test
+    void testSolveWRepetitions_V10() {
+        int V = 10;
+        int[] v = {6, 3, 4, 2};
+        int[] p = {30, 14, 16, 9};
+
+        int expected = 48;
+
+        assertEquals(expected, knapsack.solveWRepetitions(V, v, p));
+    }
+
+    @Test
+    void testSolveWRepetitionsRecursively_V10() {
+        int V = 10;
+        int[] v = {6, 3, 4, 2};
+        int[] p = {30, 14, 16, 9};
+
+        int expected = 48;
+
+        assertEquals(expected, knapsack.solveWRepetitionsRecursively(V, v, p));
+    }
 }
