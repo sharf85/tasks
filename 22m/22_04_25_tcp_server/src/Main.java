@@ -1,9 +1,8 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Main {
 
@@ -13,12 +12,11 @@ public class Main {
     public static void main(String... args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(SERVER_PORT);
 
-        // задача этого бесконечного цикла - принять соединение, открыть отдельный поток для его обработки и немеленно
-        // продолжить слушать следующее входящее соединение.
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
         while (true) {
             Socket socket = serverSocket.accept();
             Runnable serverTask = new ServerTask(socket);
-            new Thread(serverTask).start();
+            executorService.execute(serverTask);
         }
     }
 }
