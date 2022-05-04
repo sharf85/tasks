@@ -1,0 +1,3 @@
+tcp.connections.number=200
+udp.balancer.inbound.port=2001
+tcp.outer.port=2000

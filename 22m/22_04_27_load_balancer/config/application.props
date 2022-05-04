@@ -1,0 +1,3 @@
+udp.balancer.port=3000
+udp.gateway.port=2001
+gateway.host=localhost

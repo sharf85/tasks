@@ -1,0 +1,5 @@
+balancer.host=localhost
+balancer.udp.port=3000
+server.tcp.inbound.port=4003
+load.update.period=100
+tcp.connections.number=50
