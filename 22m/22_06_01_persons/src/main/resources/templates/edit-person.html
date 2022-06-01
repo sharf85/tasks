@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <title>Edit person</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+
+<div class="row">
+    <div class="col m6 offset-m3">
+        <h3>Person</h3>
+        <form th:action="@{/save-person}" th:object="${person}" method="post">
+            <input id="id" name="id" type="hidden" th:field="*{id}">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input placeholder="Name" id="name" name="name" type="text" th:field="*{name}" class="validate">
+                    <label for="name">First Name</label>
+                </div>
+                <div class="input-field col s6">
+                    <input placeholder="last name" id="lastname" name="lastname" type="text" th:field="*{lastname}"
+                           class="validate">
+                    <label for="lastname">Last Name</label>
+                </div>
+                <div class="col m6">
+                    <input type="number" id="age" name="age" th:field="*{age}" min="18" max="120">
+                    <label for="age">Age</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col m12">
+                    <button class="waves-effect waves-light btn indigo darken-3" value="Save">Save</button>
+                    <a class="waves-effect waves-light btn red darken-3" href="/">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

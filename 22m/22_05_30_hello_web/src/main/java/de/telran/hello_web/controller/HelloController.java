@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 //let Spring know that this is a controller to place it into MVC configuration
 @Controller
 public class HelloController {
@@ -54,4 +56,22 @@ public class HelloController {
 
     //TODO make a method, serving GET "/persons" request, which creates a list of Person objects, inserts them into
     // the templated called persons and renders them with <ul> <li> tags
+
+    @GetMapping("/persons")
+    public String getPersons(Model model) {
+        model.addAttribute("personList", persons);
+        return "persons-template";
+    }
+
+    @GetMapping("/persons-json")
+    @ResponseBody
+    public List<Person> getPersonsJson(Model model) {
+        return persons;
+    }
+
+    List<Person> persons = List.of(
+            new Person("Vasya", "Vasin"),
+            new Person("Petya", "Petin"),
+            new Person("Ivan", "Ivanov")
+    );
 }
