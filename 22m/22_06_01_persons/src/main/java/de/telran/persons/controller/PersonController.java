@@ -4,10 +4,7 @@ import de.telran.persons.model.Person;
 import de.telran.persons.service.PersonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class PersonController {
@@ -19,14 +16,31 @@ public class PersonController {
     }
 
     @GetMapping("/")
-    @ResponseBody
     public String home() {
-        return "";
+        return "forward:/persons";
     }
 
-    @GetMapping("/new-person")
+    @GetMapping("/persons")
+    public String persons(Model model) {
+        model.addAttribute("persons", personService.getAll());
+        return "persons";
+    }
+
+    @GetMapping("/person/{id}")
+    public String person(Model model, @PathVariable Integer id) {
+        model.addAttribute("person", personService.get(id));
+        return "person";
+    }
+
+    @GetMapping("/person/new")
     public String newPerson(Model model) {
         model.addAttribute("person", new Person());
+        return "edit-person";
+    }
+
+    @GetMapping("/person/{id}/edit")
+    public String newPerson(Model model, @PathVariable int id) {
+        model.addAttribute("person", personService.get(id));
         return "edit-person";
     }
 
@@ -35,5 +49,10 @@ public class PersonController {
         personService.save(person);
         return "redirect:/";
     }
-    //TODO доделать необходимые эндпоинты
+
+    @GetMapping("/person/{id}/delete")
+    public String delete(@PathVariable int id) {
+        personService.remove(personService.get(id));
+        return "redirect:/";
+    }
 }

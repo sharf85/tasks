@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <title>Persons</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+
+
+<div class="row">
+    <div class="col m4 offset-m4">
+        <h3>Persons
+            <a class="btn-floating btn-medium waves-effect waves-light green" href="/person/new">
+                <i class="material-icons">add</i>
+            </a>
+        </h3>
+        <ul class="collection with-header">
+            <li class="collection-item" th:each="person: ${persons}">
+                <a th:href="'/person/' + ${person.id}">
+                    <span th:text="${person.name} + ' ' + ${person.lastname}"></span>
+                </a>
+                <a th:href="'/person/' + ${person.id} + '/delete'" class="secondary-content">
+                    <i class="material-icons waves-light red-text">delete</i>
+                </a>
+                <a th:href="'/person/' + ${person.id} + '/edit'" class="secondary-content">
+                    <i class="material-icons blue-text">edit</i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

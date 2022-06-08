@@ -3,16 +3,27 @@ package de.telran.persons.repo;
 import de.telran.persons.model.Person;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class PersonRepo {
 
     private int currentId = 0;
-    private final Map<Integer, Person> source = new HashMap<>();
+    private final Map<Integer, Person> source;
+
+    private Person createPerson(int id, String name, String lastname, int age) {
+        Person person = new Person(name, lastname, age);
+        person.setId(id);
+        return person;
+    }
+
+    {
+        source = new HashMap<>();
+        source.put(++currentId, createPerson(currentId, "Vasily", "Vasilevich", 30));
+        source.put(++currentId, createPerson(currentId, "Petr", "Petrovich", 35));
+        source.put(++currentId, createPerson(currentId, "Maria", "Ivanova", 20));
+    }
 
     /**
      * saves a new person or edit the old person
@@ -35,8 +46,7 @@ public class PersonRepo {
      * @return
      */
     public Person delete(int id) {
-        // TODO complete
-        return null;
+        return source.remove(id);
     }
 
     /**
@@ -46,16 +56,16 @@ public class PersonRepo {
      * @return
      */
     public Optional<Person> find(int id) {
-        // TODO complete
-        return null;
+        return Optional.ofNullable(source.get(id));
     }
 
     /**
      * @return all found persons
      */
     public List<Person> findAll() {
-        // TODO return persons sorted by id
-        return null;
+        return source.values().stream()
+                .sorted(Comparator.comparing(Person::getId))
+                .collect(Collectors.toList());
     }
 
 }
