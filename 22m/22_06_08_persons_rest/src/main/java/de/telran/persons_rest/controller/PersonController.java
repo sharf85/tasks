@@ -35,17 +35,21 @@ public class PersonController {
 
     @PutMapping
     public void edit(@RequestBody Person person) {
-        //TODO implement
+        personService.save(person);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable String id) {
-        //TODO implement
+    public void delete(@PathVariable int id) {
+        personService.remove(id);
     }
 
     @GetMapping
     public List<Person> getAll() {
         return personService.getAll();
     }
+
+    // TODO create an endpoint, finding all persons with such a name. /api/persons?name=Vasya&lastname=Vasin
+    // TODO create an endpoint, finding all persons with such a lastname
+    // TODO create an endpoint finding all persons with the age larger some query parameter
 
 }

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Persons</title>
+    <!-- Compiled and minified CSS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="row">
+    <div class="col m6 offset-m3">
+        <div class="row">
+            <div class="col s12">
+                <h4 style="color: darkgreen">Persons</h4>
+            </div>
+
+            <form class="col s12" id="search-form">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">blur_on</i>
+                        <input type="text" class="materialize-textarea" name="searchPattern"
+                               placeholder="search"/>
+                    </div>
+                    <div class="input-field col s6">
+                        <button class="waves-effect waves-light btn" role="button" name="action" data-action="search">
+                            <i class="material-icons left">search</i>Search
+                        </button>&nbsp;
+                        <button class="waves-effect waves-light btn" data-action="refresh">
+                            <i class="material-icons right">refresh</i>Refresh
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <form class="row" id="person-form">
+            <div class="col s3">
+                <button class="btn-floating btn-large waves-effect waves-light blue" data-action="add">
+                    <i class="material-icons">playlist_add</i>
+                </button>
+                <button class="btn-floating btn-large waves-effect waves-light red hide" data-action="cancel">
+                    <i class="material-icons">close</i>
+                </button>
+                <button class="btn-floating btn-large waves-effect waves-light blue hide" data-action="edit">
+                    <i class="material-icons">check</i>
+                </button>
+            </div>
+            <input type="hidden" name="id">
+            <div class="input-field col s3">
+                <input type="text" class="materialize-textarea" name="name"
+                       placeholder="name"/>
+            </div>
+            <div class="input-field col s3">
+                <input type="text" class="materialize-textarea" name="lastname"
+                       placeholder="last name"/>
+            </div>
+            <div class="input-field col s3">
+                <input type="text" class="materialize-textarea" name="age"
+                       placeholder="age"/>
+            </div>
+        </form>
+
+
+        <div class="row">
+            <div class="col s12">
+
+                <div class="card">
+                    <div class="card-content">
+                        <ul class="collection with-header" id="person-wrapper">
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="footer-copyright" style="text-align: center">
+                <div style="height: 130px"></div>
+            </div>
+        </footer>
+    </div>
+</div>
+<script src="/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<li class="collection-item hide person-item" id="person-template">
+    <a class="badge" data-action="toggleDetails">
+        <span style="color: darkcyan" data-id="name">name</span>
+        <span style="color: darkcyan" data-id="lastname">last name</span>
+    </a>
+    <a class="secondary-content" data-action="delete">
+        <i class="material-icons waves-light red-text">delete</i>
+    </a>
+    <a class="secondary-content" data-action="edit">
+        <i class="material-icons teal-text">edit</i>
+    </a>
+
+    <ul class="collection hide person-details">
+        <li class="collection-item ">
+            <div><strong>Name:</strong><span class="secondary-content black-text name-value"></span>
+            </div>
+        </li>
+        <li class="collection-item ">
+            <div><strong>Second Name:</strong><span class="secondary-content black-text second-name-value"></span>
+            </div>
+        </li>
+        <li class="collection-item ">
+            <div><strong>Age:</strong><span class="secondary-content black-text age-value"></span>
+            </div>
+        </li>
+    </ul>
+</li>
+
+</body>
+</html>
