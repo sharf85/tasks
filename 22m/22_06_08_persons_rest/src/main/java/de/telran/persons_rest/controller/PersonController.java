@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/persons")
@@ -44,12 +45,9 @@ public class PersonController {
     }
 
     @GetMapping
-    public List<Person> getAll() {
-        return personService.getAll();
+    public List<Person> getAll(@RequestParam(required = false) Optional<String> name,
+                               @RequestParam(required = false) Optional<String> lastname) {
+        return personService.getAllByNameAndLastName(name, lastname);
     }
-
-    // TODO create an endpoint, finding all persons with such a name. /api/persons?name=Vasya&lastname=Vasin
-    // TODO create an endpoint, finding all persons with such a lastname
-    // TODO create an endpoint finding all persons with the age larger some query parameter
 
 }
